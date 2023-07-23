@@ -1,0 +1,15 @@
+.log{
+    
+    background: no-repeat;
+    background-size: cover;
+    background-position: center;
+    animation: animateBg 3s linear infinite;
+    
+}
+
+@keyframes animateBg {
+    100%{
+        filter:hue-rotate(360deg)
+    }
+    
+}
