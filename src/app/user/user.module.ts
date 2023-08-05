@@ -9,6 +9,9 @@ import {HttpClientModule} from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
+import { ForgetEmailComponent } from './forgetPassword/forget-email/forget-email.component';
+import { ForgetOtpComponent } from './forgetPassword/forget-otp/forget-otp.component';
+import { NewPasswordComponent } from './forgetPassword/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     OtpComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    ForgetEmailComponent,
+    ForgetOtpComponent,
+    NewPasswordComponent
   ],
   imports: [
     CommonModule,

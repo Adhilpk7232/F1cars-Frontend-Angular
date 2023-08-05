@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Validators } from '@angular/forms';
+import { UserServiceService } from 'src/app/services/user/user-service.service';
 
 @Component({
   selector: 'app-register',
@@ -13,11 +14,12 @@ import { Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit{
 
   // form!:FormGroup
-constructor(private formBuilder:FormBuilder,private http:HttpClient,
+constructor(private formBuilder:FormBuilder,private userService:UserServiceService,
   private router:Router){}
  
   form!:FormGroup;
   register = false
+  message=''
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
@@ -30,15 +32,7 @@ constructor(private formBuilder:FormBuilder,private http:HttpClient,
 get f (){
   return this.form.controls;
 }
-validateEmail=(email:any)=>{
-  var validRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  if(email.match(validRegex)){
-  return true;
 
-  }else{
-  return false;
-  }
-}
 
 submit():void{
   console.log('clicked');
@@ -47,16 +41,14 @@ submit():void{
   this.register = true
   let user =this.form.getRawValue()
 console.log(user);
-  //  if(user.name==""||user.email==""||user.password==""){
-  //   Swal.fire('Error',"please enter all fields","error")
-  //  }else if(!this.validateEmail(user.email)){
-  //   Swal.fire('Error',"please enter valid email","error")
-  //  }else{
-    this.http.post('http://localhost:5000/register',user,{
-      withCredentials: true
-    }).subscribe(()=> this.router.navigate(['/otpVerification']),(err)=>{
+  
+    // this.http.post('http://localhost:5000/register',user,{
+    //   withCredentials: true
+    // })
+    this.userService.userRegister(user).subscribe((res:any)=>{ this.router.navigate(['/otp'])},(err)=>{
       Swal.fire('Error',err.error.message,"error")
+      this.message = err.error.message
     })
-  //  }
+
 }
 }

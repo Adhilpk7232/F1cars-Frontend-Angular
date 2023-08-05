@@ -1,2 +1,86 @@
 <app-navbar></app-navbar>
-<h1>hello welcom to home</h1>
+<!-- banner section  -->
+<div>
+    <div class="banner ">
+        <div class="banner-img relavive">
+            <img src="../../assets/images/banner-2.jpg" alt="">
+            <div class="banner-search  absolute bottom-0 left-2/4">
+                <h1 class=" text-5xl mx-auto py-4  text-white">FIND THE RIGHT CAR</h1>
+                <div class="banner-inputSearch flex  box-border h-22  p-4 border-4 mx-auto py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                      </svg>
+                      <input class="h-15" type="text" placeholder="search your car" > 
+                      <button>Search</button>                 
+                </div>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+
+  <div class="container mx-auto py-3 featuredcar">
+    <h1 class="text-3xl font-semibold py-5">Featured Car</h1>
+    <div>
+        <ul class="flex border-b-4 items-center gap-10 py-3">
+            <li class="text-2xl py-1" [class.active]="selectedItem === 'POPULAR'" (click)="selectItem('POPULAR')">POPULAR</li>
+            <li class="text-2xl py-1" [class.active]="selectedItem === 'JUST LAUNCHED'" (click)="selectItem('JUST LAUNCHED')">JUST LAUNCHED</li>
+            <li class="text-2xl py-1" [class.active]="selectedItem === 'UPCOMING'" (click)="selectItem('UPCOMING')">UPCOMMING</li>
+        </ul>
+    </div>
+  </div>
+
+
+  <!-- <div class="container mx-auto my-5 ">
+    <div class="slider-container ">
+      <div class="slider border-2 border-rose-600 flex">
+        <div class="car-slide w-1/3 border-2 border-rose-600 " *ngFor="let car of cars">
+          <img class="border-2 border-rose-600 " [src]="car.imageUrl" alt="Car Image" class="rounded-lg mb-3">
+          <p class="text-xl font-semibold">{{ car.model }}</p>
+          <p class="text-gray-500">{{ car.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container mx-auto flex gap-10 mb-6">
+    <div class="w-1/3">
+        <div class="border-4 border-gray-200 ">
+            <img class="border-b-4" src="../../assets/images/toyota cars/fortuner-exterior-right-front-th.jpg" alt="">
+            <div class="items-start text-2xl p-5 bg-gray-100">
+                <h1 class="font-bold p-1">Toyota Fortuner</h1>
+                <p class="text-slate-500 font-light ">43.6 Lakh onward</p>
+                <p class="text-slate-500 font-light ">on-RoadPrice,location</p>
+                <button class="bg-white border-teal-500 border-2 text-teal-500 px-4 py-2 mt-1 rounded-lg font-semibold text-xl">View price break up</button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="w-1/3">
+        <div class="border-4 border-gray-200 ">
+            <img class="border-b-4" src="../../assets/images/toyota cars/fortuner-exterior-right-front-th.jpg" alt="">
+            <div class="items-start text-2xl p-5 bg-gray-100">
+                <h1 class="font-bold p-1">Toyota Fortuner</h1>
+                <p class="text-slate-500 font-light ">43.6 Lakh onward</p>
+                <p class="text-slate-500 font-light ">on-RoadPrice,location</p>
+                <button class="bg-white border-teal-500 border-2 text-teal-500 px-4 py-2 mt-1 rounded-lg font-semibold text-xl">View price break up</button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="w-1/3">
+        <div class="border-4 border-gray-200 ">
+            <img class="border-b-4" src="../../assets/images/toyota cars/fortuner-exterior-right-front-th.jpg" alt="">
+            <div class="items-start text-2xl p-5 bg-gray-100">
+                <h1 class="font-bold p-1">Toyota Fortuner</h1>
+                <p class="text-slate-500 font-light ">43.6 Lakh onward</p>
+                <p class="text-slate-500 font-light ">on-RoadPrice,location</p>
+                <button class="bg-white border-teal-500 border-2 text-teal-500 px-4 py-2 mt-1 rounded-lg font-semibold text-xl">View price break up</button>
+            </div>
+
+        </div>
+
+    </div>
+  </div>

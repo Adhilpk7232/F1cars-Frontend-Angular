@@ -11,6 +11,14 @@
             <input class="p-2 mt-8 rounded-xl-border" type="number" name="otp" placeholder="Otp" required="" formControlName="otp">
             <button class="bg-[#002D74] rounded-xl text-white py-2 hover:scale-110 duration-300" type="submit">submit</button>
         </form>
+        <div>
+            <div [ngClass]="{ visible: tim, invisible: !tim }">
+              remaining time to resend otp:{{ transform(counter) }}
+            </div>
+            <div [ngClass]="{ visible: !tim, invisible: tim }">
+                <button class="bg-[#002D74] rounded-xl text-white py-2 hover:scale-110 duration-300" (click)="resend()">Resend OTP</button>
+            </div>
+          </div>
         
         
     </div>

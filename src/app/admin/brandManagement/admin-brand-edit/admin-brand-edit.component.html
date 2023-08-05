@@ -1,0 +1,42 @@
+<app-admin-nav></app-admin-nav>
+<div>
+    <div class="col-span-1 h-4 ">
+        <app-admin-side-bar></app-admin-side-bar>
+    </div>
+
+    <div class="ml-72">
+        <!-- Your main content here -->
+        <h1 class="text-center">Edit Dealer</h1>
+        <div class="max-w-md mx-auto">
+            <form [formGroup]="form" (submit)="submit()">
+                <div class="mb-4">
+                    <img  [src]='"http://localhost:5000/public/brandImages/"+image'
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="brand">
+                        Brand Name
+                    </label>
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="brand" type="text" placeholder="Enter your Brand name" required="" formControlName="brand"
+                        value="{{brand}}">
+                </div>
+                <div class="mb-4">
+                    <input type="file" (change)="onFileSelected($event)">
+         
+                    <!-- <button type="button" class="btn btn-warning" (click)="onSubmit()">Upload</button> -->
+                </div>
+                
+                
+                <div class="flex items-center justify-center">
+                    <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
