@@ -1,0 +1,58 @@
+<app-nav></app-nav>
+<div>
+  <div class="col-span-1 h-4 ">
+    <app-side-bar></app-side-bar>
+  </div>
+
+  <div class="ml-72">
+    <!-- Your main content here -->
+    <h1>Showing brands select a brand</h1>
+    <h1>Brand Management</h1>
+    <div class="overflow-x-auto">
+
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead>
+          <tr>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              No
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Name
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Brand
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Actions
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <!-- <tr *ngFor="let item of brand; let i = index"> -->
+          <tr *ngFor="let item of brand  let i = index">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">{{ i + 1 }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">{{ item.brand }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900"><img [src]='"http://localhost:5000/public/brandImages/"+item.image'
+                  alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"></div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addReview(item._id)">
+                      ad  Review
+                    </button>
+
+            </td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>

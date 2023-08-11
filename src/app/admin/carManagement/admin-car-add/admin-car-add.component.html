@@ -1,0 +1,159 @@
+
+
+<app-admin-nav></app-admin-nav>
+<div>
+    <div class="col-span-1 h-4 ">
+        <app-admin-side-bar ></app-admin-side-bar>
+    </div>
+    
+    <div class="ml-72">
+        <!-- Your main content here -->
+        <h1 class="text-center">Add Car Details</h1>
+        <div class="max-w-md mx-auto bg-gray-50 py-auto" >
+            <form [formGroup]="form" (submit)="submit()" class="grid grid-cols-1 gap-4 sm:grid-cols-2 w-full">
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="carName">
+                  Car Name
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="carName" type="text" placeholder="Enter Car name "required="" formControlName="carName">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                  Description 
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Enter Description" required="" formControlName="description">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+                  Price
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter Price" required="" formControlName="price">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="maileage">
+                  Maileage
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="maileage" type="text" placeholder="Enter maileage" required="" formControlName="maileage">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="engine">
+                  Engine
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="engine" type="text" placeholder="Enter your engine cc" required="" formControlName="engine">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="fuelType">
+                  Fuel type
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fuelType" required formControlName="fuelType" multiple size="5">
+                  <option value="petrol">Petrol</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="cng">CNG</option>
+                  <option value="electric">Electric</option>
+                  <option value="hybrid">Hybrid</option>
+                </select>
+              </div>
+          
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="transmission">
+                  Transmission
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="transmission" required formControlName="transmission" multiple size="2">
+                  <option value="manual">Manual</option>
+                  <option value="automatic">Automatic</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="bodyType">
+                  Body Type
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bodyType" required formControlName="bodyType">
+                  <option value="">Choose one from below</option>
+                  <option value="SUV">SUV</option>
+                  <option value="Sedan">Sedan</option>
+                  <option value="Compact SUV">Compact SUV</option>
+                  <option value="Compact Sedan">Compact Sedan</option>
+                  <option value="Convertible">Convertible</option>
+                  <option value="Minivan">Minivan</option>
+                  <option value="Coupe">Coupe</option>
+                  <option value="Truck">Truck</option>
+                  <option value="Hatchback">Hatchback</option>
+                  <option value="MUV">MUV</option>
+                  <option value="Station Wagon">Station Wagon</option>
+                </select>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="seatCapacity">
+                  Seat Capacity
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="seatCapacity" required formControlName="seatCapacity">
+                  <option value="">Choose one from below</option>
+                  <option value="5seater">5 Seater</option>
+                  <option value="6seater">6 Seater</option>
+                  <option value="7seater">7 Seater</option>
+                  <option value="8seater">8 Seater</option>
+                </select>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="safety">
+                  Safety
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="safety" required formControlName="safety">
+                  <option value="">Choose one from below</option>
+                  <option value="5-star NCAP">5-Star (Excellent)</option>
+                  <option value="4-star NCAP">4-Star (Good)</option>
+                  <option value="3-star NCAP">3-Star (Average)</option>
+                  <option value="2-star NCAP">2-Star (Poor)</option>
+                  <option value="1-star NCAP">1-Star (Very Poor)</option>
+                </select>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="brand">
+                  Brand
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="brand" required formControlName="brand">
+                  <option value="">Choose one from below</option>
+                  <option *ngFor="let item of brand" [value]="item._id">{{ item.brand }}</option>
+                </select>
+              </div>              
+              
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="role">
+                  Role
+                </label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="role" required formControlName="role">
+                  <option value="">Choose one from below</option>
+                  <option value="popular">Popular</option>
+                  <option value="justLaunched">Just Launched</option>
+                  <option value="upcoming">Upcoming</option>
+                </select>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
+                  Date
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type="date" placeholder="Select date" required="" formControlName="date">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+                  Add Image
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" type="file" placeholder="Enter your email" required="" (change)="onFileSelected($event)">
+              </div>             
+              <div class="flex items-center justify-center">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+          
+      
+    </div>
+</div>
+
+

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import{FormBuilder,FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Validators } from '@angular/forms';
+import { UserServiceService } from 'src/app/services/user/user-service.service';
 
 @Component({
   selector: 'app-login',
@@ -12,36 +14,33 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   form!:FormGroup;
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router){}
+  login=false
+  message=''
+  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router , private userService:UserServiceService){}
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email:'',
-      password:''
+      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[@$!%*?&])[a-zA-Z0-9@$!%*?&]{8,}$')]]
     })
   }
-  validateEmail=(email:any)=>{
-    var validRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if(email.match(validRegex)){
-    return true;
   
-    }else{
-    return false;
-    }
+  get f (){
+    return this.form.controls;
   }
   submit():void{
+    this.login=true
     let user =this.form.getRawValue()
   console.log(user);
-     if(user.email==""||user.password==""){
-      Swal.fire('Error',"please enter all fields","error")
-     }else if(!this.validateEmail(user.email)){
-      Swal.fire('Error',"please enter valid email","error")
-     }else{
-      this.http.post('http://localhost:5000/login',user,{
-        withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/']),(err)=>{
-        Swal.fire('Error',err.error.message,"error")
+      this.userService.userLogin(user).subscribe((res:any)=> {
+        if(res.isVerified === 0){
+          this.router.navigate(['/otp'])
+        }else{
+          this.router.navigate(['/'])}
+        }
+        ,(err)=>{
+        this.message=err.error.message
       })
-     }
+    //  }
   }
 
 }
