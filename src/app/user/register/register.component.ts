@@ -45,7 +45,9 @@ console.log(user);
     // this.http.post('http://localhost:5000/register',user,{
     //   withCredentials: true
     // })
-    this.userService.userRegister(user).subscribe((res:any)=>{ this.router.navigate(['/otp'])},(err)=>{
+    this.userService.userRegister(user).subscribe((res:any)=>{ 
+      this.userService.saveToken(res.token);
+      this.router.navigate(['/otp'])},(err)=>{
       Swal.fire('Error',err.error.message,"error")
       this.message = err.error.message
     })

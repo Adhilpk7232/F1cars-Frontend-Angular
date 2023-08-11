@@ -1,0 +1,28 @@
+
+<section>
+    <div class="w-10/12 mx-auto py-3 featuredcar h-fit ">
+        <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-semibold py-5">All Brands</h1>
+        </div>
+    </div>
+    <div class="mainBrand sm:mx-28 md:mx-36 lg:mx-15rem">
+       <div class="brandListing container mx-auto border border-black mt-12" [class.h-13rem]="!showMoreBrand" [class.h-fit]="showMoreBrand" [ngClass]="{'overflow-hidden': !showMoreBrand}">
+           <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-flow-row  place-content-around">
+               <li class="flex flex-col justify-center items-center border border-black py-3"  *ngFor="let brand of BrandData" >
+                   <div class="">
+                       <img class=" px-6 object-cover rounded-md"
+                            src="http://localhost:5000/public/brandImages/{{ brand.image }}"
+                            alt="">
+                   </div>
+                   <div class=" text-center">
+                       <h1 class="text-md mt-1">{{ brand.brand }}</h1>
+                   </div>
+               </li>
+           </ul>
+       </div>
+       <div class="container mx-auto items-center h-20 sm:h-50 border border-black py-1 px-auto flex justify-center items-center mb-6"> 
+           <button class="p-2 font-semibold text-xl" (click)="readmore()">Read More</button>
+       </div>
+   </div>
+   
+   </section>

@@ -54,8 +54,8 @@ export class AdminLoginComponent {
       (res: any) => {
         // Navigate to the adminHome route on successful login
         console.log("fine");
-        
-        this.router.navigate(['/admin/adminHome'])
+        this.adminService.saveToken(res.token);
+        this.router.navigate(['/admin/adminOtp'])
       },
       (err) => {
         // Handle the error response from the API

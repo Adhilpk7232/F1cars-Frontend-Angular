@@ -1,12 +1,17 @@
 <app-admin-nav></app-admin-nav>
-<div>
-    <div class="col-span-1 h-4 ">
+<div class="flex">
+    <div class="h-full bg-gray-800 ">
         <app-admin-side-bar ></app-admin-side-bar>
     </div>
     
-    <div class="ml-72">
+    <div class="m-3">
         <!-- Your main content here -->
-        <h1>Brand rek,nwrlkjno Management</h1>
+        <h1>Car Review  Management</h1>
+        <div>
+          <select name="" id="" (change)="onTableSizeChange($event)">
+          <option value="" *ngFor="let size of tableSizes">{{size}}</option>
+        </select>
+      </div>
         <div class="overflow-x-auto">
             
             <table class="min-w-full divide-y divide-gray-200">
@@ -61,9 +66,7 @@
             
           </div>
           <div class="mt-3  d-flex justify-content-end" >
-            <select name="" id="" (change)="onTableSizeChange($event)">
-              <option value="" *ngFor="let size of tableSizes">{{size}}</option>
-            </select>
+            
             <pagination-controls previousLabel="Prev"
             nextLabel="Next" (pageChange)="onTableDataChange($event)">
               

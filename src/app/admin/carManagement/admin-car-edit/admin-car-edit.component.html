@@ -1,49 +1,49 @@
 <app-admin-nav></app-admin-nav>
-<div>
-    <div class="col-span-1 h-4 ">
+<div class="flex">
+    <div class="h-full bg-gray-800">
         <app-admin-side-bar ></app-admin-side-bar>
     </div>
     
-    <div class="ml-72">
+    <div class="m-3">
         <!-- Your main content here -->
-        <h1 class="text-center">Add Car Details</h1>
+        <h1 class="text-center">Update Car Details</h1>
         <div class="max-w-md mx-auto bg-gray-50 py-auto" >
-            <form [formGroup]="form" (submit)="submit()" class="grid grid-cols-1 gap-4 sm:grid-cols-2 w-full">
+            <form [formGroup]="carUpdateform" (submit)="submit()" class="grid grid-cols-1 gap-4 sm:grid-cols-2 w-full">
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="carName">
                   Car Name
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="carName" type="text" placeholder="Enter Car name "required="" formControlName="carName" value="{{carName}}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="carName" type="text" placeholder="Enter Car name "required="" formControlName="carName" value="{{originalCarData.carName}}">
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
                   Description 
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Enter Description" required="" formControlName="description" value="{{description}}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Enter Description" required="" formControlName="description" value="{{originalCarData.description}}">
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
                   Price
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter Price" required="" formControlName="price" value="{{price}}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter Price" required="" formControlName="price" value="{{originalCarData.price}}">
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="maileage">
                   Mailage
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="maileage" type="text" placeholder="Enter maileage" required="" formControlName="maileage" value="{{maileage}}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="maileage" type="text" placeholder="Enter maileage" required="" formControlName="maileage" value="{{originalCarData.maileage}}">
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="engine">
                   Engine
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="engine" type="text" placeholder="Enter your engine cc" required="" formControlName="engine" value="{{engine}}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="engine" type="text" placeholder="Enter your engine cc" required="" formControlName="engine" value="{{originalCarData.engine}}">
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="fuelType">
                   Fuel type
                 </label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fuelType" required formControlName="fuelType" multiple size="5" value="{{fuelType}}">
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fuelType" required formControlName="fuelType" multiple size="5" value="{{originalCarData.fuelType}}">
                   <option value="petrol">Petrol</option>
                   <option value="diesel">Diesel</option>
                   <option value="cng">CNG</option>
@@ -56,28 +56,28 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="transmission">
                   Transmission
                 </label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="transmission" required formControlName="transmission" multiple size="2" value="{{transmission}}">
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="transmission" required formControlName="transmission" multiple size="2" value="{{originalCarData.transmission}}">
                   <option value="manual">Manual</option>
                   <option value="automatic">Automatic</option>
                 </select>
               </div>
               <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="bodyType">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="bodytype">
                   Body Type
                 </label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bodyType" required formControlName="bodyType">
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bodytype" required formControlName="bodytype">
                   <option value="">Choose one from below</option>
-                  <option value="SUV" [selected]="bodyType === 'SUV'">SUV</option>
-                  <option value="Sedan" [selected]="bodyType === 'Sedan'">Sedan</option>
-                  <option value="Compact SUV" [selected]="bodyType === 'Compact SUV'">Compact SUV</option>
-                  <option value="Compact Sedan" [selected]="bodyType === 'Compact Sedan'">Compact Sedan</option>
-                  <option value="Convertible" [selected]="bodyType === 'Convertible'">Convertible</option>
-                  <option value="Minivan" [selected]="bodyType === 'Minivan'">Minivan</option>
-                  <option value="Coupe" [selected]="bodyType === 'Coupe'">Coupe</option>
-                  <option value="Truck" [selected]="bodyType === 'Truck'">Truck</option>
-                  <option value="Hatchback" [selected]="bodyType === 'Hatchback'">Hatchback</option>
-                  <option value="MUV" [selected]="bodyType === 'MUV'">MUV</option>
-                  <option value="Station Wagon" [selected]="bodyType === 'Station Wagon'">Station Wagon</option>
+                  <option value="SUV" [selected]="originalCarData.bodytype === 'SUV'">SUV</option>
+                  <option value="Sedan" [selected]="originalCarData.bodytype === 'Sedan'">Sedan</option>
+                  <option value="Compact SUV" [selected]="originalCarData.bodytype === 'Compact SUV'">Compact SUV</option>
+                  <option value="Compact Sedan" [selected]="originalCarData.bodytype === 'Compact Sedan'">Compact Sedan</option>
+                  <option value="Convertible" [selected]="originalCarData.bodytype === 'Convertible'">Convertible</option>
+                  <option value="Minivan" [selected]="originalCarData.bodytype === 'Minivan'">Minivan</option>
+                  <option value="Coupe" [selected]="originalCarData.bodytype === 'Coupe'">Coupe</option>
+                  <option value="Truck" [selected]="originalCarData.bodytype === 'Truck'">Truck</option>
+                  <option value="Hatchback" [selected]="originalCarData.bodytype === 'Hatchback'">Hatchback</option>
+                  <option value="MUV" [selected]="originalCarData.bodytype === 'MUV'">MUV</option>
+                  <option value="Station Wagon" [selected]="originalCarData.bodytype === 'Station Wagon'">Station Wagon</option>
                 </select>
               </div>
               
@@ -87,10 +87,10 @@
                 </label>
                 <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="seatCapacity" required formControlName="seatCapacity" >
                   <!-- <option value="">Choose one from below</option> -->
-                  <option value="5seater" [selected]="seatCapacity === '5seater'">5 Seater</option>
-                  <option value="6seater" [selected]="seatCapacity === '6seater'">6 Seater</option>
-                  <option value="7seater" [selected]="seatCapacity === '7seater'">7 Seater</option>
-                  <option value="8seater" [selected]="seatCapacity === '8seater'">8 Seater</option>
+                  <option value="5seater" [selected]="originalCarData.seatCapacity === '5seater'">5 Seater</option>
+                  <option value="6seater" [selected]="originalCarData.seatCapacity === '6seater'">6 Seater</option>
+                  <option value="7seater" [selected]="originalCarData.seatCapacity === '7seater'">7 Seater</option>
+                  <option value="8seater" [selected]="originalCarData.seatCapacity === '8seater'">8 Seater</option>
                 </select>
               </div>
               
@@ -100,11 +100,11 @@
                 </label>
                 <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="safety" required formControlName="safety" >
                   <!-- <option value="">Choose one from below</option> -->
-                  <option value="5-star NCAP" [selected]="safety === '5-star NCAP'">5-Star (Excellent)</option>
-                  <option value="4-star NCAP" [selected]="safety === '4-star NCAP'">4-Star (Good)</option>
-                  <option value="3-star NCAP" [selected]="safety === '3-star NCAP'">3-Star (Average)</option>
-                  <option value="2-star NCAP" [selected]="safety === '2-star NCAP'">2-Star (Poor)</option>
-                  <option value="1-star NCAP" [selected]="safety === '1-star NCAP'">1-Star (Very Poor)</option>
+                  <option value="5-star NCAP" [selected]="originalCarData.safety === '5-star NCAP'">5-Star (Excellent)</option>
+                  <option value="4-star NCAP" [selected]="originalCarData.safety === '4-star NCAP'">4-Star (Good)</option>
+                  <option value="3-star NCAP" [selected]="originalCarData.safety === '3-star NCAP'">3-Star (Average)</option>
+                  <option value="2-star NCAP" [selected]="originalCarData.safety === '2-star NCAP'">2-Star (Poor)</option>
+                  <option value="1-star NCAP" [selected]="originalCarData.safety === '1-star NCAP'">1-Star (Very Poor)</option>
                 </select>
               </div>
               
@@ -112,7 +112,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="brand">
                   Brand
                 </label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="brand" required formControlName="brand" value="{{brand}}">
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="brand" required formControlName="brand" value="{{originalCarData.brand}}">
                   <option value="">Choose one from below</option>
                   <option *ngFor="let item of showBrands" [value]="item._id">{{ item.brand }}</option>
                 </select>
@@ -122,7 +122,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="role">
                   Role
                 </label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="role" required formControlName="role" value="{{role}}">
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="role" required formControlName="role" value="{{originalCarData.role}}">
                   <option value="">Choose one from below</option>
                   <option value="normal">Normal</option>
                   <option value="popular">Popular</option>
@@ -135,17 +135,26 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
                   Date
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type="date" placeholder="Select date" required="" formControlName="date" value="{{date}}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type="date" placeholder="Select date" required="" formControlName="date" value="{{originalCarData.date}}">
               </div>
-              <div class="mb-4">
+              <!-- <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
                   Add Image
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" type="file" placeholder="Enter your email" required="" (change)="onFileSelected($event)">
-              </div>             
+              </div>              -->
+              <div *ngIf="message" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
+                <div class="flex">
+                  <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                  <div>
+                    <p class="font-bold">{{message}}</p>
+                    <!-- <p class="text-sm">Something error try angain</p> -->
+                  </div>
+                </div>
+              </div>
               <div class="flex items-center justify-center">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                  Submit
+                  update
                 </button>
               </div>
             </form>

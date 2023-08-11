@@ -3,6 +3,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Emitters } from '../../../emitters/emitter';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-brand-list',
@@ -52,8 +53,19 @@ export class AdminBrandListComponent implements OnInit {
   }
 
   deleteBrand(userId: any){
-    console.log(userId+"toDeeeeeeeeeeeeeeeeee");
-    this.http.post(`http://localhost:5000/admin/deleteBrand/${userId}`,{
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this data!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.post(`http://localhost:5000/admin/deleteBrand/${userId}`,{
       withCredentials:true
     }).subscribe((response:any)=>{
       console.log(response);
@@ -64,6 +76,15 @@ export class AdminBrandListComponent implements OnInit {
     this.router.navigate(['/admin']);
     Emitters.authEmiter.emit(false)
     })
+        Swal.fire(
+          'Deleted!',
+          'Your data has been deleted.',
+          'success'
+        );
+      }
+    });
+
+    
   }
 
   editBrand(brandId:any){

@@ -25,7 +25,7 @@ export class ForgetOtpComponent implements OnInit {
   counter = 60;
   tick = 1000;
   tim = true;
-  email:String='';
+  email!:String;
   constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router , private userService:UserServiceService,private route:ActivatedRoute){}
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -34,6 +34,7 @@ export class ForgetOtpComponent implements OnInit {
     
     this.form = this.formBuilder.group({
       otp: ['', [Validators.required, Validators.pattern('^[0-9]{1,4}$')]],
+      email:[""]
     })
 
     this.countDown = timer(0, this.tick)
@@ -86,17 +87,18 @@ export class ForgetOtpComponent implements OnInit {
  
   submit():void{
     this.otpEntered = true
-    let otp =this.form.getRawValue()
-  console.log(otp);
-     if(otp == null){
+    let formDetails =this.form.getRawValue()
+    formDetails.email = this.email
+    console.log(formDetails.otp,formDetails.email)
+     if(formDetails.otp == null){
       Swal.fire('Error',"please enter all fields","error")
-     }else if(otp==''){
+     }else if(formDetails.otp==''){
       Swal.fire('Error',"please enter valid otp","error")
      }else{
       // this.http.post('http://localhost:5000/otpVerify',otp,{
       //   withCredentials: true
       // })
-      this.userService.verifyotp(otp).subscribe((res:any)=> this.router.navigate(['/']),(err)=>{
+      this.userService.forgetPasswordUserFind(formDetails).subscribe((res:any)=> this.router.navigate(['/resetPassword'], { queryParams: { email: this.email } }),(err)=>{
         Swal.fire('Error',err.error.message,"error")
       })
      }

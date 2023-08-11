@@ -4,6 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { Emitters } from '../../../emitters/emitter';
 import { Router } from '@angular/router';
 import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -19,7 +21,7 @@ export class AdminUserListComponent implements OnInit{
   count:number=0
   tableSize:number=5;
   tableSizes:any=[5,10,15,20]
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router ,private adminService:AdminServiceService){}
+  constructor(private toaster: ToastrService,private formBuilder:FormBuilder,private http:HttpClient,private router:Router ,private adminService:AdminServiceService){}
   ngOnInit(): void {
     
     
@@ -82,8 +84,22 @@ export class AdminUserListComponent implements OnInit{
       console.log(response);
       this.users=response
       Emitters.authEmiter.emit(true)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1000
+      });
     },(err)=>{
       console.log(err+"jjjjjjjj");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Your work has been saved',
+        showConfirmButton: true,
+        timer: 1500
+      });
       this.router.navigate(['/admin']);
       Emitters.authEmiter.emit(false)
     })

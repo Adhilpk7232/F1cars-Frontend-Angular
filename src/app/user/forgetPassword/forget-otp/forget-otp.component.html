@@ -9,6 +9,7 @@
         <p class="text-sm mt-5">If You Already a member easily login  otp send to{{email}} </p>
         <form [formGroup]="form" (submit)="submit()" class="flex flex-col gap-4">
             <input class="p-2 mt-8 rounded-xl-border" type="number" name="otp" placeholder="Otp" required="" formControlName="otp">
+            <input type="hidden" value="{{email}}" name="email" formControlName="email">
             <div *ngIf="otpEntered && f['otp'].errors" class="text-red-500">
                 <div *ngIf="f['otp'].errors['required']" class="p-2">otp is required</div>
                 <div *ngIf="f['otp'].errors['pattern']" class="p-2">Invalid otp</div>

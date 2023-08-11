@@ -10,10 +10,24 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   constructor(private userApi:UserServiceService, private router:Router){}
 
-  logout(){
-    this.userApi.logout().subscribe((res:any)=> this.router.navigate(['/']),(err)=>{
-      console.log(err.error.message,"error")
-    })
-  }
+  showDropdown = false;
 
+  toggleDropdown(): void {
+    this.showDropdown = !this.showDropdown;
+  }
+  logout() {
+    console.log("logouted");
+    
+    
+    this.userApi.logout().subscribe(
+      (res: any) => {
+        this.userApi.removeToken();
+        this.router.navigate(['/']);
+      },
+      (err) => {
+        console.log(err.error.message, "error");
+      }
+    );
+  }
+  
 }

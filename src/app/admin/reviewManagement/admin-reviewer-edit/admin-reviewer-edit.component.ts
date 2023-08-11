@@ -15,6 +15,7 @@ export class AdminReviewerEditComponent implements OnInit{
   email:any;
   city:any;
   reviewerId:any;
+  message:string='';
 
 form!:FormGroup
 constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:ActivatedRoute,
@@ -46,13 +47,26 @@ constructor(private formBuilder:FormBuilder,private http:HttpClient,private rout
 submit():void{
   let user =this.form.getRawValue()
 console.log(user,"clicked");
-user.email=this.email
-  
-    this.http.post('http://localhost:5000/admin/editReviewer',user,{
+if(user.name == null||user.email==null||user.city==null){
+ this.message = 'No changes Made'
+}else if(user.name ===''||user.email===''||user.city===''){
+  this.message = 'field must be required'
+
+}else{
+  this.http.post('http://localhost:5000/admin/editReviewer',user,{
       withCredentials: true
-    }).subscribe((res:any)=> this.route.navigate(['/admin/adminExpertReviewerManagement']),(err)=>{
+    }).subscribe((res:any)=> {
+      Swal.fire('Success', 'Operation completed successfully!', 'success');
+      this.route.navigate(['/admin/adminExpertReviewerManagement'])
+    },(err)=>{
       Swal.fire('Error',err.error.message,"error")
     })
+
+}
+
+
+  
+    
    
 }
 

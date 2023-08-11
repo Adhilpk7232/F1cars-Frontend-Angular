@@ -1,13 +1,12 @@
-
 <app-admin-nav></app-admin-nav>
-<div>
-    <div class="col-span-1 h-4 ">
+<div class="flex">
+    <div class="h-full bg-gray-800">
         <app-admin-side-bar ></app-admin-side-bar>
     </div>
     
-    <div class="ml-72">
+    <div class="m-3">
         <!-- Your main content here -->
-        <h1 class="text-center">Edit Dealer</h1>
+        <h1 class="text-center">Edit Reviewer</h1>
         <div class="max-w-md mx-auto">
             <form [formGroup]="form" (submit)="submit()">
               <div class="mb-4">
@@ -27,6 +26,15 @@
                   City
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="city" type="text" placeholder="Enter your city" required="" formControlName="city" value="{{city}}">
+              </div>
+              <div *ngIf="message" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
+                <div class="flex">
+                  <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                  <div>
+                    <p class="font-bold">{{message}}</p>
+                    <p class="text-sm">Something error try angain</p>
+                  </div>
+                </div>
               </div>
               <div class="flex items-center justify-center">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">

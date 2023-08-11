@@ -17,6 +17,7 @@ export class AdminDealerEditComponent implements OnInit{
   email:any;
   city:any;
   userId:any;
+  message:string='';
 
 form!:FormGroup
 constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:ActivatedRoute,
@@ -57,11 +58,11 @@ validateEmail=(email:any)=>{
 submit():void{
   let user =this.form.getRawValue()
 console.log(user);
-user.email=this.email
-   if(user.CompanyName==null){
-    Swal.fire('Error',"Nochanges made","error")
-   }else if(user.CompanyName==''){
-    Swal.fire('Error',"fields cannot be empty","error")
+
+   if(user.CompanyName==null||user.brand==null ||user.email==null||user.city==null){
+    this.message = 'No Changes made'
+   }else if(user.CompanyName===''||user.brand==='' ||user.email===''||user.city===''){
+    this.message = 'Field can not be empty'
    }else
     {
     this.http.post('http://localhost:5000/admin/editDealer',user,{
