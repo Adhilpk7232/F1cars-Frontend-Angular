@@ -15,6 +15,7 @@ export class ReviewFormComponent implements OnInit{
   form!: FormGroup;
   htmlContent='';
   carId:any;
+  selectedFile:any|File=null;
   config:AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -31,25 +32,25 @@ export class ReviewFormComponent implements OnInit{
     this.form = this.formBuilder.group({
       // Define form controls and add Validators as needed
       content: ['', Validators.required],
-      author: ['', Validators.required],
-      badgeValue: ['', Validators.required],
-      buildQuality: ['', Validators.required],
+      heading: ['', Validators.required],
+      shortestDescription: ['', Validators.required],
       overAllScore: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
-      avoidReason: [''] // Use Validators.minLength(0) to make it optional
     });
 
     
+  }
+  onFileSelected(event:any){
+    this.selectedFile=<File>event.target.files[0]
   }
   submit() {
     let carReview =this.form.getRawValue()
     console.log(carReview);
     const formData = new FormData();
     formData.append('content',carReview.content)
-    formData.append('author',carReview.author)
-    formData.append('badgeValue',carReview.badgeValue)
-    formData.append('buildQuality',carReview.buildQuality)
+    formData.append('heading',carReview.heading)
+    formData.append('shortestDescription',carReview.shortestDescription)
     formData.append('overAllScore',carReview.overAllScore)
-    formData.append('avoidReason',carReview.avoidReason)
+    formData.append('image',this.selectedFile,this.selectedFile.name)
     formData.append('carId',this.carId)
 
 
@@ -60,7 +61,7 @@ export class ReviewFormComponent implements OnInit{
       
       this.http.post('http://localhost:5000/reviewer/addReview',formData,{
         withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/reviewManagement']),(err)=>{
+      }).subscribe(()=> this.router.navigate(['/reviewer/reviewManagement']),(err)=>{
         this.router.navigate(['/reviewer/reviewerHome'])
       })
     } else {

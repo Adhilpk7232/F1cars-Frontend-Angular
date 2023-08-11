@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   form!:FormGroup;
   login=false
-  message=''
+  message='';
+  loader:boolean=false;
   constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router , private userService:UserServiceService){}
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -28,16 +29,20 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
   submit():void{
+    this.loader = true
     this.login=true
     let user =this.form.getRawValue()
   console.log(user);
       this.userService.userLogin(user).subscribe((res:any)=> {
+        this.loader = false
+        this.userService.saveToken(res.token);
         if(res.isVerified === 0){
           this.router.navigate(['/otp'])
         }else{
           this.router.navigate(['/'])}
         }
         ,(err)=>{
+          this.loader = false
         this.message=err.error.message
       })
     //  }

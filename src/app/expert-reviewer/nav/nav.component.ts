@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ReviewerServiceService } from 'src/app/services/reviewer/reviewer-service.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavComponent {
 
-  constructor(private http:HttpClient,private route:Router){}
+  constructor(private http:HttpClient,private route:Router , private reviewerApi:ReviewerServiceService){}
   ngOnInit(): void {
     
   }
@@ -20,6 +21,7 @@ export class NavComponent {
       withCredential:true
     }).subscribe((res)=>{
       console.log(res);
+      this.reviewerApi.removeToken()
       this.route.navigate(['/reviewer'])
       
     },(err)=>{

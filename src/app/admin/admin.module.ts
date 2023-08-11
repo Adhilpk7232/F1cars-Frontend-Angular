@@ -11,7 +11,8 @@ import { AdminRoutingModule } from './admin-routing.moldule';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-// import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AdminCarAddComponent } from './carManagement/admin-car-add/admin-car-add.component';
 import { AdminCarEditComponent } from './carManagement/admin-car-edit/admin-car-edit.component';
@@ -28,6 +29,10 @@ import { AdminBrandListComponent } from './brandManagement/admin-brand-list/admi
 import { AdminBrandAddComponent } from './brandManagement/admin-brand-add/admin-brand-add.component';
 import { AdminBrandEditComponent } from './brandManagement/admin-brand-edit/admin-brand-edit.component';
 import { RouterModule } from '@angular/router';
+import { AdminOTPComponent } from './admin-otp/admin-otp.component';
+import { PlanlistComponent } from './planManagement/planlist/planlist.component';
+import { PlanEditComponent } from './planManagement/plan-edit/plan-edit.component';
+import { PlanAddComponent } from './planManagement/plan-add/plan-add.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +55,10 @@ import { RouterModule } from '@angular/router';
     AdminBrandListComponent,
     AdminBrandAddComponent,
     AdminBrandEditComponent,
+    AdminOTPComponent,
+    PlanlistComponent,
+    PlanEditComponent,
+    PlanAddComponent,
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,24 @@ export class UserServiceService {
 
   user_api = 'http://localhost:5000';
 
+
+  saveToken(token: string) {
+    localStorage.setItem('jwtToken', token);
+  }
+
+  getToken() {
+    return localStorage.getItem('jwtToken');
+  }
+
+  removeToken() {
+    localStorage.removeItem('jwtToken');
+  }
+
+  isAuthenticated() {
+    const token = this.getToken();
+    return !!token;
+  }
+
   userLogin(data: any): Observable<any> {
     return this.http.post<any>(`${this.user_api}/login`, data,{ withCredentials: true });
   }
@@ -30,5 +48,24 @@ export class UserServiceService {
   forgetPasswordUserFind(user:any){
     return this.http.post<any>(`${this.user_api}/forgetPassword`,user,{withCredentials:true});
   }
-  
+  resetPassword(data:FormData,email:String){
+    console.log("hello");
+    
+    return this.http.post<any>(`${this.user_api}/resetPassword/${email}`,data,{withCredentials:true});
+  }
+  getPopularCars(){
+    return this.http.get(`${this.user_api}/popularCars`,{withCredentials:true})
+  }
+  getJustLaunched(){
+    return this.http.get(`${this.user_api}/justLaunched`,{withCredentials:true})
+  }
+  getUpcommingCars(){
+    return this.http.get(`${this.user_api}/upcommingCars`,{withCredentials:true})
+  }
+  getBrands(){
+    return this.http.get(`${this.user_api}/getBrands`,{withCredentials:true})
+  }
+  getplans(){
+    return this.http.get<any>(`${this.user_api}/getPlans`,{withCredentials:true})
+  }
 }

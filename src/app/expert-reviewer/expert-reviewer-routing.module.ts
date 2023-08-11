@@ -6,6 +6,7 @@ import { ReviewManagementComponent } from './review-management/review-management
 import { ReviewBrandShowComponent } from './addReview/review-brand-show/review-brand-show.component';
 import { ReviewCarShowComponent } from './addReview/review-car-show/review-car-show.component';
 import { ReviewFormComponent } from './addReview/review-form/review-form.component';
+import { EditCarReviewComponent } from './edit-car-review/edit-car-review.component';
 
 const routes:Routes = [
     {path:'',component:LoginComponent},
@@ -13,7 +14,8 @@ const routes:Routes = [
   {path:'reviewerAddReviewBrand',component:ReviewBrandShowComponent},
   {path:'reviewerAddReviewCar/:brandId',component:ReviewCarShowComponent},
   {path:'reviewerAddReviewForm/:carId',component:ReviewFormComponent},
-  {path:'reviewManagement',component:ReviewManagementComponent}
+  {path:'reviewManagement',component:ReviewManagementComponent},
+  {path:'carReviewUpdate/:reviewId',component:EditCarReviewComponent}
 
     
 ];

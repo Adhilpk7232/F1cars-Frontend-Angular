@@ -1,3 +1,24 @@
+
+/* styles.css */
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+.blur-effect {
+  filter: blur(5px); /* Adjust the blur intensity as needed */
+  pointer-events: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .banner-img {
     position: relative;
   }
@@ -60,4 +81,15 @@
     color: #00afa0;
     border-bottom: 4px solid #00afa0
     /* Add any other styles you want for the active item */
+  }
+  .selected {
+    background-color: #6366f1;
+    border-color: #4f46e5;
+    color: #fff;
+  }
+  .SubscribeButton button {
+    background-color: #e53012;
+    color: white;
+    /* border: none; */
+    cursor: pointer;
   }

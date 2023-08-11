@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
+import { ReviewerServiceService } from 'src/app/services/reviewer/reviewer-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-review-management',
@@ -11,11 +13,9 @@ import { Emitters } from 'src/app/emitters/emitter';
 export class ReviewManagementComponent implements OnInit {
 
   reviews :any=[]
-  constructor(private http:HttpClient, private router:Router){}
+  constructor(private toastr: ToastrService,private http:HttpClient, private router:Router,private reviewerApi:ReviewerServiceService){}
   ngOnInit(): void {
-    this.http.get('http://localhost:5000/reviewer/active',{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+    this.reviewerApi.isActive().subscribe((response:any)=>{
       console.log(response);
       this.getReviewes()
       Emitters.authEmiter.emit(true)
@@ -25,9 +25,7 @@ export class ReviewManagementComponent implements OnInit {
     })
   }
   getReviewes(){
-    this.http.get('http://localhost:5000/reviewer/carReview',{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+    this.reviewerApi.getCarReviews().subscribe((response:any)=>{
       console.log(response);
       this.reviews=response
       
@@ -40,21 +38,16 @@ export class ReviewManagementComponent implements OnInit {
     Emitters.authEmiter.emit(false)
     })
   }
-  unlistReview(id:any){
-    console.log(id,"lljscnjn");
+  
+  // edit(reviewId:String){
+  //   console.log("hello");
     
-  }
-  unListReview(reviewId:any){
-    // this.http.post(`http://localhost:5000/reviewer/unlistReview/${reviewId}`,{
-    //   withCredentials:true
-    // }).subscribe((response:any)=>{
-    //   console.log(response);
-    //   this.reviews=response
-    //   Emitters.authEmiter.emit(true)
-    // },(err)=>{
-    //   console.log(err+"jjjjjjjj");
-    //   this.router.navigate(['/reviewer']);
-    //   Emitters.authEmiter.emit(false)
-    // })
+  //   console.log(reviewId,"clicked");
+    
+  //   this.router.navigate(['/reviewer/carReviewUpdate',reviewId])
+  // }
+  edit(reviewId:String){
+    console.log(reviewId,"clicked");
+    this.router.navigate(['/reviewer/carReviewUpdate',reviewId])
   }
 }

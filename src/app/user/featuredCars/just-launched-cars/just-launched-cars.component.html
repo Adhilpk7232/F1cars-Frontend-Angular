@@ -1,0 +1,48 @@
+<section>
+    <div class="flex">
+        <div class="w-2/12  flex items-center">
+            <div class="w-full text-right">
+                <button (click)="prev()" class="p-3 rounded-full bg-white border border-gray-100 shadow-lg mr-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div #sliderContainer class="w-10/12 overflow-hidden">
+            <!-- content -->
+            <ul #slider class="flex w-full  transition-all duration-100" [style.width.px]="this.sliderWidth" [style.marginLeft.px]="this.sliderMarginLeft">
+                <li [style.width.px]="this.slideWidth" class="w-96 p-5" *ngFor="let car of popularCars">
+                    <div class="border rounded-lg p-5 h-full">
+                        <img class="h-50 w-full object-cover rounded-md" 
+                            src="http://localhost:5000/public/brandImages/{{ car.image }}"
+                            alt="">
+                        <h2 class="mt-2 text-2xl font-bold text-gray-700">{{car.carName}}</h2>
+                        <p class="mt-2 text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            Corporis explicabo officiis dignissimos, ducimus, ab commodi quod, vitae incidunt voluptatum
+                            perferendis
+                            maxime ad accusamus dolorum minus! Doloremque ut nemo corrupti quaerat.
+                        </p>
+                        <button class="mt-4 px-6 py-3 rounded-md bg-green-600">Read more</button>
+                    </div>
+                </li>
+                
+                
+            </ul>
+        </div>
+        <div class="w-2/12  flex items-center ">
+            <div class="w-full">
+                <button (click)="next()"  class="p-3 rounded-full bg-white border border-gray-100 shadow-lg ml-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                    </svg>
+
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

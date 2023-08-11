@@ -1,0 +1,45 @@
+/* .carousel{
+    height: 400px;
+    width:430px
+}
+.carousel-img{
+height: 180px;
+width: 430px;
+}
+.carousel-content{
+height: 220;
+padding-left: 15px;
+padding-bottom: 15px;
+border-top: 2px solid gray;
+}
+.carousel-btn{
+    padding: 5px 10px;
+}
+.carousel-content h3{
+    margin-top: 10px;
+} */
+
+.carousel {
+    height: 25rem; /* 400px / 16px = 25rem */
+    width: 26.875rem; /* 430px / 16px = 26.875rem */
+}
+
+.carousel-img {
+    height: 11.25rem; /* 180px / 16px = 11.25rem */
+    width: 26.875rem; /* 430px / 16px = 26.875rem */
+}
+
+.carousel-content {
+    height: 13.75rem; /* 220px / 16px = 13.75rem */
+    padding-left: 0.9375rem; /* 15px / 16px = 0.9375rem */
+    padding-bottom: 0.9375rem; /* 15px / 16px = 0.9375rem */
+    border-top: 0.125rem solid gray; /* 2px / 16px = 0.125rem */
+}
+
+.carousel-btn {
+    padding: 0.3125rem 0.625rem; /* 5px / 16px = 0.3125rem, 10px / 16px = 0.625rem */
+}
+
+.carousel-content h3 {
+    margin-top: 0.625rem; /* 10px / 16px = 0.625rem */
+}

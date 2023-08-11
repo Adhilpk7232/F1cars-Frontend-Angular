@@ -17,6 +17,10 @@ import { AdminDealerListComponent } from './dealerManagement/admin-dealer-list/a
 import { AdminReviewerListComponent } from './reviewManagement/admin-reviewer-list/admin-reviewer-list.component';
 import { AdminReviewerEditComponent } from './reviewManagement/admin-reviewer-edit/admin-reviewer-edit.component';
 import { AdminReviewerAddComponent } from './reviewManagement/admin-reviewer-add/admin-reviewer-add.component';
+import { AdminOTPComponent } from './admin-otp/admin-otp.component';
+import { PlanlistComponent } from './planManagement/planlist/planlist.component';
+import { PlanAddComponent } from './planManagement/plan-add/plan-add.component';
+import { PlanEditComponent } from './planManagement/plan-edit/plan-edit.component';
 
 
 const routes:Routes = [
@@ -39,6 +43,15 @@ const routes:Routes = [
     {path:'adminAddCar',component:AdminCarAddComponent},
     {path:'adminEditcar/:carId',component:AdminCarEditComponent},
     {path:'adminReviewManagement',component:CarReviewManagementComponent},
+    {path:'adminOtp',component:AdminOTPComponent},
+    {path:'planManagement',component:PlanlistComponent},
+    {path:'createPlan',component:PlanAddComponent},
+    {path:'updatePlan/:planId',component:PlanEditComponent},
+
+
+
+
+
 ];
 
 @NgModule({

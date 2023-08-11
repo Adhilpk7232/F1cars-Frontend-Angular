@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { Emitters } from 'src/app/emitters/emitter';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class CarReviewManagementComponent implements OnInit{
       Emitters.authEmiter.emit(true)
     },(err)=>{
       console.log(err+"hhhhhhhhhhhhhhhhhhh");
-    this.router.navigate(['/']);
+    this.router.navigate(['/admin']);
     Emitters.authEmiter.emit(false)
     })
   }
@@ -57,8 +58,21 @@ export class CarReviewManagementComponent implements OnInit{
       console.log(response);
       this.reviews=response
       Emitters.authEmiter.emit(true)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1000
+      });
     },(err)=>{
-      console.log(err+"jjjjjjjj");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Your work has been saved',
+        showConfirmButton: true,
+        timer: 1500
+      });
       this.router.navigate(['/admin']);
       Emitters.authEmiter.emit(false)
     })

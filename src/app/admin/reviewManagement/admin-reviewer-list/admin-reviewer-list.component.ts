@@ -3,6 +3,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Emitters } from '../../../emitters/emitter';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-reviewer-list',
@@ -51,19 +52,40 @@ export class AdminReviewerListComponent implements OnInit {
    }
  
    deleteReviewer(userId: any){
-     console.log(userId+"toDeeeeeeeeeeeeeeeeee");
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this data!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(userId+"toDeeeeeeeeeeeeeeeeee");
      this.http.post(`http://localhost:5000/admin/deleteReviewer/${userId}`,{
        withCredentials:true
      }).subscribe((response:any)=>{
        console.log(response);
        this.users=response
        Emitters.authEmiter.emit(true)
+       
      },(err)=>{
        console.log(err+"hhhhhhhhhhhhhhhhhhh");
      this.router.navigate(['/admin']);
      Emitters.authEmiter.emit(false)
      })
-   }
+        Swal.fire(
+          'Deleted!',
+          'Your data has been deleted.',
+          'success'
+        );
+      }
+    });
+  }
+     
+   
  
    editReviewer(userId:any){
        this.router.navigate(['/admin/editReviewer',userId])

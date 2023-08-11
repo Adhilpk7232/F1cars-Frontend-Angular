@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -14,7 +16,7 @@ export class AdminBrandAddComponent implements OnInit {
 
   form!:FormGroup
   selectedFile:any|File=null;
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,
+  constructor(private toastr: ToastrService,private formBuilder:FormBuilder,private http:HttpClient,
     private router:Router){}
    
     ngOnInit(): void {
@@ -42,7 +44,12 @@ export class AdminBrandAddComponent implements OnInit {
     //  }else{
       this.http.post('http://localhost:5000/admin/createBrand',formData,{
         withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/admin/adminBrand']),(err)=>{
+      }).subscribe(()=> {
+        Swal.fire('Success', 'Operation completed successfully!', 'success');
+        this.router.navigate(['/admin/adminBrand'])
+      }
+      
+      ,(err)=>{
         Swal.fire('Error',err.error.message,"error")
       })
     //  }

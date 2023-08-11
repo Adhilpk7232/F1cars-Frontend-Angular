@@ -12,6 +12,13 @@ import { HomeComponent } from './home/home.component';
 import { ForgetEmailComponent } from './forgetPassword/forget-email/forget-email.component';
 import { ForgetOtpComponent } from './forgetPassword/forget-otp/forget-otp.component';
 import { NewPasswordComponent } from './forgetPassword/new-password/new-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PopularCarsComponent } from './featuredCars/popular-cars/popular-cars.component';
+import { JustLaunchedCarsComponent } from './featuredCars/just-launched-cars/just-launched-cars.component';
+import { UpCommingCarsComponent } from './featuredCars/up-comming-cars/up-comming-cars.component';
+import { BrandListingComponent } from './brand-listing/brand-listing.component';
+import { LoaderComponent } from './loader/loader.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +29,13 @@ import { NewPasswordComponent } from './forgetPassword/new-password/new-password
     HomeComponent,
     ForgetEmailComponent,
     ForgetOtpComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    ProfileComponent,
+    PopularCarsComponent,
+    JustLaunchedCarsComponent,
+    UpCommingCarsComponent,
+    BrandListingComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +43,7 @@ import { NewPasswordComponent } from './forgetPassword/new-password/new-password
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+
   ]
 })
 export class UserModule { }

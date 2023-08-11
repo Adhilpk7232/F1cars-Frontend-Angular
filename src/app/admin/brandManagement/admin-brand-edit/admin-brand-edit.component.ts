@@ -17,6 +17,7 @@ export class AdminBrandEditComponent implements OnInit {
   image:any;
   selectedFile:any|File=null;
   postData:any;
+  message:string='';
   
 
 form!:FormGroup
@@ -49,8 +50,12 @@ constructor(private formBuilder:FormBuilder,private http:HttpClient,private rout
 submit():void{
   const user = this.form.getRawValue();
   console.log(user.brand,"userData");
-  
-  let formData: FormData = new FormData(); // Initialize formData here
+  if(user.brand ==null){
+    this.message= 'No changes Made'
+  }else if (user.brand === ''){
+    this.message= 'Field canot be empty'
+  }else{
+    let formData: FormData = new FormData(); // Initialize formData here
 
   if (this.selectedFile) {
     formData.append('image', this.selectedFile, this.selectedFile.name);
@@ -66,9 +71,14 @@ submit():void{
   
     this.http.post(`http://localhost:5000/admin/editBrand/${this.brandId}`,formData,{
       withCredentials: true
-    }).subscribe(()=> this.route.navigate(['/admin/adminBrand']),(err)=>{
+    }).subscribe(()=> {
+      Swal.fire('Success', 'Operation completed successfully!', 'success');
+      this.route.navigate(['/admin/adminBrand'])},(err)=>{
       Swal.fire('Error',err.error.message,"error")
     })
+  }
+  
+  
    
 }
 onBrandChange(event: Event) {

@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { RouterModule } from '@angular/router';
+import { EditCarReviewComponent } from './edit-car-review/edit-car-review.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RouterModule } from '@angular/router';
     ReviewManagementComponent,
     ReviewBrandShowComponent,
     ReviewCarShowComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    EditCarReviewComponent
   ],
   imports: [
     CommonModule,
