@@ -33,6 +33,12 @@ import { AdminOTPComponent } from './admin-otp/admin-otp.component';
 import { PlanlistComponent } from './planManagement/planlist/planlist.component';
 import { PlanEditComponent } from './planManagement/plan-edit/plan-edit.component';
 import { PlanAddComponent } from './planManagement/plan-add/plan-add.component';
+import { TaxListComponent } from './taxManagement/tax-list/tax-list.component';
+import { TaxCreateComponent } from './taxManagement/tax-create/tax-create.component';
+import { TaxEditComponent } from './taxManagement/tax-edit/tax-edit.component';
+import { CarAddVersionComponent } from './carManagement/car-add-version/car-add-version.component';
+import { CarVersionListComponent } from './carManagement/car-version-list/car-version-list.component';
+import { CarVersionEditComponent } from './carManagement/car-version-edit/car-version-edit.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +65,12 @@ import { PlanAddComponent } from './planManagement/plan-add/plan-add.component';
     PlanlistComponent,
     PlanEditComponent,
     PlanAddComponent,
+    TaxListComponent,
+    TaxCreateComponent,
+    TaxEditComponent,
+    CarAddVersionComponent,
+    CarVersionListComponent,
+    CarVersionEditComponent,
   ],
   imports: [
     CommonModule,

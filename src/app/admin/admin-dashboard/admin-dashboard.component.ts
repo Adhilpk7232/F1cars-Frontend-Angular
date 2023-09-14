@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 import { Emitters } from 'src/app/emitters/emitter';
+import { ApiResponse } from 'src/app/models/apiResponse';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -13,7 +14,7 @@ export class AdminDashboardComponent implements OnInit{
     private router:Router
     ){}
   ngOnInit(): void {
-    this.adminApi.active().subscribe((res:any)=>{
+    this.adminApi.active().subscribe((res:ApiResponse)=>{
       Emitters.authEmiter.emit(true)
     },(err)=>{
       console.log(err);

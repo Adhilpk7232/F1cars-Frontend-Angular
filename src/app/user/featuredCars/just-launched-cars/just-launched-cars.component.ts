@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit ,Input} from '@
 import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
 import { Car } from '../../userModel/car.model';
+import { CarBrand } from 'src/app/models/carBrandpopulatedModel';
 
 @Component({
   selector: 'app-just-launched-cars',
@@ -10,7 +11,7 @@ import { Car } from '../../userModel/car.model';
 })
 export class JustLaunchedCarsComponent implements OnInit , AfterViewInit{
   @Input('popularCars')
-  popularCars:any[] =[];
+  popularCars:CarBrand[] =[];
 
   @ViewChild('sliderContainer')
   sliderContainer!:ElementRef;
@@ -19,12 +20,15 @@ export class JustLaunchedCarsComponent implements OnInit , AfterViewInit{
   elementsToShow = 3;
   sliderWidth=0
   sliderMarginLeft = 0
+  userLogin!: boolean;
+  userData!:any;
 
   constructor(
     private userApi:UserServiceService,
     private router:Router ){}
   ngOnInit(): void {
-    this.userApi.getJustLaunched().subscribe((res:any)=>{
+    this.checkUserLogin()
+    this.userApi.getJustLaunched().subscribe((res:CarBrand[])=>{
       this.popularCars =res
       console.log(res);
       
@@ -45,7 +49,7 @@ export class JustLaunchedCarsComponent implements OnInit , AfterViewInit{
 
 
   getpopularcars(){
-    this.userApi.getJustLaunched().subscribe((res:any)=>{
+    this.userApi.getJustLaunched().subscribe((res:CarBrand[])=>{
       this.popularCars = res
       console.log(res);
       
@@ -90,5 +94,28 @@ export class JustLaunchedCarsComponent implements OnInit , AfterViewInit{
     console.log("clicked next");
     
     this.sliderMarginLeft = this.sliderMarginLeft-this.slideWidth
+  }
+  checkUserLogin(){
+    if(this.userApi.getToken()){
+      this.userLogin = true
+      this.getUserData()
+      
+    }else{
+      this.userLogin = false
+    }
+    console.log(this.userLogin,this.userData,this.userApi.getToken());
+    
+  }
+  getUserData(){
+    this.userApi.getUserDetails().subscribe((res:any) =>{
+      this.userData = res
+    })
+  }
+  getImageUrl(image: string) {
+    if(image){
+      return this.userApi.loadimage(image);
+    }else {
+      return null
+    }
   }
 }

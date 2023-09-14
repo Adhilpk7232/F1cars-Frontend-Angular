@@ -8,6 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-otp',
@@ -22,21 +23,28 @@ export class AdminOTPComponent implements OnInit{
   otpEntered = false
   message!:string;
   countDown!: Subscription;
-  counter = 60;
+  counter = 10;
   tick = 1000;
   tim = true;
-  email!:String;
+  adminEmail!:string;
   otp:any;
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router , private adminService:AdminServiceService,private route:ActivatedRoute){}
+  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router , private adminService:AdminServiceService
+    ,private route:ActivatedRoute,private toastr:ToastrService){
+      // this.route.queryParams.subscribe((params) => {
+      //   this.adminEmail = decodeURIComponent(params['email']);
+      // });
+      this.route.queryParams.subscribe(params => {
+        this.adminEmail = decodeURIComponent(params['email']);
+        // Now, you have the email address to use in your component.
+      });
+    }
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.email = params['email'];
-    });
-    this.adminService.active().subscribe((res:any)=>{
+    
+    // this.adminService.active().subscribe((res:any)=>{
       
-    },(err)=>{
-      this.router.navigate(['/admin'])
-    })
+    // },(err)=>{
+    //   this.router.navigate(['/admin'])
+    // })
     
     this.form = this.formBuilder.group({
       otp: ['', [Validators.required,Validators.pattern('^[0-9]{1,4}$')]],
@@ -59,7 +67,7 @@ export class AdminOTPComponent implements OnInit{
   
   resend(){
     console.log("clicked");
-      this.counter = 60;
+      this.counter = 10;
       this.tick = 1000;
       this.tim = true;
 
@@ -73,8 +81,8 @@ export class AdminOTPComponent implements OnInit{
           this.countDown.unsubscribe();
         }
       });
-
-      this.adminService.resendOtp().subscribe((res:any)=> this.router.navigate(['/admin/adminOtp']),(err)=>{
+      const queryParams = { email: this.adminEmail };
+      this.adminService.resendOtp(this.adminEmail).subscribe((res:any)=> this.router.navigate(['/admin/adminOtp'],{queryParams}),(err)=>{
         this.message=err.error.message
       })
   }
@@ -91,10 +99,19 @@ export class AdminOTPComponent implements OnInit{
     this.otpEntered = true
     let formDetails =this.form.getRawValue()
     console.log(formDetails.otp)
-     
-      this.adminService.verifyotp(formDetails).subscribe((res:any)=> this.router.navigate(['/admin/adminHome']),(err)=>{
-        Swal.fire('Error',err.error.message,"error")
+    if(this.form.valid){
+      this.adminService.verifyotp(formDetails,this.adminEmail).subscribe((res:any)=>{ 
+        this.toastr.success('Logined','Successfully', { progressBar: true });
+        this.adminService.saveToken(res.token);
+        this.router.navigate(['/admin/adminHome'])
+      },(err)=>{
+        console.log(err.error.message);
+        
+        this.message=err.error.message
       })
+    }
+     
+      
      
   }
 

@@ -1,0 +1,21 @@
+<div class="relatedCars border rounded-md my-4 relative" *ngIf="this.BrandCars">
+    <!-- Left Arrow Button -->
+    <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md z-10">
+        <div class="w-6 h-6 text-2xl font-thin text-gray-500"><i class="fa-solid fa-chevron-left "></i></div>                              
+    </button>
+    <div class="carCard " *ngFor="let car of BrandCars">
+        <div class="carimage">
+            <img  [src]="getImageUrl(car.image)" alt="">
+        </div>
+        <div class="cardContent p-3">
+            <h1 class="my-1">{{car.carName}}</h1>
+            <h1 class="my-1">Rs. {{car.price}} Lakh onwards</h1>
+            <p class="my-1">On-Road Price, Kozhikode</p>
+        </div>
+    </div>
+    <!-- Right Arrow Button -->
+    <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md z-10">
+        <div class="w-6 h-6 text-2xl font-thin text-gray-500"><i class="fa-solid fa-chevron-right"></i></div>
+                                        
+    </button>
+</div>

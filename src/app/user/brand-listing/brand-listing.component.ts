@@ -1,4 +1,6 @@
 import { Component,OnInit,Input } from '@angular/core';
+import { BrandModel } from 'src/app/models/brandModel';
+import { UserServiceService } from 'src/app/services/user/user-service.service';
 
 @Component({
   selector: 'app-brand-listing',
@@ -6,10 +8,12 @@ import { Component,OnInit,Input } from '@angular/core';
   styleUrls: ['./brand-listing.component.css']
 })
 export class BrandListingComponent implements OnInit{
-  @Input()BrandData:any[]=[]
+  @Input()BrandData:BrandModel[]=[]
   showMoreBrand:boolean = false
   
-  constructor(){}
+  constructor(
+    private userApi:UserServiceService
+  ){}
   ngOnInit(): void {
     console.log(this.BrandData,"listing brands");
     
@@ -17,5 +21,12 @@ export class BrandListingComponent implements OnInit{
 
   readmore(){
     this.showMoreBrand = !this.showMoreBrand
+  }
+  getImageUrl(image: string) {
+    if(image){
+      return this.userApi.loadimage(image);
+    }else {
+      return null
+    }
   }
 }

@@ -1,0 +1,39 @@
+
+<app-nav></app-nav>
+<div class="flex">
+    <div class=" h-full bg-gray-800 w-fit">
+        <app-side-bar ></app-side-bar>
+    </div>
+    
+    <div class="m-3 w-full">
+        <!-- Your main content here -->
+        <div class="container " >
+            <h1 class="m-6 text-4xl">{{reviewData.heading|uppercase}}</h1>
+            <div class="containe">
+                <div class="flex gap-4 my-6">
+                    <div class="w-8/12 border-green-600">
+                        <div class="border rounded-md my-4">
+                            <h1 class="text-2xl m-2"> {{reviewData.reviewerId.name|uppercase}}</h1>
+                            <h1 class="text-md m-2">{{reviewData.date| date:'dd-MM-yyyy'}}</h1>
+                            <p class="m-2"></p>
+                            
+                        </div>
+                        <div class="colorchagingCar border rounded-md">
+                            <h1 class="m-2 text-2xl">{{reviewData.carId.carName}}</h1>
+                            <p class="m-2">{{reviewData.carId.description}}
+                            </p>
+                            <div class="reviewContent">
+                                <div [innerHTML]="htmlContent"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-4/12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+
+    </div>
+  </div>

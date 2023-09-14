@@ -1,0 +1,5 @@
+.headOfCard .active {
+    color: #00afa0;
+    border-bottom: 4px solid #00afa0
+    /* Add any other styles you want for the active item */
+  }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 
 @Component({
   selector: 'app-plan-add',
@@ -13,8 +14,11 @@ export class PlanAddComponent implements OnInit{
 
   form!:FormGroup
   selectedFile:any|File=null;
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,
-    private router:Router){}
+  constructor(
+    private formBuilder:FormBuilder,
+    private adminApi:AdminServiceService,
+    private router:Router
+    ){}
    
     ngOnInit(): void {
         this.form = this.formBuilder.group({
@@ -35,9 +39,7 @@ export class PlanAddComponent implements OnInit{
   let planData =this.form.getRawValue()
   console.log(planData);
 
-      this.http.post('http://localhost:5000/admin/createPlan',planData,{
-        withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/admin/planManagement']),(err)=>{
+      this.adminApi.addPlan(planData).subscribe(()=> this.router.navigate(['/admin/planManagement']),(err)=>{
         Swal.fire('Error',err.error.message,"error")
       })
     //  }

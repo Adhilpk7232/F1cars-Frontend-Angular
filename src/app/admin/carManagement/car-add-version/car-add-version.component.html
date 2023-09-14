@@ -1,0 +1,84 @@
+
+
+
+<app-admin-nav></app-admin-nav>
+<div class="flex h-screen">
+    <app-admin-side-bar class="bg-gray-800"></app-admin-side-bar>
+  <!-- Main Content -->
+  <div class="w-3/5 md:w-4/5 lg:w-5/6 bg-white p-4">
+    <!-- Your main content here -->
+    <div class="">
+      <h1 class="text-center font-bold text-xl">Add Version Details</h1>
+      <div class="overflow-x-auto w-[75%]">
+       <!-- add here  -->
+       <div class="border-2 bg-red-400 m-3">
+        <button  (click)="generateExcel()" class="btn btn-secondary mb-2"> Download Specification Format</button>
+      </div>
+       
+       <form [formGroup]="form" (submit)="submit()" class="grid grid-cols-1 gap-4 sm:grid-cols-2 w-full">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="version">
+            version Name
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="version" type="text" placeholder="Enter Car name "required="" formControlName="version">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+            Price
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter Price" required="" formControlName="price">
+        </div>
+        <div *ngIf="carData">
+        <div  class="mb-4" >
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="color">
+            Color
+          </label>
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="color" required formControlName="color" multiple size="5">
+            <!-- <option value="">choose one </option> -->
+            <option  *ngFor="let color of carData.colors" value="{{color.colorName}}">{{color.colorName}}  </option>
+          </select>
+        </div>
+      </div>
+        
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="fuelType">
+            Fuel type
+          </label>
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fuelType" required formControlName="fuelType" multiple size="5">
+            <option value="petrol">Petrol</option>
+            <option value="diesel">Diesel</option>
+            <option value="cng">CNG</option>
+            <option value="electric">Electric</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+        </div>
+    
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="transmission">
+            Transmission
+          </label>
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="transmission" required formControlName="transmission" multiple size="2">
+            <option value="manual">Manual</option>
+            <option value="automatic">Automatic</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="specification">upload excel shoot of specification</label>
+          <input type="file" name="excelSpecification" (change)="onFileSelectedSpec($event)" accept=".xlsx, .xls">
+        </div>
+        <!-- <div class="mb-4">
+          <label for="specification">upload excel shoot of Features</label>
+          <input type="file" name="excelFeature" (change)="onFileSelectedFeature($event)" accept=".xlsx, .xls">
+        </div> -->
+                    
+        <div class="flex items-center justify-center">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+        </div>
+    </div>
+  </div>
+</div>

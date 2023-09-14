@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 
 @Component({
   selector: 'app-admin-brand-edit',
@@ -21,8 +23,9 @@ export class AdminBrandEditComponent implements OnInit {
   
 
 form!:FormGroup
-constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:ActivatedRoute,
-  private route:Router){}
+constructor(private formBuilder:FormBuilder,private router:ActivatedRoute,
+  private adminApi:AdminServiceService,
+  private route:Router,private toastr:ToastrService){}
  
   ngOnInit(): void {
       this.form = this.formBuilder.group({
@@ -31,17 +34,7 @@ constructor(private formBuilder:FormBuilder,private http:HttpClient,private rout
       })
  
       this.brandId = this.router.snapshot.paramMap.get('brandId');
- 
-      this.http.get('http://localhost:5000/admin/active',{
-        withCredentials:true
-      }).subscribe((response:any)=>{
-        console.log(response);
-        this.getbrands(this.brandId)
-        Emitters.authEmiter.emit(true)
-      },(err)=>{
-      this.route.navigate(['/admin']);
-      Emitters.authEmiter.emit(false)
-      })
+      this.getbrands(this.brandId)
     }
     onFileSelected(event:any){
       this.selectedFile=<File>event.target.files[0]
@@ -67,15 +60,15 @@ submit():void{
     formData.append('image',imageEmpty);
   }
 
-  
-  
-    this.http.post(`http://localhost:5000/admin/editBrand/${this.brandId}`,formData,{
-      withCredentials: true
-    }).subscribe(()=> {
-      Swal.fire('Success', 'Operation completed successfully!', 'success');
-      this.route.navigate(['/admin/adminBrand'])},(err)=>{
-      Swal.fire('Error',err.error.message,"error")
+    this.adminApi.editbrand(this.brandId,formData).subscribe((res:any) => { 
+      console.log(res,"res of submit edit brands");
+      
+      this.toastr.success('Form Submitted','Successfully', { progressBar: true });
+      this.route.navigate(['/admin/adminBrand'])
+    },(err)=>{
+        this.toastr.error(err.error.message ,'', {progressBar: true})
     })
+
   }
   
   
@@ -92,18 +85,21 @@ onBrandChange(event: Event) {
 }
 
 getbrands(brandId:any){
-  this.http.post(`http://localhost:5000/admin/getBrandDetails/${brandId}`,{
-    withCredentials:true
-  }).subscribe((response:any)=>{
+   this.adminApi.getBrands(brandId).subscribe((response:any)=>{
     console.log(response);
     this.brand=response.brand
     this.image = response.image
-    Emitters.authEmiter.emit(true)
+
   },(err)=>{
     console.log(err+"hhhhhhhhhhhhhhhhhhh");
-  this.route.navigate(['/admin']);
-  Emitters.authEmiter.emit(false)
+
   })
 }
-
+getImageUrl(image: string) {
+  if(image){
+    return this.adminApi.loadimage(image);
+  }else {
+    return null
+  }
+}
 }

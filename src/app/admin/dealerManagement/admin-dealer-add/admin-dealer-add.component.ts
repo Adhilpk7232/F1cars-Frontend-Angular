@@ -3,6 +3,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-dealer-add',
@@ -13,7 +14,7 @@ export class AdminDealerAddComponent implements OnInit{
 
   form!:FormGroup
   constructor(private formBuilder:FormBuilder,private http:HttpClient,
-    private router:Router){}
+    private router:Router,private toastr:ToastrService){}
    
     ngOnInit(): void {
         this.form = this.formBuilder.group({
@@ -43,10 +44,13 @@ export class AdminDealerAddComponent implements OnInit{
      }else if(!this.validateEmail(user.email)){
       Swal.fire('Error',"please enter valid email","error")
      }else{
-      this.http.post('http://localhost:5000/admin/createDealer',user,{
+      this.http.post('http://localhost:3000/admin/createDealer',user,{
         withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/admin/adminDealerManagement']),(err)=>{
-        Swal.fire('Error',err.error.message,"error")
+      }).subscribe(()=>{
+        this.toastr.success('Form Submitted','Successfully', { progressBar: true });
+        this.router.navigate(['/admin/adminDealerManagement'])
+      },(err)=>{
+        this.toastr.error(err.error.message ,'', {progressBar: true})
       })
      }
   }

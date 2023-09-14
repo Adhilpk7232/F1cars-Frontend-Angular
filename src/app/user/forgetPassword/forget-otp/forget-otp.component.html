@@ -4,19 +4,24 @@
 <!-- login container  -->
 <div class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
     <!-- form  -->
-    <div class="sm:w-1/2 px-16">
-        <h2 class="font-bold text-2xl text-[#002D74]">login</h2>
-        <p class="text-sm mt-5">If You Already a member easily login  otp send to{{email}} </p>
+    <div class="md:w-1/2 px-16">
+        <h2 class="font-bold text-2xl text-[#002D74]">Enter Otp</h2>
+        <p class="text-sm mt-5">If You Already a member easily login  otp send to <span class="text-gray-900">{{email}}</span> </p>
         <form [formGroup]="form" (submit)="submit()" class="flex flex-col gap-4">
-            <input class="p-2 mt-8 rounded-xl-border" type="number" name="otp" placeholder="Otp" required="" formControlName="otp">
+          <input class="mt-8 px-4 py-2 mb-4 w-20 text-center border rounded-md" type="text" name="otp" placeholder="Otp" required="" formControlName="otp">
             <input type="hidden" value="{{email}}" name="email" formControlName="email">
             <div *ngIf="otpEntered && f['otp'].errors" class="text-red-500">
                 <div *ngIf="f['otp'].errors['required']" class="p-2">otp is required</div>
                 <div *ngIf="f['otp'].errors['pattern']" class="p-2">Invalid otp</div>
                 </div>
-                <div>
-                    <p class="font-bold">{{message}}</p>
-                    <p class="text-sm">Something error try angain</p>
+                <div *ngIf="message" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
+                    <div class="flex">
+                      <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                      <div>
+                        <p class="font-bold">{{message}}</p>
+                        <p class="text-sm">Try angain</p>
+                      </div>
+                    </div>
                   </div>
             <button class="bg-[#002D74] rounded-xl text-white py-2 hover:scale-110 duration-300" type="submit">submit</button>
         </form>
@@ -25,7 +30,8 @@
               remaining time to resend otp:{{ transform(counter) }}
             </div>
             <div [ngClass]="{ visible: !tim, invisible: tim }">
-                <button class="bg-[#002D74] rounded-xl text-white py-2 hover:scale-110 duration-300" (click)="resend()">Resend OTP</button>
+              <button  class="bg-[#002D74] text-white px-4 py-2 mt-2 rounded-md" (click)="resend()">Resend OTP</button>
+                
             </div>
           </div>
         

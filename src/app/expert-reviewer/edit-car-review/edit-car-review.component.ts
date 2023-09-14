@@ -21,6 +21,7 @@ export class EditCarReviewComponent implements OnInit{
   revieweId:any;
   selectedFile:any|File=null;
   reviewData:any;
+  editReview!:boolean
   config:AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -33,6 +34,7 @@ export class EditCarReviewComponent implements OnInit{
   };
   constructor(private formBuilder: FormBuilder,private http:HttpClient,private router:Router,private route:ActivatedRoute, private reviewerApi:ReviewerServiceService){}
   ngOnInit(): void {
+    this.editReview =false
     this.revieweId= this.route.snapshot.paramMap.get('reviewId');
     this.reviewerApi.getCarReviewDeatilsForUpdate(this.revieweId).subscribe((res:any)=> { 
       this.reviewData = res
@@ -51,34 +53,26 @@ export class EditCarReviewComponent implements OnInit{
       content: ['', Validators.required],
       heading: ['', Validators.required],
       shortestDescription: ['', Validators.required],
-      overAllScore: ['', [Validators.required, Validators.min(0), Validators.max(10)]],
+      overAllScore: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
     });
 
     
   }
-  // onFileSelected(event:any){
-  //   this.selectedFile=<File>event.target.files[0]
-  // }
+
+  get f (){
+    return this.form.controls
+  }
   submit() {
+    this.editReview =true
     let carReview =this.form.getRawValue()
     console.log(carReview,"formData");
-    const formData = new FormData();
-    formData.append('content',carReview.content)
-    formData.append('heading',carReview.heading)
-    formData.append('shortestDescription',carReview.shortestDescription)
-    formData.append('overAllScore',carReview.overAllScore)
-    // formData.append('image',this.selectedFile,this.selectedFile.name)
-    // formData.append('carId',this.revieweId)
 
 
     if (this.form.valid) {
       // Handle the form submission here
       console.log('Form submitted successfully!');
-      console.log(formData.append,"ffff");
       
-      this.http.post(`http://localhost:5000/reviewer/updateReview/${this.revieweId}`,carReview,{
-        withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/reviewer/reviewManagement']),(err)=>{
+      this.reviewerApi.updateReview(this.revieweId,carReview).subscribe(()=> this.router.navigate(['/reviewer/reviewManagement']),(err)=>{
         this.router.navigate(['/reviewer/reviewerHome'])
       })
     } else {

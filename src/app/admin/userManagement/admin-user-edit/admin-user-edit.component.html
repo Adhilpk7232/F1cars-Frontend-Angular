@@ -1,24 +1,21 @@
-
+<!-- 
 <app-admin-nav></app-admin-nav>
 <div class="flex">
     <div class="h-full bg-gray-800">
         <app-admin-side-bar ></app-admin-side-bar>
     </div>
-    
-    <!-- mx-72  -->
+
     <div class="m-3 my-34 border-4 border-black-600 py-12 px-auto md:h-3/5 md:w-3/5">
-        <!-- Your main content here -->
         <h1 class="text-center font-bold text-4xl">Edit User</h1>
-        <div class="max-w-md mx-auto">
+      <div class="max-w-md mx-auto">
             <form [formGroup]="form" (submit)="submit()">
               <div class="mb-4">
                 <label class="block text-gray-700 text-2xl font-bold mb-2" for="name">
                   Name
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name" value="{{name}}" required="" formControlName="name">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text"   [(ngModel)]="currentname"  required="" formControlName="name">
                 <div *ngIf="submitForm && f['name'].errors" class="text-red-500">
                   <div *ngIf="f['name'].errors['required']" class="p-2">Name is Required</div>
-                  <div *ngIf="f['name'].errors['pattern']" class="p-2">Inavalid Name</div>
                   <div *ngIf="f['name'].errors['minlength']" class="p-2">Inavalid Name</div>
                   </div>
               </div>
@@ -26,7 +23,7 @@
                 <label class="block text-gray-700 text-2xl font-bold mb-2" for="email">
                   Email
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email" value="{{email}}" required="" formControlName="email">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email"  [(ngModel)]="currentemail" required="" formControlName="email">
                 <div *ngIf="submitForm && f['email'].errors" class="text-red-500">
                   <div *ngIf="f['email'].errors['required']" class="p-2">Email is Required</div>
                   <div *ngIf="f['email'].errors['email']" class="p-2">Inavalid Email</div>
@@ -38,7 +35,6 @@
                   <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
                   <div>
                     <p class="font-bold">{{message}}</p>
-                    <p class="text-sm">Something error try angain</p>
                   </div>
                 </div>
               </div>
@@ -52,6 +48,60 @@
           
       
     </div>
+</div> -->
+
+
+
+
+
+<app-admin-nav></app-admin-nav>
+<div class="flex h-screen">
+    <app-admin-side-bar class="bg-gray-800"></app-admin-side-bar>
+  <!-- Main Content -->
+  <div class="w-3/5 md:w-4/5 lg:w-5/6 bg-white p-4">
+    <!-- Your main content here -->
+    <div class="">
+      <h1 class="text-center font-bold text-4xl">Edit User</h1>
+      <div class="overflow-x-auto w-[75%]">
+        <form [formGroup]="form" (submit)="submit()">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-2xl font-bold mb-2" for="name">
+              Name
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text"   [(ngModel)]="currentname"  required="" formControlName="name">
+            <div *ngIf="submitForm && f['name'].errors" class="text-red-500">
+              <div *ngIf="f['name'].errors['required']" class="p-2">Name is Required</div>
+              <!-- <div *ngIf="f['name'].errors['pattern']" class="p-2">Inavalid Name</div> -->
+              <div *ngIf="f['name'].errors['minlength']" class="p-2">Inavalid Name</div>
+              </div>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-2xl font-bold mb-2" for="email">
+              Email
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email"  [(ngModel)]="currentemail" required="" formControlName="email">
+            <div *ngIf="submitForm && f['email'].errors" class="text-red-500">
+              <div *ngIf="f['email'].errors['required']" class="p-2">Email is Required</div>
+              <div *ngIf="f['email'].errors['email']" class="p-2">Inavalid Email</div>
+              
+              </div>
+          </div>
+          <div *ngIf="message" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
+            <div class="flex">
+              <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+              <div>
+                <p class="font-bold">{{message}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+              Edit
+            </button>
+          </div>
+        </form>
+          
+        </div>
+    </div>
+  </div>
 </div>
-
-

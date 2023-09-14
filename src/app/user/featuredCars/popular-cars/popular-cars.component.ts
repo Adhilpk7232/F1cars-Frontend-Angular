@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit ,Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
+import { ToastrService } from 'ngx-toastr';
+import { CarBrand } from 'src/app/models/carBrandpopulatedModel';
+import { addWishlistApi } from 'src/app/models/addWishlistRes';
 
 @Component({
   selector: 'app-popular-cars',
@@ -10,7 +13,7 @@ import { UserServiceService } from 'src/app/services/user/user-service.service';
 })
 export class PopularCarsComponent implements OnInit,AfterViewInit{
   @Input('popularCars')
-  popularCars:any[] =[];
+  popularCars:CarBrand[] =[];
 
   @ViewChild('sliderContainer')
   sliderContainer!:ElementRef;
@@ -19,12 +22,17 @@ export class PopularCarsComponent implements OnInit,AfterViewInit{
   elementsToShow = 3;
   sliderWidth=0
   sliderMarginLeft = 0
+  userLogin!: boolean;
+  userData!:any;
 
+  isInWishlist!: boolean;
   constructor(
     private userApi:UserServiceService,
+    private toastr:ToastrService,
     private router:Router ){}
   ngOnInit(): void {
-    this.userApi.getPopularCars().subscribe((res:any)=>{
+    this.checkUserLogin()
+    this.userApi.getPopularCars().subscribe((res:CarBrand[])=>{
       this.popularCars =res
       console.log(res);
       
@@ -32,21 +40,25 @@ export class PopularCarsComponent implements OnInit,AfterViewInit{
       console.log(err.error.message);
       
     })
-   console.log(this.popularCars,"init");
-   console.log(this.sliderContainer,"i");
   }
   ngAfterViewInit():void{
-    console.log(this.popularCars,"after");
-    
    this.setUpSlider()
     
 
   }
-
+  getImageUrl(image: string) {
+    if(image){
+      return this.userApi.loadimage(image);
+    }else {
+      return null
+    }
+  }
 
   getpopularcars(){
-    this.userApi.getPopularCars().subscribe((res:any)=>{
+    this.userApi.getPopularCars().subscribe((res:CarBrand[])=>{
       this.popularCars = res
+      console.log(res);
+      
       console.log(res);
       
     },(err)=>{
@@ -54,20 +66,27 @@ export class PopularCarsComponent implements OnInit,AfterViewInit{
       
     })
   }
-  updatePopularCars() {
-    this.getpopularcars();
-    console.log(this.popularCars, "update");
-  }
 
   setUpSlider(){
     let container = this.sliderContainer.nativeElement as HTMLElement;
     this.sliderContainterWidth = container.clientWidth
+    if(this.sliderContainterWidth <= 640 && this.sliderContainterWidth > 352){
+      console.log("hello fron if case");
+      
+      this.elementsToShow = 2
+    }
+    else if(this.sliderContainterWidth <= 352){
+      this.elementsToShow = 1
+    }
+    console.log(this.elementsToShow,"updated");
+    
     this.slideWidth = this.sliderContainterWidth/this.elementsToShow
     this.sliderWidth = this.slideWidth*this.popularCars.length
 
-    console.log(this.sliderContainterWidth,);
-    console.log(this.sliderWidth,);
-    console.log(this.slideWidth,);
+    console.log( this.sliderContainterWidth,"containerwidth");
+    console.log(this.sliderWidth,"sliderwidth");
+    console.log(this.slideWidth,"slidewidth");
+   
 
     
 
@@ -90,5 +109,35 @@ export class PopularCarsComponent implements OnInit,AfterViewInit{
     console.log("clicked next");
     
     this.sliderMarginLeft = this.sliderMarginLeft-this.slideWidth
+  }
+
+  addWishlist(carId:string){
+    
+    this.userApi.addWishlist(carId).subscribe((res:addWishlistApi) => { 
+
+      if(res.action == 'add'){
+        
+        this.toastr.success('Item added from wishlist!', 'Success');
+      }else{
+        
+        this.toastr.success('Item removed from wishlist!', 'Success');
+      }
+    })
+  }
+  checkUserLogin(){
+    if(this.userApi.getToken()){
+      this.userLogin = true
+      this.getUserData()
+      
+    }else{
+      this.userLogin = false
+    }
+    console.log(this.userLogin,this.userData,this.userApi.getToken());
+    
+  }
+  getUserData(){
+    this.userApi.getUserDetails().subscribe((res:any) =>{
+      this.userData = res
+    })
   }
 }

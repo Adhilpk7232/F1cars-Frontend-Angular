@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Emitters } from 'src/app/emitters/emitter';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 
 
 @Component({
@@ -18,46 +19,29 @@ export class CarReviewManagementComponent implements OnInit{
   count:number=0
   tableSize:number=5;
   tableSizes:any=[5,10,15,20]
-  constructor(private http:HttpClient, private router:Router){}
+  constructor(
+    private router:Router,
+    private adminApi:AdminServiceService
+    ){}
   ngOnInit(): void {
-    this.http.get('http://localhost:5000/admin/active',{
-      withCredentials:true
-    }).subscribe((response:any)=>{
-      console.log(response);
+
       this.getReviewes()
-      Emitters.authEmiter.emit(true)
-    },(err)=>{
-    this.router.navigate(['/admin']);
-    Emitters.authEmiter.emit(false)
-    })
+
   }
   getReviewes(){
-    this.http.get('http://localhost:5000/admin/carReview',{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+    this.adminApi.getAllCarReviewes().subscribe((response:any)=>{
       console.log(response);
       this.reviews=response
-      
-      console.log(this.reviews+"qqqqqqqqqqqqqqqq");
-      
-      Emitters.authEmiter.emit(true)
+
     },(err)=>{
       console.log(err+"hhhhhhhhhhhhhhhhhhh");
-    this.router.navigate(['/admin']);
-    Emitters.authEmiter.emit(false)
     })
   }
-  unlistReview(id:any){
-    console.log(id,"lljscnjn");
-    
-  }
-  unListReview(reviewId:any){
-    this.http.post(`http://localhost:5000/admin/unlistReview/${reviewId}`,{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+
+  unListReview(reviewId:string){
+    this.adminApi.unListReview(reviewId).subscribe((response:any)=>{
       console.log(response);
       this.reviews=response
-      Emitters.authEmiter.emit(true)
       Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -74,7 +58,6 @@ export class CarReviewManagementComponent implements OnInit{
         timer: 1500
       });
       this.router.navigate(['/admin']);
-      Emitters.authEmiter.emit(false)
     })
   }
   onTableDataChange(event:any){
@@ -85,5 +68,12 @@ export class CarReviewManagementComponent implements OnInit{
     this.tableSize=event.target.value;
     this.page=1
     this.getReviewes()
+  }
+  getImageUrl(image: string) {
+    if(image){
+      return this.adminApi.loadimage(image);
+    }else {
+      return null
+    }
   }
 }

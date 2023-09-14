@@ -1,0 +1,54 @@
+<!-- <section *ngIf="!Subscribe">
+    <div class="m-auto">
+        <h1 class="text-2xl font-semiBold w-fit mx-auto">This option you can't available Take an subscription</h1>
+        <img class="mx-auto" style="width: 200px;" src="../../../../../assets/images/noavailable.jpg" alt="">
+    </div>
+</section>
+
+<section *ngIf="Subscribe">
+
+    <div class="reviewerList" *ngIf="chatReviewers.length === 0">
+        <ul>
+            <li class="border" *ngFor="let expert of reviewers" >
+                <div class="flex  items-center w-fit">
+                    <div class="profile m-2">
+                        <img  class="border rounded-full p-2" src="../../../../../assets/images/defaultProfile.jpg" alt="" width="60px">
+                    </div>
+                    <h1 class="mx-3" >Name : {{expert.name|uppercase}}</h1>
+                    <h1 class="mx-3">Reviews : 130</h1>
+                    <h1 class="mx-3">InterNatinaol Expert</h1>
+                    <button class="mx-3 border p-3"   (click)="chatConnection(expert._id)">Chat</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+</section> -->
+
+<section *ngIf="!Subscribe">
+    <div class="mx-auto text-center">
+        <h1 class="text-2xl font-semibold">This option is not available. Take a subscription.</h1>
+        <img class="mx-auto w-64 sm:w-80 mt-4" src="../../../../../assets/images/noavailable.jpg" alt="">
+    </div>
+</section>
+
+<section *ngIf="Subscribe">
+    <!-- page no 1 -->
+    <div class="reviewerList" *ngIf="chatReviewers.length === 0">
+        <ul>
+            <li class="border" *ngFor="let expert of reviewers">
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start w-full">
+                    <div class="profile m-2">
+                        <img class="border rounded-full p-2 " width="60px" src="../../../../../assets/images/defaultProfile.jpg" alt="">
+                    </div>
+                    <div class="md:flex items-center gap-2 mt-2 sm:mt-0">
+                        <h1 class="text-lg font-semibold">Name: {{ expert.name | uppercase }}</h1>
+                        <h1 class="text-lg font-semibold">Reviews: 130</h1>
+                        <h1 class="text-lg font-semibold">International Expert</h1>
+                        <button class="mt-2 sm:mt-0 ml-0 sm:ml-3 border px-4 py-2" (click)="chatConnection(expert._id)">Chat</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

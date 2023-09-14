@@ -1,0 +1,8 @@
+/* .profile-img{
+    top: -80px;
+} */
+.active {
+    color: #282c2b;
+    border-bottom: 4px solid #000000
+    /* Add any other styles you want for the active item */
+  }

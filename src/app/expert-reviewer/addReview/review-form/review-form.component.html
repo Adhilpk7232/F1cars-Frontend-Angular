@@ -1,10 +1,10 @@
 <app-nav></app-nav>
 <div class="flex">
-    <div class=" h-full bg-gray-800 ">
+    <div class=" h-full bg-gray-800 w-fit">
         <app-side-bar ></app-side-bar>
     </div>
     
-    <div class="m-3">
+    <div class="m-3 w-full">
         <!-- Your main content here -->
         <h1>Angular editor for add review of car</h1>
         <div class="container">
@@ -12,7 +12,9 @@
                 <h1 class="mx-auto">Add Review</h1>
                 <angular-editor [placeholder]="'Enter text here...'" [config]="config" [(ngModel)]="htmlContent"
                     formControlName="content"></angular-editor>
-
+                    <div *ngIf="submitForm && f['content'].errors" class="text-red-500">
+                        Content Invalid
+                    </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="heading">
                         Heading
@@ -20,6 +22,9 @@
                     <input
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="heading" type="text" placeholder="Enter your name" required formControlName="heading">
+                        <div *ngIf="submitForm && f['heading'].errors" class="text-red-500">
+                            Heading Invalid
+                        </div>
                 </div>
 
                 <div class="mb-4">
@@ -30,6 +35,10 @@
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="shortestDescription" type="text" placeholder="Enter avoid reasons" required
                         formControlName="shortestDescription">
+                        <div *ngIf=" submitForm &&f['shortestDescription'].errors" class="text-red-500">
+                            ShortestDescription Invalid
+                        </div>
+                        
                 </div>
 
                 
@@ -40,14 +49,20 @@
                     </label>
                     <input
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="overAllScore" type="number" placeholder="Enter overall score (0-10)" required
+                        id="overAllScore" type="text" placeholder="Enter overall score (0-10)" required
                         formControlName="overAllScore">
+                        <div *ngIf="submitForm &&f['overAllScore'].errors" class="text-red-500">
+                            OverAllScore Invalid
+                        </div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
                       Add Image
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" type="file" placeholder="Enter your email" required="" (change)="onFileSelected($event)">
+                    <div *ngIf="submitForm && ImageFieldError" class="text-red-500">
+                        Image Invalid
+                    </div>
                   </div>
 
                 <button type="submit"

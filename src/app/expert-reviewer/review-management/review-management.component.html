@@ -8,6 +8,12 @@
     <!-- Your main content here -->
     <h1>Car reviewe Management</h1>
     <div class="">
+      <div>
+        <select name="" id="" (change)="onTableSizeChange($event)">
+          <option value="" *ngFor="let size of tableSizes">{{size}}</option>
+        </select>
+        
+      </div>
         
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
@@ -34,13 +40,13 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let item of reviews; let i = index">
+            <tr *ngFor="let item of reviews| paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
                 
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">{{ i + 1 }}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><img  [src]='"http://localhost:5000/public/brandImages/"+item.carId.image'
+                <div class="text-sm text-gray-900"><img [src]="getImageUrl(item.image)"
                     alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"></div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -55,14 +61,26 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 
-                <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="edit(item._id)">
+                <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2" (click)="edit(item._id)">
                   Edit
+                </button>
+                <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="preview(item._id)">
+                  Preview
                 </button>
               </td>
             </tr>
             
           </tbody>
         </table>
+        <div>
+          <div class="mt-3  d-flex justify-content-end" >
+            
+            <pagination-controls previousLabel="Prev"
+            nextLabel="Next" (pageChange)="onTableDataChange($event)">
+              
+            </pagination-controls>
+          </div>
+        </div>
         
       </div>
   

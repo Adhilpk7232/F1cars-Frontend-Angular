@@ -3,6 +3,9 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router,ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ReviewerServiceService } from 'src/app/services/reviewer/reviewer-service.service';
+ToastrService
 
 @Component({
   selector: 'app-review-form',
@@ -16,6 +19,8 @@ export class ReviewFormComponent implements OnInit{
   htmlContent='';
   carId:any;
   selectedFile:any|File=null;
+  ImageFieldError!:boolean
+  submitForm!:boolean;
   config:AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -26,15 +31,19 @@ export class ReviewFormComponent implements OnInit{
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
   };
-  constructor(private formBuilder: FormBuilder,private http:HttpClient,private router:Router,private route:ActivatedRoute){}
+  constructor(private formBuilder: FormBuilder,private http:HttpClient,private router:Router,private route:ActivatedRoute
+    ,private toastr:ToastrService,
+    private reviewerApi:ReviewerServiceService
+    ){}
   ngOnInit(): void {
+    this.submitForm = false 
     this.carId= this.route.snapshot.paramMap.get('carId');
     this.form = this.formBuilder.group({
       // Define form controls and add Validators as needed
       content: ['', Validators.required],
       heading: ['', Validators.required],
       shortestDescription: ['', Validators.required],
-      overAllScore: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
+      overAllScore: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
     });
 
     
@@ -42,8 +51,14 @@ export class ReviewFormComponent implements OnInit{
   onFileSelected(event:any){
     this.selectedFile=<File>event.target.files[0]
   }
+  get f (){
+    return this.form.controls
+  }
   submit() {
+    
+    this.submitForm = true 
     let carReview =this.form.getRawValue()
+    if (this.form.valid &&this.selectedFile) {
     console.log(carReview);
     const formData = new FormData();
     formData.append('content',carReview.content)
@@ -52,20 +67,21 @@ export class ReviewFormComponent implements OnInit{
     formData.append('overAllScore',carReview.overAllScore)
     formData.append('image',this.selectedFile,this.selectedFile.name)
     formData.append('carId',this.carId)
-
-
-    if (this.form.valid) {
+    
       // Handle the form submission here
       console.log('Form submitted successfully!');
       console.log(formData.append,"ffff");
       
-      this.http.post('http://localhost:5000/reviewer/addReview',formData,{
-        withCredentials: true
-      }).subscribe(()=> this.router.navigate(['/reviewer/reviewManagement']),(err)=>{
-        this.router.navigate(['/reviewer/reviewerHome'])
+      this.reviewerApi.addCarReview(formData).subscribe(()=> {
+        this.toastr.success('form submitted','Successfully', { progressBar: true });
+        this.router.navigate(['/reviewer/reviewManagement'])
+      },(err)=>{
+        this.toastr.error(err.error.message ,'', {progressBar: true})
+        
       })
-    } else {
-      // The form is invalid, do something (e.g., show error messages)
+    } else if(this.selectedFile == null){
+       this.ImageFieldError=true
+      
     }
   }
 }

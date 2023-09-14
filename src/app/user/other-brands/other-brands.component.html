@@ -1,0 +1,32 @@
+<div class="mainBrand ">
+    <div class="brandListing container mx-auto border border-gray-200 mT-4" [class.h-13rem]="!showMoreBrand" [class.h-fit]="showMoreBrand" [ngClass]="{'overflow-hidden': !showMoreBrand}">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 grid-flow-row  place-content-around">
+            <li class="flex flex-col justify-center items-center border border-black py-3"  *ngFor="let brand of BrandData"  >
+             <a routerLink="/brandCars/{{brand._id}}">
+                 <div class="">
+                     <img class=" px-6 object-cover rounded-md"
+                           [src]="getImageUrl(brand.image)"
+                          alt="">
+                 </div>
+                 <div class=" text-center">
+                     <h1 class="text-md mt-1">{{ brand.brand }}</h1>
+                 </div>
+
+             </a>
+                
+            </li>
+        </ul>
+    </div>
+    <div class="container mx-auto items-center h-20 sm:h-50 border border-black py-1 px-auto flex justify-center items-center mb-6"> 
+        <button class="p-2 font-semibold text-xl" (click)="readmore()">Read More</button>
+    </div>
+</div>
+<!-- <h1>other brands listing</h1>
+<ul>
+    <li *ngFor="let brand of BrandData">
+        <div>
+            <img src="http://localhost:3000/public/brandImages/{{ brand.image }}" alt="" width="80px" height="80px">
+        </div>
+        <h1>{{brand.brand}}</h1>
+    </li>
+</ul> -->

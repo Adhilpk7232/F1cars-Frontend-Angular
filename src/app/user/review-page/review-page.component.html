@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<section>
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+
+            <h1 class="text-2xl font-semiBold">Car Reviews</h1>
+            <p>Are you planning on buying a SUV? Well, we know that bodystyle is one of the most crucial things while
+                buying a car
+                and with so many options available out there, it gets really difficult to find a good car which suits
+                your pocket.
+                Hence, we have put together a complete list of best SUVs. Kia Seltos, Mahindra Scorpio and Mahindra
+                Thar are the 3 most popular cars under this preference. The upcoming cars under this preference are
+                Volkswagen Taigun,
+                BMW X3 M40i, Volkswagen ID.4, Force Motors Five-door Gurkha, Ferrari Purosangue SUV, Honda Elevate,
+                Nissan X-Trail,
+                Mercedes-Benz 2023 GLC and Audi Q8 e-tron. View the complete list of cars with information regarding
+                price, images,
+                videos, comparison,expert reviews, users reviews and much more for each of these cars so that you
+                get to choose the best SUV.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+            <h1>Suv Cars</h1>
+            <div class="my-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 grid-flow-row  gap-3 ">
+                <div class=" flex border rounded-md p-3 "
+                    *ngFor="let review of allReview| paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+                    <div class="hover:drop-shadow-md">
+                        <a routerLink="/reviewSinglePage/{{review._id}}">
+                            <img class="w-48"  [src]="getImageUrl(review.image)" alt="">
+                        </a>
+
+                    </div>
+                    <div class="my-auto ml-4">
+                        <h1 class="text-gray-500">Review By :{{review.reviewerId.name|uppercase}}</h1>
+                        <h3 class="text-gray-700 text-sm">{{review.heading}}</h3>
+                        <p class="text-gray-400">On-Road Price, Agra</p>
+                    </div>
+                </div>
+                <div class="mt-3  d-flex justify-content-end items-center">
+
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

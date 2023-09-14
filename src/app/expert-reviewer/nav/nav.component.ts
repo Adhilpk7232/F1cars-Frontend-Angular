@@ -17,9 +17,7 @@ export class NavComponent {
 
   logout(){
 
-    this.http.post('http://localhost:5000/reviewer/logout',{
-      withCredential:true
-    }).subscribe((res)=>{
+    this.reviewerApi.logout().subscribe((res)=>{
       console.log(res);
       this.reviewerApi.removeToken()
       this.route.navigate(['/reviewer'])

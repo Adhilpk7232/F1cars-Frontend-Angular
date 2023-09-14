@@ -5,6 +5,8 @@ import{FormBuilder,FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Validators } from '@angular/forms';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
+import { ToastrService } from 'ngx-toastr';
+import { LoaderserviceService } from 'src/app/services/loader/loaderservice.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +19,23 @@ export class LoginComponent implements OnInit {
   login=false
   message='';
   loader:boolean=false;
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router , private userService:UserServiceService){}
+  userId!:string
+
+  constructor(
+    private formBuilder:FormBuilder,
+    private http:HttpClient,
+    private router:Router , 
+    private userService:UserServiceService,
+    private toastr:ToastrService,
+    private loaderService:LoaderserviceService
+    ){}
   ngOnInit(): void {
+    this.loaderService.showLoader();
+
+    // Simulate an API request
+    setTimeout(() => {
+      this.loaderService.hideLoader();
+    }, 1000);
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[@$!%*?&])[a-zA-Z0-9@$!%*?&]{8,}$')]]
@@ -35,10 +52,17 @@ export class LoginComponent implements OnInit {
   console.log(user);
       this.userService.userLogin(user).subscribe((res:any)=> {
         this.loader = false
-        this.userService.saveToken(res.token);
+        console.log("hello",res.isVerified);
         if(res.isVerified === 0){
-          this.router.navigate(['/otp'])
+          
+          
+          this.userId = res.userEmail
+          const encodedEmail = encodeURIComponent(this.userId);
+          const queryParams = { email: encodedEmail };
+          this.router.navigate(['/otp'],{queryParams})
         }else{
+          this.userService.saveToken(res.token);
+          this.toastr.success('Login successfully!', 'Success');
           this.router.navigate(['/'])}
         }
         ,(err)=>{

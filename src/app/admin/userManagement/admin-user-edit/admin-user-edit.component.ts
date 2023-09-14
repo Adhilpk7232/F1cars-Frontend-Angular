@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
 import Swal from 'sweetalert2';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
+import { UserModel } from 'src/app/models/userModel';
+import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 
 @Component({
   selector: 'app-admin-user-edit',
@@ -13,96 +15,82 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AdminUserEditComponent implements OnInit{
 
-  name:any;
-  email:any;
-  city:any;
-  userId:any;
+  currentname!:string;
+  currentemail!:string;
+  oldName!:string;
+  oldEmail!:string;
+  city!:string;
+  userId!:string|null;
   submitForm:boolean=false;
 form!:FormGroup
 message:string='';
+changed!:boolean;
 constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:ActivatedRoute,
   private route:Router,
-  private snackBar: MatSnackBar
+  private toastr:ToastrService,
+  private adminApi:AdminServiceService
   ){}
  
   ngOnInit(): void {
+    
+    this.changed = false
       this.form = this.formBuilder.group({
-        name: [this.name, [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
-        email: [this.email, [Validators.required, Validators.email]],
+        name: [this.currentname, [Validators.required, Validators.minLength(3)]],
+        email: [this.currentemail, [Validators.required, Validators.email]],
 
       })
  
       this.userId = this.router.snapshot.paramMap.get('userId');
- 
-      this.http.get('http://localhost:5000/admin/active',{
-        withCredentials:true
-      }).subscribe((response:any)=>{
-        console.log(response);
-        this.getusers(this.userId)
-        Emitters.authEmiter.emit(true)
-      },(err)=>{
-      this.route.navigate(['/']);
-      Emitters.authEmiter.emit(false)
-      })
+      this.getusers(this.userId)
+
     }
     get f() {
       return this.form.controls;
     }
   submit():void{
-    this.submitForm = true
+    
     let user =this.form.getRawValue()
-  console.log(user);
-  if(user.name==null||user.email==null){
-    this.message = "Nochanges made"
-  }else if(user.name===''||user.email===''){
-    this.message = "fields cannot be empty"
-    }else
-      {
-      this.http.post(`http://localhost:5000/admin/editUser/${this.userId}`,user,{
-        withCredentials: true
-      }).subscribe(()=>{
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Your work has been saved',
-          showConfirmButton: false,
-          timer: 1000
-        });
+    
+    
+  console.log(user.name == this.oldName,user.name,this.oldName,this.currentname);
+  if(user.name == this.oldName && user.email == this.oldEmail ){
+    this.message = 'No changes Made'
+    return
+  }else{
+    this.changed = true
+  }
+  this.submitForm = true
+  if(this.changed && this.form.valid){
+    if(this.userId == null){
+      return
+    }
+
+    this.adminApi.userEdit(this.userId,user).subscribe(()=>{
+        this.toastr.success('Form Submitted','Successfully', { progressBar: true });
       this.route.navigate(['/admin/adminUserManagement'])
       }
       ,(err)=>{
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'Your work has been not save',
-          showConfirmButton: true,
-          timer: 1500
-        });
+        // this.toastr.error(err.error.message ,'', {progressBar: true})
         this.message = err.error.message 
       })
-    }
-    // this.showSuccessSnackBar('Form submitted successfully!');
+  }
+      
+
     
   }
-  showSuccessSnackBar(message: string) {
-    this.snackBar.open(message, 'Close', {
-      duration: 5000, // The duration the snackbar will be shown in milliseconds
-      panelClass: ['success-snackbar'], // Add your custom CSS class here if needed
-    });
-  }
 
-  getusers(userId:any){
-    this.http.post(`http://localhost:5000/admin/editUserDetails/${userId}`,{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+  getusers(userId:string|null){
+    if(userId == null){
+      return
+    }
+    this.adminApi.getUserInfo(userId).subscribe((response:UserModel)=>{
       console.log(response);
-      this.name=response.name
-      this.email=response.email
-      Emitters.authEmiter.emit(true)
+      this.currentname=response.name
+      this.oldName = response.name
+      this.oldEmail = response.email
+      this.currentemail=response.email
     },(err)=>{
       console.log(err+"hhhhhhhhhhhhhhhhhhh");
-    this.route.navigate(['/admin']);
-    Emitters.authEmiter.emit(false)
     })
   }
   }
