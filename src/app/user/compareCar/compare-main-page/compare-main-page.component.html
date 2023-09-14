@@ -1,0 +1,1367 @@
+<app-navbar></app-navbar>
+<section>
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+        <div class="compareHeader my-5">
+            <h1 class="text-4xl font-bold my-3">Compare Cars</h1>
+        <p>Are you confused between multiple cars to choose from? Not sure what to look for in comparison? Don't worry, car comparison was never so easy. Hence, CarWale brings you an amazing tool 'Compare Cars' for car comparison based on prices, mileage, power, performance, and 100s of other features. Compare your favourite cars to choose the one that suits your needs. Compare multiple cars at once to find the best one.
+        </p>
+        </div>
+        <div class="compareMainTable">
+            <h1 class="text-2xl">Q8 Sportback e-tron vs Q8 e-tron Comparison Overview</h1>
+            <div class="compareTable my-3">
+                
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border ">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Key Highlights
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Q8 Sportback e-tron
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Q8 e-tron
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                A6
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Price
+                            </th>
+                            <td class="px-6 py-4">
+                                Rs. 1.25 Crore
+                            </td>
+                            <td class="px-6 py-4">
+                                Rs. 1.20 Crore
+                            </td>
+                            <td class="px-6 py-4">
+                                Rs. 85.72 Lakh
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Engine Capacity
+                            </th>
+                            <td class="px-6 py-4">
+                                -
+                            </td>
+                            <td class="px-6 py-4">
+                                -
+                            </td>
+                            <td class="px-6 py-4">
+                                1984 cc
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Power
+                            </th>
+                            <td class="px-6 py-4">
+                                -
+                            </td>
+                            <td class="px-6 py-4">
+                                -
+                            </td>
+                            <td class="px-6 py-4">
+                                261 bhp
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Transmission
+                            </th>
+                            <td class="px-6 py-4">
+                                Automatic
+                            </td>
+                            <td class="px-6 py-4">
+                                Automatic
+                            </td>
+                            <td class="px-6 py-4">
+                                Automatic (DCT)
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Fuel Type
+                            </th>
+                            <td class="px-6 py-4">
+                                Electric
+                            </td>
+                            <td class="px-6 py-4">
+                                Electric
+                            </td>
+                            <td class="px-6 py-4">
+                                Petrol
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+        <div class="compareSelectCard flex border-2 my-6" style="height: 250px;">
+            <div class="selectCar w-3/12 border-2 flex items-center">
+                <h1 class="w-fit  mx-auto">Hide Common Features</h1>
+            </div>
+            
+            <div class="selectCar w-3/12 border-2 flex items-center" *ngIf="selectedcars.length == 0">
+                <!-- <h1 class="w-fit  mx-auto"></h1> -->
+                <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="w-full h-full" type="button" (click)="selectCar()">
+                    selectCar
+                  </button>
+            </div>
+            <div class="selectCar w-3/12 border-2 " *ngIf="selectedcars.length > 0">
+                <div class="flex justify-end">
+                    <p class="m-2 text-xl cursor-pointer" (click)="removeSelectedCar(0)"><i class="fa-solid fa-xmark"></i></p>
+                </div>
+                
+                <div class="carImage ">
+                    <img  [src]="getImageUrl(selectedcars[0].carId.image)" alt="" height="200px" width="200px">
+                </div>
+                <div class="carContent">
+                    <h1>{{selectedcars[0].carId.carName}}</h1>
+                    <h1>{{selectedcars[0].price}}</h1>
+
+                </div>
+                
+                
+            </div>
+            <div class="selectCar w-3/12 border-2 flex items-center" *ngIf="selectedcars.length < 2">
+                <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="w-full h-full" type="button" (click)="selectCar()">
+                    selectCar
+                  </button>
+            </div>
+            <div class="selectCar w-3/12 border-2 " *ngIf="selectedcars.length >= 2">
+                <div class="flex justify-end">
+                    <p class="m-2 text-xl cursor-pointer" (click)="removeSelectedCar(1)"><i class="fa-solid fa-xmark"></i></p>
+                </div>
+                <div class="carImage">
+                    <img  [src]="getImageUrl(selectedcars[1].carId.image)" alt="" height="200px" width="200px">
+                </div>
+                <div class="carContent">
+                    <h1>{{selectedcars[1].carId.carName}}</h1>
+                    <h1>{{selectedcars[1].price}}</h1>
+                </div>
+                
+            </div>
+            <div class="selectCar w-3/12 border-2 flex items-center" *ngIf="selectedcars.length < 3">
+                <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="w-full h-full" type="button" (click)="selectCar()">
+                    selectCar
+                  </button>
+            </div>
+            <div class="selectCar w-3/12 border-2 " *ngIf="selectedcars.length >= 3">
+                <div class="flex justify-end">
+                    <p class="m-2 text-xl cursor-pointer" (click)="removeSelectedCar(2)"><i class="fa-solid fa-xmark"></i></p>
+                </div>
+                <div class="carImage">
+                    <img  [src]="getImageUrl(selectedcars[2].carId.image)" alt="" height="200px" width="200px">
+                </div>
+                <div class="carContent">
+                    <h1>{{selectedcars[2].carId.carName}}</h1>
+                    <h1>{{selectedcars[2].price}}</h1>
+                </div>
+                
+            </div>
+
+
+        </div>
+        <div class="comapare-btn py-3" *ngIf="!showComapreData">
+            <button class="bg-red-600 py-6 px-10 text-2xl text-white" (click)="comapreButton()">
+                comapare
+            </button>
+        </div>
+        </div>
+
+    </div>
+
+    
+    
+</section>
+
+<!-- Modal toggle -->
+
+  
+  <!-- Main modal -->
+  <div id="staticModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-2xl max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+              <!-- Modal header -->
+              <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                      Static modal
+                  </h3>
+                  <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
+                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">Close modal</span>
+                  </button>
+              </div>
+              <!-- Modal body -->
+              <div class="p-6 space-y-6">
+                <ul *ngIf="brandsForSelection">
+                    <li *ngFor="let brand of brandsForSelection">
+                        <h1 (click)="showSelectionCar(brand._id)">{{brand.brand}}</h1>
+                        <div *ngIf="CarsForSelection">
+                            <div *ngFor="let car of CarsForSelection"  (click)="showSelectedVersions(car.carId._id)">
+                                {{car.carId.carName}}
+                            
+                            <div *ngIf="showVersion && versions"  >
+                                <div *ngFor="let version of versions">
+                                    <p (click)="toggleSelecteditems(version)">{{version.version}}</p>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        </div>
+                    </li>
+                </ul>
+                
+              </div>
+              <!-- Modal footer -->
+              <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                  <button data-modal-hide="staticModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                  <button data-modal-hide="staticModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+
+<section class="mb-4 " *ngIf="showComapreData">
+    <div class="container mx-5 lg:mx-auto py-3 featuredcar ">
+    
+    <div>
+        <ul class="featuredOptions flex border-b-4  items-center gap-10 pt-3">
+            <li class="text-xs lg:text-lg py-1" [class.active]="selectedCategory === 'SPECIFICATION'" (click)="selectCategory('SPECIFICATION')">SPECIFICATION</li>
+            <li class="text-xs lg:text-lg py-1" [class.active]="selectedCategory === 'FEATURES'" (click)="selectCategory('FEATURES')">FEATURES</li>
+            <li class="text-xs lg:text-lg py-1" [class.active]="selectedCategory === 'BROCHURE'" (click)="selectCategory('BROCHURE')">BROCHURE</li>
+            <li class="text-xs lg:text-lg py-1" [class.active]="selectedCategory === 'COLOUR'" (click)="selectCategory('COLOUR')">COLOUR</li>
+
+        </ul>
+        <div class="spec border-2" >
+            <!-- spec heading  -->
+            <div class="firstHeading w-full bg-gray-200">
+                <h1 class="text-2xl font-semibold p-3">Specifications and Finance</h1>
+            </div>
+            <!-- first Table Vale  -->
+            <div class="compareSelectCard flex border-2 " style="height: 100px;">
+                <div class="selectCar w-3/12 border-2 flex items-center">
+                    <h1 class="w-fit  mx-auto">Price</h1>
+                </div>
+                <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                    <h1 class="w-fit  mx-auto">{{version.price}}</h1>
+                </div>
+
+            </div>
+             <!-- spec fiels start  -->
+            <div class="specField">
+                <div class="SpecContent border " [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                    <div class="specHeading flex justify-between items-center h-xl " >
+                        <h1 class="text-xl font-semibold p-3">Engine & Transmission</h1>
+                        <button class="m-3" (click)="readmore()">More</button>
+                    </div>
+                    <div class="specDetails">
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Engine </h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.Engine}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Engine Type</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.EngineType}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Fuel Type</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.FuelType}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">MaxPower</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.MaxPower}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">MaxTorque</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.MaxTorque}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Mileage</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.Mileage}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">DrivingRange</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.DrivingRange}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Drivetrain</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.Drivetrain}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Transmission</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.Transmission}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">EmissionStandard</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.EmissionStandard}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Others</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.EngineTransmission.Others}}</h1>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                    <div class="specHeading flex justify-between items-center h-xl ">
+                        <h1 class="text-xl font-semibold p-3">Dimensions & Weight</h1>
+                        <button class="m-3" (click)="readmore()">More</button>
+                    </div>
+                    <div class="specDetails">
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Length</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.DimensionsWeight.Length}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Width</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.DimensionsWeight.Width}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Height</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.DimensionsWeight.Height}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">WheelBase</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.DimensionsWeight.WheelBase}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">GroundClearance</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.DimensionsWeight.GroundClearance}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                    <div class="specHeading flex justify-between items-center h-xl">
+                        <h1 class="text-xl font-semibold p-3">Capacity</h1>
+                        <button class="m-3" (click)="readmore()">More</button>
+                    </div>
+                    <div class="specDetails">
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">Doors</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.Capacity.Doors}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">SeattingCapacity</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.Capacity.SeattingCapacity}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">NoOFseatCapacityRow</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.Capacity.NoOFseatCapacityRow}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">BootSpace</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.Capacity.BootSpace}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">FuelTankCapacity</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.Capacity.FuelTankCapacity}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                    <div class="specHeading flex justify-between items-center h-xl">
+                        <h1 class="text-xl font-semibold p-3">Suspensions, Brakes, Steering & Tyres</h1>
+                        <button class="m-3" (click)="readmore()">More</button>
+                    </div>
+                    <div class="specDetails">
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">FrontSuspension</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.FrontSuspension}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">RearSuspension</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.RearSuspension}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">FrontBrakeType</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.FrontBrakeType}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">RearBrakeType</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.RearBrakeType}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">MinimumTurningRadius</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.MinimumTurningRadius}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">SpareWheel</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.SpareWheel}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">FrontTyres</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.FrontTyres}}</h1>
+                            </div>
+                            
+                        </div>
+                        <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                            <div class="selectCar w-3/12 border-2 flex items-center">
+                                <h1 class="w-fit  mx-auto">RearTyres</h1>
+                            </div>
+                            <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                                <h1 class="w-fit  mx-auto">{{version.Specification.SuspensionsBrakesSteeringTyres.RearTyres}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- features second heading  -->
+             <!-- spec heading  -->
+             <div class="secondHeading w-full bg-gray-200">
+                <h1 class="text-2xl font-semibold p-3">Features</h1>
+                <button class="m-3" (click)="readmore()">More</button>
+            </div>
+            <!-- features fiels  -->
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Safety</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">OverspeedWarning</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Safety.OverspeedWarning}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Airbags</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Safety.Airbags}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Middlerearthreepointseatbelt</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Safety.Middlerearthreepointseatbelt}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">MiddleRearHeadRest</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Safety.MiddleRearHeadRest}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ChildSeatAnchorPoints</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Safety.ChildSeatAnchorPoints}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">SeatBeltWarning</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Safety.SeatBeltWarning}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Braking & Traction</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AntiLockBrakingSystem</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.BrakingTraction.AntiLockBrakingSystem}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ElectronicBrakeforceDistribution</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.BrakingTraction.ElectronicBrakeforceDistribution}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">BrakeAssist</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.BrakingTraction.BrakeAssist}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ElectronicStabilityProgram</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.BrakingTraction.ElectronicStabilityProgram}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">HillHoldControl</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.BrakingTraction.HillHoldControl}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">TractionControlSystem</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.BrakingTraction.TractionControlSystem}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Locks & Security</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Engineimmobilizer</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.LocksSecurity.Engineimmobilizer}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">CentralLocking</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.LocksSecurity.CentralLocking}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">SpeedSensingDoorLock</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.LocksSecurity.SpeedSensingDoorLock}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ChildSafetyLock</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.LocksSecurity.ChildSafetyLock}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Comfort & Convenience</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AirConditioner</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.AirConditioner}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">FrontAC</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.FrontAC}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Heater</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.Heater}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">VanityMirrorsonSunVisors</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.VanityMirrorsonSunVisors}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">CabinBootAccess</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.CabinBootAccess}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AntiglareMirrors</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.AntiglareMirrors}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ParkingSensors</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.ParkingSensors}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">SteeringAdjustment</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.SteeringAdjustment}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">PowerOutlets</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ComfortConvenience.PowerOutlets}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Telematics</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">OverTheAir</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Telematics.OverTheAir}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Seats & Upholstery</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">DriverSeatAdjustment</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.DriverSeatAdjustment}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">FrontPassengerSeatAdjustment</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.FrontPassengerSeatAdjustment}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">RearRowSeatAdjustment</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.RearRowSeatAdjustment}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">SeatUpholstery</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.SeatUpholstery}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Interiors</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.Interiors}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">FoldingRearSeat</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.FoldingRearSeat}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">SplitReareat</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.SplitReareat}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Headrests</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.SeatsUpholstery.Headrests}}</h1>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Storage</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">CupHolders</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Storage.CupHolders}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">DoorsWindowsMirrorsWipers</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">OutsideRearViewMirrorsColor</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.OutsideRearViewMirrorsColor}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">PowerWindows</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.PowerWindows}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">OneTouchDown</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.OneTouchDown}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">OneTouchUp</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.OneTouchUp}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AdjustableORVM</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.AdjustableORVM}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">TurnIndicatorsonORVM</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.TurnIndicatorsonORVM}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">RearDefogger</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.RearDefogger}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ExteriorDoorHandles</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.ExteriorDoorHandles}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">InteriorDoorHandles</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.InteriorDoorHandles}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">DoorPockets</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.DoorPockets}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">BootlidOpener</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.DoorsWindowsMirrorsWipers.BootlidOpener}}</h1>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Lighting</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Headlights</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Lighting.Headlights}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">TailLights</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Lighting.TailLights}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">CabinLamps</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Lighting.CabinLamps}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">RearReadingLamp</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Lighting.RearReadingLamp}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">HeadlightHeightAdjuster</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Lighting.HeadlightHeightAdjuster}}</h1>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Exterior</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">RoofMountedAntenna</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Exterior.RoofMountedAntenna}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ChromeFinishExhaustpipe</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Exterior.ChromeFinishExhaustpipe}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">Instrumentation</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">InstrumentCluster</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.InstrumentCluster}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">TripMeter</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.TripMeter}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AverageFuelConsumption</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.AverageFuelConsumption}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">DistancetoEmpty</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.DistancetoEmpty}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Clock</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.Clock}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">DoorAjarWarning</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.DoorAjarWarning}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AdjustableClusterBrightness</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.AdjustableClusterBrightness}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">ShiftIndicator</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.ShiftIndicator}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Tachometer</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.Instrumentation.Tachometer}}</h1>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">EntertainmentInformationCommunication</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">SmartConnectivity</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.SmartConnectivity}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Display</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.Display}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">TouchScreenSize</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.TouchScreenSize}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">IntegratedMusicSystem</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.IntegratedMusicSystem}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Speakers</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.Speakers}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">Steeringmountedcontrols</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.Steeringmountedcontrols}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">VoiceCommand</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.VoiceCommand}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">BluetoothCompatibility</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.BluetoothCompatibility}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AuxCompatibility</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.AuxCompatibility}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">AMFMRadio</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.AMFMRadio}}</h1>
+                        </div>
+                        
+                    </div>
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">USBCompatibility</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.EntertainmentInformationCommunication.USBCompatibility}}</h1>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="SpecContent border" [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                <div class="specHeading flex justify-between items-center h-xl flex justify-between">
+                    <h1 class="text-xl font-semibold p-3">ManufacturerWarranty</h1>
+                    <button class="m-3" (click)="readmore()">More</button>
+                </div>
+                <div class="specDetails">
+                    <div class="compareSelectCard flex border-2 " style="height: 80px;">
+                        <div class="selectCar w-3/12 border-2 flex items-center">
+                            <h1 class="w-fit  mx-auto">BatteryWarranty</h1>
+                        </div>
+                        <div class="selectCar w-3/12 border-2 flex items-center" *ngFor="let version of selectedcars">
+                            <h1 class="w-fit  mx-auto">{{version.Features.ManufacturerWarranty.BatteryWarranty}}</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

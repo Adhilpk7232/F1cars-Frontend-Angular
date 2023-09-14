@@ -22,7 +22,7 @@ export class AdminDealerListComponent implements OnInit{
    ngOnInit(): void {
      
      
-     this.http.get('http://localhost:5000/admin/active',{
+     this.http.get('http://localhost:3000/admin/active',{
        withCredentials:true
      }).subscribe((response:any)=>{
        console.log(response);
@@ -35,7 +35,7 @@ export class AdminDealerListComponent implements OnInit{
    }
  
    getusers(){
-     this.http.get('http://localhost:5000/admin/dealer',{
+     this.http.get('http://localhost:3000/admin/dealer',{
        withCredentials:true
      }).subscribe((response:any)=>{
        console.log(response);
@@ -65,7 +65,7 @@ export class AdminDealerListComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(userId+"toDeeeeeeeeeeeeeeeeee");
-        this.http.post(`http://localhost:5000/admin/deleteDealer/${userId}`,{
+        this.http.post(`http://localhost:3000/admin/deleteDealer/${userId}`,{
           withCredentials:true
         }).subscribe((response:any)=>{
           console.log(response);

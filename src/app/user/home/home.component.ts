@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router ,NavigationEnd} from '@angular/router';
+import { ApiResponse } from 'src/app/models/apiResponse';
+import { BrandModel } from 'src/app/models/brandModel';
+import { CarBrand } from 'src/app/models/carBrandpopulatedModel';
+import { getfilterDataRes } from 'src/app/models/getFilterDataRes';
+import { CarReview } from 'src/app/models/reviewModel';
+import { SubscriptionPlan } from 'src/app/models/subscriptionPlan';
+import { LoaderserviceService } from 'src/app/services/loader/loaderservice.service';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
-declare var Razorpay: any;
+
+declare const Razorpay: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,39 +18,73 @@ declare var Razorpay: any;
 })
 export class HomeComponent implements OnInit{
   loading:boolean = true
-  paymentId:any;
-  paymentStatus!:string;
+  paymentId!:String;
+  paymentStatus!:String;
 
-  popularCars:any[]=[]
-  justLaunched:any[]=[]
-  upcommingCars:any[]=[]
+  showLoader: boolean = false; // Define showLoader property
 
-  brand:any[]=[]
-  plans:any[]=[]
+  popularCars:CarBrand[]=[]
+  justLaunched:CarBrand[]=[]
+  upcommingCars:CarBrand[]=[]
 
-  SinglePlan:any;
+  filterData!:getfilterDataRes;
+  uniqueBodyTypes:string[] = [];
+  uniqueTransmissions:string[] = [];
+  uniqueFuelTypes:string[] = [];
+  uniqueSeatCapacities:string[] = [];
+
+  reviews:CarReview[]=[]
+
+  brand:BrandModel[]=[]
+  plans:SubscriptionPlan[]=[]
+
+  // SinglePlan:any;
   selectedPlan: string = '';
-  constructor(private userApi:UserServiceService){}
+  selectedCategory:String='BUDGET';
+  userLogged!:boolean;
+  planData:any;
+  searchText!:string;
+  cars:CarBrand[]=[]
+  searched!:boolean;
+  constructor(private userApi:UserServiceService ,private router:Router,private loaderService:LoaderserviceService){
+    // Subscribe to navigation events to disable the loader when navigation is complete
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showLoader = false;
+      }
+    });
+  }
 
   
   selectedItem:string='POPULAR';
   ngOnInit(): void {
+    this.loaderService.showLoader();
+
+    // Simulate an API request
+    setTimeout(() => {
+      this.loaderService.hideLoader();
+    }, 1300);
     this.loading = false;
+    // this.selectCategory = 'BUDGET'
     this.getPlan()
     this.getBrand()
     this.getPopularCars()
+    this.getReviews()
+    this.getFilterData()
+    this.getCars()
+    this.userLogged = this.isuserLoggeIn()
    
-    this.userApi.getJustLaunched().subscribe((res:any)=>{
+    this.userApi.getJustLaunched().subscribe((res:CarBrand[])=>{
       this.justLaunched =res
-      console.log(res);
+      console.log(res),"JUST";
       
     },(err)=>{
       console.log(err.error.message);
       
     })
-    this.userApi.getUpcommingCars().subscribe((res:any)=>{
+    this.userApi.getUpcommingCars().subscribe((res:CarBrand[])=>{
       this.upcommingCars =res
-      console.log(res);
+      console.log(res,"UPCOMMING");
       
     },(err)=>{
       console.log(err.error.message);
@@ -48,7 +92,7 @@ export class HomeComponent implements OnInit{
     })
   }
   getBrand(){
-    this.userApi.getBrands().subscribe((res:any)=> {
+    this.userApi.getBrands().subscribe((res:BrandModel[])=> {
       this.brand = res
       console.log(res);
       
@@ -58,14 +102,26 @@ export class HomeComponent implements OnInit{
     })
   }
   getPlan(){
-    this.userApi.getplans().subscribe((res:any)=> {
+    this.userApi.getplans().subscribe((res:SubscriptionPlan[])=> {
       this.plans = res
     })
   }
   getPopularCars(){
-    this.userApi.getPopularCars().subscribe((res:any)=>{
+    this.userApi.getPopularCars().subscribe((res:CarBrand[])=>{
       this.popularCars =res
-      console.log(res);
+      console.log(res,"POPULAR");
+      
+    },(err)=>{
+      console.log(err.error.message);
+      
+    })
+  }
+  getReviews(){
+    console.log("call al reviewes");
+    
+    this.userApi.getAllreviews().subscribe((res:CarReview[])=>{
+      this.reviews =res
+      console.log(res,"all reviewes");
       
     },(err)=>{
       console.log(err.error.message);
@@ -76,48 +132,59 @@ export class HomeComponent implements OnInit{
   selectItem(item:string){
     this.selectedItem=item
   }
+  selectCategory(category:string){
+    this.selectedCategory=category
+  }
 
   selectPlan(plan: string): void {
+    this.userApi.findPlan(plan).subscribe((res:SubscriptionPlan) => {
+      this.planData = res;
+    },(err) =>{
+      console.log("Somthing wrong")
+    })
     this.selectedPlan = plan;
-    // this.userApi.getPlanDeatails(plan)
 
   }
-  buy(selectedPlan: string) {
-    console.log(`Buying plan: ${selectedPlan}`);
-    const RzorpayOptions ={
-      description:"",
-      currency:"INR",
-      amount:3000,
-      name:"Adhil Pk",
-      key:'rzp_test_ejR8ywN9fvcbY6',
-      image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/39472/a6-exterior-right-front-three-quarter.jpeg?q=75&q=75',
-      prefil:{
-        name:'user kumar',
-        email:"user@gmail.com",
-        phone:'8080808080'
-      },
-      theme:{
-        color:'#f37254'
-      },
-      modal:{
-        ondismiss:() =>{
-          console.log('dismissed');
-          
-        }
-      }
+  getImageUrl(image: string) {
+    if(image){
+      return this.userApi.loadimage(image);
+    }else {
+      return null
     }
-    const successCallback = (paymentid:any) => {
-      console.log(paymentid);
-      this.paymentId = paymentid
-      this.paymentStatus = 'success'
-      
-    }
-    const failureCallback = (e:any) => { 
-      console.log(e);
-      this.paymentStatus = 'failed'
-      
-    }
-    Razorpay.open(RzorpayOptions,successCallback,failureCallback)
   }
-  
+  isuserLoggeIn():boolean{
+    const loggged =  localStorage.getItem('jwtToken')
+    if(loggged == null){
+      return false
+    }else{
+      return true
+    }
+    
+  }
+  enableLoader() {
+    this.showLoader = true;
+  }
+  getFilterData(){
+    this.userApi.getFilterData().subscribe((res:getfilterDataRes) =>{
+      this.filterData =  res
+      // console.log(this.filterData,"filterData");
+      this.uniqueBodyTypes= res.uniqueBodyTypes
+      this.uniqueTransmissions= res.uniqueTransmissions
+      this.uniqueFuelTypes= res.uniqueFuelTypes
+      this.uniqueSeatCapacities= res.uniqueSeatCapacities
+      
+    })
+  }
+  getCars(){
+    this.userApi.getAllCars().subscribe((res:CarBrand[])=>{
+      this.cars = res
+      console.log(this.cars,"all cars goted");
+      
+    })
+  }
+  searchCars(){
+    console.log("clicked");
+    
+    this.searched = !this.searched
+  }
 }

@@ -1,0 +1,213 @@
+<app-navbar></app-navbar>
+<section>
+    <div class="container py-4">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+            <h1>F1CARS CARS</h1>
+        <app-show-more-text [text]="'Are you planning on buying a SUV? Well, we know that bodystyle is one of the most crucial things while buying a car 
+        and with so many options available out there, it gets really difficult to find a good car which suits your pocket.
+         Hence, we have put together a complete list of best SUVs. Kia Seltos, Mahindra Scorpio and Mahindra 
+         Thar are the 3 most popular cars under this preference. The upcoming cars under this preference are Volkswagen Taigun,
+          BMW X3 M40i, Volkswagen ID.4, Force Motors Five-door Gurkha, Ferrari Purosangue SUV, Honda Elevate, Nissan X-Trail,
+           Mercedes-Benz 2023 GLC and Audi Q8 e-tron. View the complete list of cars with information regarding price, images,
+            videos, comparison,expert reviews, users reviews and much more for each of these cars so that you 
+            get to choose the best SUV.'" [wordLimit]="250"></app-show-more-text>
+        </div>
+    </div>
+    
+<!-- filter modal  -->
+<section>
+    <div class="container">
+        <!-- Default Modal -->
+    <div id="medium-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-lg max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" *ngIf="filterData">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                        Filter modal
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="medium-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <div class="border-2 p-3 " [class.h-xl]="!showMore" [class.h-fit]="showMore" [ngClass]="{'overflow-hidden': !showMore}">
+                        <div class="first flex justify-between items-center my-1">
+                            <p class="">Budget</p>
+                            <p (click)="readmore()">more</p>
+                        </div>
+                        <div class="second">
+                            <!-- <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider> -->
+                              
+                            <!-- <label for="default-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default range</label>
+                            <input id="default-range" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"> -->
+                        </div>
+                        
+                    </div>
+                    <div class="border-2 p-3" [class.h-xl]="!Bodymore" [class.h-fit]="Bodymore" [ngClass]="{'overflow-hidden': !Bodymore}">
+                        <div class="first flex justify-between items-center">
+                            <p>Body Type</p>
+                            <p (click)="Bodyreadmore()">more</p>
+                        </div>
+                        <div class="second">
+
+                            <div class=" text-center" *ngFor="let item of uniqueBodyTypes"
+                            [ngClass]="{'selected': isItemSelected(item, selectedBodyTypes)}"
+                            (click)="toggleBodyType(item)">
+                                <h1 class="text-md mt-1">{{item}}</h1>
+                            </div>
+                           
+                        </div>
+                        
+                    </div>
+                    <div class="border-2 p-3" [class.h-xl]="!Fuelmore" [class.h-fit]="Fuelmore" [ngClass]="{'overflow-hidden': !Fuelmore}">
+                        <div class="first flex justify-between items-center">
+                            <p>Fuel Type</p>
+                            <p (click)="Fuelreadmore()">more</p>
+                        </div>
+                        <div class="second">
+                            <div class=" text-center" *ngFor="let item of uniqueFuelTypes"
+                            [ngClass]="{'selected': isItemSelected(item, selectedFuelTypes)}"
+                            (click)="toggleFuelType(item)">
+                                <h1 class="text-md mt-1">{{item}}</h1>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="border-2 p-3" [class.h-xl]="!Transmissionmore" [class.h-fit]="Transmissionmore" [ngClass]="{'overflow-hidden': !Transmissionmore}">
+                        <div class="first flex justify-between items-center">
+                            <p>Transmission Type</p>
+                            <p (click)="Transmissionreadmore()">more</p>
+                        </div>
+                        <div class="second">
+                            <div class="second">
+                                <div class=" text-center" *ngFor="let item of uniqueTransmissions"
+                                [ngClass]="{'selected': isItemSelected(item, selectedTransmissionTypes)}"
+                                (click)="toggleTransmissionType(item)">
+                                    <h1 class="text-md mt-1">{{item}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="border-2 p-3" [class.h-xl]="!seatCapacitymore" [class.h-fit]="seatCapacitymore" [ngClass]="{'overflow-hidden': !seatCapacitymore}">
+                        <div class="first flex justify-between items-center">
+                            <p>seatCapacity</p>
+                            <p (click)="seatCapacityreadmore()">more</p>
+                        </div>
+                        <div class="second">
+                            <div class="second">
+                                <div class=" text-center" *ngFor="let item of uniqueSeatCapacities"
+                                [ngClass]="{'selected': isItemSelected(item, selectedSeatCapacities)}"
+                                (click)="toggleSeatCapacity(item)">
+                                    <h1 class="text-md mt-1">{{item}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button data-modal-hide="medium-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"(click)=applyFilters()>Apply Filter</button>
+                    <button data-modal-hide="medium-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" (click)="clearAllSelections()">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between bg-gray-300">
+                <!-- Filter Section -->
+                <div class="filter md:w-1/2">
+                    <h1 class="font-bold ml-3 mt-3">Filter By</h1>
+                    <div class="filter-btn flex flex-wrap">
+                        <!-- Modal toggle -->
+                        <button data-modal-target="medium-modal" data-modal-toggle="medium-modal" class="hover:bg-gray-600 p-2 m-3 bg-white" type="button" >
+                            Budget
+                        </button>
+                        <button data-modal-target="medium-modal" data-modal-toggle="medium-modal" class="hover:bg-gray-600 p-2 m-3 bg-white" type="button" >
+                            Body Type
+                        </button
+                        ><button data-modal-target="medium-modal" data-modal-toggle="medium-modal" class="hover:bg-gray-600 p-2 m-3 bg-white" type="button" >
+                            Fuel Type
+                        </button>
+                        <button data-modal-target="medium-modal" data-modal-toggle="medium-modal" class="hover:bg-gray-600 p-2 m-3 bg-white" type="button" >
+                            Transmission Type
+                        </button>
+                        <button data-modal-target="medium-modal" data-modal-toggle="medium-modal" class="hover:bg-gray-600 p-2 m-3 bg-white" type="button" >
+                            Seat Capacity
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Sort By Section -->
+                <div class="sortBy md:w-1/2 p-4 mt-3 md:mt-0">
+                    <label for="sortBy" class="block font-semibold text-gray-700">Sort by:</label>
+                    <select id="sortBy"
+                        class="border p-2 m-3 bg-white focus:outline-none focus:ring-0 focus:border-black"
+                        (change)="onSortChange($event)">
+                        <option value="asc">Price: Low to High</option>
+                        <option value="desc">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+            <h1>Suv Cars</h1>
+            <div class="noresult bg-gray-100 py-2" *ngIf="allCars.length === 0">
+                <div class="img">
+                    <img src="../../../assets/images/no-result-in carPage.webp" alt="">
+                </div>
+                <div class="py-2">
+                    <p>Currently no cars available in this category</p>
+                </div>
+            </div>
+        <div class="my-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 grid-flow-row  gap-3 " *ngIf="allCars.length>0">
+            <div class=" flex border rounded-md p-3 " *ngFor="let car of allCars | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+                <div class="hover:drop-shadow-md">
+                    <a routerLink="/carSinglePage/{{car._id}}">
+                        <img class="w-48"  [src]="getImageUrl(car.image)" alt="">
+                    </a>
+                    
+                </div>
+                <div class="my-auto ml-4">
+                    <h1 class="text-gray-500">{{car.carName}}</h1>
+                    <div class="text-gray-700 text-sm" [innerHTML]="car.price | calculateTax: '64dcd63ceff1256275bc4078' | async" *ngIf="!userLogin"></div>
+                    <div class="text-gray-700 text-sm" [innerHTML]="car.price | calculateTax: userData.state._id | async" *ngIf="userLogin && userData"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="mt-3  d-flex justify-content-end" >
+            
+                
+            <div class="pagination my-3" >
+                <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"><< Previous</button>
+                <span *ngFor="let page of getPages()" class="bg-blue-100 m-1 p-2">{{ page }}</span>
+                <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages">Next >></button>
+              </div>
+              
+          </div>
+        </div>
+        
+    </div>
+</section>
+
+<app-footer></app-footer>

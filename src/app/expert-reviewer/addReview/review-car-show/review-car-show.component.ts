@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
+import { ReviewerServiceService } from 'src/app/services/reviewer/reviewer-service.service';
 
 @Component({
   selector: 'app-review-car-show',
@@ -12,40 +13,48 @@ export class ReviewCarShowComponent implements OnInit{
 
   brandId!:any;
   cars:any=[]
-  constructor(private http:HttpClient, private router:ActivatedRoute,private route:Router){}
+  page:number=1
+  count:number=0
+  tableSize:number=5;
+  tableSizes:any=[5,10,15,20]
+
+  constructor(private http:HttpClient, private router:ActivatedRoute,private route:Router,
+    private reviewerApi:ReviewerServiceService){}
   ngOnInit(): void {
     this.brandId = this.router.snapshot.paramMap.get('brandId');
-    this.http.get('http://localhost:5000/reviewer/active',{
-      withCredentials:true
-    }).subscribe((response:any)=>{
-      console.log(response);
+
       this.getCars(this.brandId)
-      Emitters.authEmiter.emit(true)
-    },(err)=>{
-    this.route.navigate(['/reviewer']);
-    Emitters.authEmiter.emit(false)
-    })
+
   }
  
   getCars(BrandId:any){
-    this.http.get(`http://localhost:5000/reviewer/cars/${BrandId}`,{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+    this.reviewerApi.getCars(BrandId).subscribe((response:any)=>{
       console.log(response);
       this.cars=response
-      
-      console.log(this.cars+"qqqqqqqqqqqqqqqq");
-      
-      Emitters.authEmiter.emit(true)
+      this.count = this.cars.length;
+
     },(err)=>{
       console.log(err+"hhhhhhhhhhhhhhhhhhh");
-    this.route.navigate(['/reviewer/reviewerHome']);
-    Emitters.authEmiter.emit(false)
+
     })
   }
   addReview(carId:string){
-    console.log(typeof carId,"llllllllllllllllll");
     this.route.navigate(['/reviewer/reviewerAddReviewForm/',carId])
   }
-
+  onTableDataChange(event:any){
+    this.page=event
+    this.getCars(this.brandId)
+  }
+  onTableSizeChange(event:any){
+    this.tableSize=event.target.value;
+    this.page=1
+    this.getCars(this.brandId)
+  }
+  getImageUrl(image: string) {
+    if(image){
+      return this.reviewerApi.loadimage(image);
+    }else {
+      return null
+    }
+  }
 }

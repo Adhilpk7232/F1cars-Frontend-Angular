@@ -17,14 +17,14 @@
                 <li [style.width.px]="this.slideWidth" class="w-96 p-5" *ngFor="let car of popularCars">
                     <div class="border rounded-lg p-5 h-full">
                         <img class="h-50 w-full object-cover rounded-md" 
-                            src="http://localhost:5000/public/brandImages/{{ car.image }}"
+                             [src]="getImageUrl(car.image)"
                             alt="">
-                        <h2 class="mt-2 text-2xl font-bold text-gray-700">{{car.carName}}</h2>
-                        <p class="mt-2 text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                            Corporis explicabo officiis dignissimos, ducimus, ab commodi quod, vitae incidunt voluptatum
-                            perferendis
-                            maxime ad accusamus dolorum minus! Doloremque ut nemo corrupti quaerat.
-                        </p>
+                            <h2 class="mt-2 text-2xl font-bold text-gray-700">{{car.carName|uppercase}}</h2>
+                            <p class="mt-2 font-semibold text-gray-500">{{car.brand.brand}}
+                          </p>
+                          <div class="text-gray-700 text-sm" [innerHTML]="car.price | calculateTax: '64dcd63ceff1256275bc4078' | async" *ngIf="!userLogin"></div>
+                          <div class="text-gray-700 text-sm" [innerHTML]="car.price | calculateTax: userData.state._id | async" *ngIf="userLogin && userData"></div>
+                          
                         <button class="mt-4 px-6 py-3 rounded-md bg-green-600">Read more</button>
                     </div>
                 </li>

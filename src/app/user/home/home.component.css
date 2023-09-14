@@ -19,7 +19,7 @@
   100% { transform: rotate(360deg); }
 }
 
-.banner-img {
+/* .banner-img {
     position: relative;
   }
   
@@ -33,11 +33,7 @@
     width: 100%;
   }
   
-  .banner-search h1 {
-    font-size: 2.5rem;
-    color: white;
-    margin-bottom: 1rem;
-  }
+ 
   
   .banner-inputSearch {
     display: flex;
@@ -50,13 +46,10 @@
   }
   
   .banner-inputSearch svg {
-    width: 1.5rem;
-    height: 1.5rem;
     margin-right: 0.5rem;
   }
   
   .banner-inputSearch input {
-    height: 2.5rem;
     flex: 1;
     border: none;
     outline: none;
@@ -68,7 +61,7 @@
     color: white;
     border: none;
     cursor: pointer;
-  }
+  } */
   /* banne end  */
 
   .featuredcar.h1{
@@ -79,7 +72,7 @@
   }
   .featuredcar .flex .active {
     color: #00afa0;
-    border-bottom: 4px solid #00afa0
+    border-bottom: 2px solid #00afa0
     /* Add any other styles you want for the active item */
   }
   .selected {
@@ -93,3 +86,9 @@
     /* border: none; */
     cursor: pointer;
   }
+  .featuredOptions .active {
+    color: #00afa0;
+    border-bottom: 4px solid #00afa0
+    /* Add any other styles you want for the active item */
+  }
+ 

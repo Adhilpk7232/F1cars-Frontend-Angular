@@ -13,6 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 export class ReviewManagementComponent implements OnInit {
 
   reviews :any=[]
+  page:number=1
+  count:number=0
+  tableSize:number=5;
+  tableSizes:any=[5,10,15,20]
   constructor(private toastr: ToastrService,private http:HttpClient, private router:Router,private reviewerApi:ReviewerServiceService){}
   ngOnInit(): void {
     this.reviewerApi.isActive().subscribe((response:any)=>{
@@ -49,5 +53,26 @@ export class ReviewManagementComponent implements OnInit {
   edit(reviewId:String){
     console.log(reviewId,"clicked");
     this.router.navigate(['/reviewer/carReviewUpdate',reviewId])
+  }
+  preview(reviewId:String){
+    console.log(reviewId,"clicked");
+    this.router.navigate(['/reviewer/carReviewPreview',reviewId])
+
+  }
+  onTableDataChange(event:any){
+    this.page=event
+    this.getReviewes()
+  }
+  onTableSizeChange(event:any){
+    this.tableSize=event.target.value;
+    this.page=1
+    this.getReviewes()
+  }
+  getImageUrl(image: string) {
+    if(image){
+      return this.reviewerApi.loadimage(image);
+    }else {
+      return null
+    }
   }
 }

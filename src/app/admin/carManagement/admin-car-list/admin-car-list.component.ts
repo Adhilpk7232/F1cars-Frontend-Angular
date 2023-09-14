@@ -18,40 +18,23 @@ export class AdminCarListComponent implements OnInit {
   count:number=0
   tableSize:number=5;
   tableSizes:any=[5,10,15,20]
-   constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router ,private adminApi:AdminServiceService){}
+   constructor(private formBuilder:FormBuilder,private router:Router ,private adminApi:AdminServiceService){}
    ngOnInit(): void {
      
-     
-     this.http.get('http://localhost:5000/admin/active',{
-       withCredentials:true
-     }).subscribe((response:any)=>{
-       console.log(response);
-       this.getcar()
-       Emitters.authEmiter.emit(true)
-     },(err)=>{
-     this.router.navigate(['/admin']);
-     Emitters.authEmiter.emit(false)
-     })
+    this.getcar()
+
    }
  
    getcar(){
-     this.http.get('http://localhost:5000/admin/car',{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+     this.adminApi.getcar().subscribe((response:any)=>{
        console.log(response);
        this.car=response
-       
-       console.log(this.car+"qqqqqqqqqqqqqqqq");
-       
-       Emitters.authEmiter.emit(true)
      },(err)=>{
        console.log(err+"hhhhhhhhhhhhhhhhhhh");
-     this.router.navigate(['/admin']);
-     Emitters.authEmiter.emit(false)
      })
    }
  
-   deleteBrand(CarId: any){
+   deleteBrand(CarId:string){
 
     Swal.fire({
       title: 'Are you sure?',
@@ -64,12 +47,9 @@ export class AdminCarListComponent implements OnInit {
       cancelButtonColor: '#3085d6'
     }).then((result) => {
       if (result.isConfirmed) {
-     this.http.get(`http://localhost:5000/admin/deleteCar/${CarId}`,{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+     this.adminApi.deleteCar(CarId).subscribe((response:any)=>{
        console.log(response);
        this.car=response
-       Emitters.authEmiter.emit(true)
        Swal.fire(
         'Deleted!',
         'Your data has been deleted.',
@@ -78,8 +58,6 @@ export class AdminCarListComponent implements OnInit {
        this.router.navigate(['/admin/adminCar'])
      },(err)=>{
        console.log(err+"hhhhhhhhhhhhhhhhhhh");
-     
-     Emitters.authEmiter.emit(false)
      })
         
       }
@@ -94,26 +72,19 @@ export class AdminCarListComponent implements OnInit {
      
        this.router.navigate(['/admin/adminEditcar',carId])
    }
-   unListBrand(userId:any){
-     this.http.post(`http://localhost:5000/admin/blockUser/${userId}`,{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+   unListBrand(brandId:string){
+     this.adminApi.unListBrand(brandId).subscribe((response:any)=>{
        console.log(response);
        this.car=response
-       Emitters.authEmiter.emit(true)
      },(err)=>{
        console.log(err+"jjjjjjjj");
-       this.router.navigate(['/admin']);
-       Emitters.authEmiter.emit(false)
+
      })
    }
  
    AddCars(){
- 
-     
      this.router.navigate(['adminAddCar'])
    }
- 
    onTableDataChange(event:any){
     this.page=event
     this.getcar()
@@ -123,7 +94,11 @@ export class AdminCarListComponent implements OnInit {
     this.page=1
     this.getcar()
   }
- 
- 
-
+  getImageUrl(image: string) {
+    if(image){
+      return this.adminApi.loadimage(image);
+    }else {
+      return null
+    }
+  }
 }

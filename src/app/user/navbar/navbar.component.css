@@ -1,8 +1,16 @@
-.navSearch{
+/* .navSearch{
     border: 1px solid gray;
-    /* padding: 0.5rem; */
-}
+
+} */
 .navSearch input{
     border: none;
     outline: none;
 }
+/* In your custom CSS file */
+.text-24 {
+    font-size: 22px;
+  }
+
+  
+  
+  

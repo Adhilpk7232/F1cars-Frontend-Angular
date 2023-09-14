@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit ,Input} from '@angular/core';
 import { Router } from '@angular/router';
+import { CarBrand } from 'src/app/models/carBrandpopulatedModel';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserServiceService } from 'src/app/services/user/user-service.service';
 export class UpCommingCarsComponent implements OnInit,AfterViewInit{
 
   @Input('popularCars')
-  popularCars:any[] =[];
+  popularCars:CarBrand[] =[];
 
   @ViewChild('sliderContainer')
   sliderContainer!:ElementRef;
@@ -19,19 +20,15 @@ export class UpCommingCarsComponent implements OnInit,AfterViewInit{
   elementsToShow = 3;
   sliderWidth=0
   sliderMarginLeft = 0
+  userLogin!: boolean;
+  userData!:any;
 
   constructor(
     private userApi:UserServiceService,
     private router:Router ){}
   ngOnInit(): void {
-    this.userApi.getUpcommingCars().subscribe((res:any)=>{
-      this.popularCars =res
-      console.log(res);
-      
-    },(err)=>{
-      console.log(err.error.message);
-      
-    })
+    this.checkUserLogin()
+    this.getUpcommingrcars()
    console.log(this.popularCars,"init");
    console.log(this.sliderContainer,"i");
   }
@@ -42,10 +39,16 @@ export class UpCommingCarsComponent implements OnInit,AfterViewInit{
     
 
   }
+  getImageUrl(image: string) {
+    if(image){
+      return this.userApi.loadimage(image);
+    }else {
+      return null
+    }
+  }
 
-
-  getpopularcars(){
-    this.userApi.getUpcommingCars().subscribe((res:any)=>{
+  getUpcommingrcars(){
+    this.userApi.getUpcommingCars().subscribe((res:CarBrand[])=>{
       this.popularCars = res
       console.log(res);
       
@@ -54,8 +57,8 @@ export class UpCommingCarsComponent implements OnInit,AfterViewInit{
       
     })
   }
-  updatePopularCars() {
-    this.getpopularcars();
+  updateUpcommingCars() {
+    this.getUpcommingrcars();
     console.log(this.popularCars, "update");
   }
 
@@ -90,5 +93,21 @@ export class UpCommingCarsComponent implements OnInit,AfterViewInit{
     console.log("clicked next");
     
     this.sliderMarginLeft = this.sliderMarginLeft-this.slideWidth
+  }
+  checkUserLogin(){
+    if(this.userApi.getToken()){
+      this.userLogin = true
+      this.getUserData()
+      
+    }else{
+      this.userLogin = false
+    }
+    console.log(this.userLogin,this.userData,this.userApi.getToken());
+    
+  }
+  getUserData(){
+    this.userApi.getUserDetails().subscribe((res:any) =>{
+      this.userData = res
+    })
   }
 }

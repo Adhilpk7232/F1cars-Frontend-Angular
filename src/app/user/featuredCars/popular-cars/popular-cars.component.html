@@ -1,7 +1,7 @@
 <section>
-  <div class="flex">
-      <div class="w-2/12  flex items-center">
-          <div class="w-full text-right">
+  <div class="container flex">
+      <div class="  flex items-center relative">
+          <div class="w-full text-right absolute top-1/2 -translate-y-1/2">
               <button (click)="prev()" class="p-3 rounded-full bg-white border border-gray-100 shadow-lg mr-5">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
@@ -11,30 +11,38 @@
               </button>
           </div>
       </div>
-      <div #sliderContainer class="w-10/12 overflow-hidden">
+      
+      <div #sliderContainer class="w-full overflow-hidden">
           <!-- content -->
-          <ul #slider class="flex w-full  transition-all duration-100" [style.width.px]="this.sliderWidth" [style.marginLeft.px]="this.sliderMarginLeft">
-              <li [style.width.px]="this.slideWidth" class="w-96 p-5" *ngFor="let car of popularCars">
-                  <div class="border rounded-lg p-5 h-">
-                    <img class="h-50 w-full object-cover rounded-md"
-                        src="http://localhost:5000/public/brandImages/{{ car.image }}"
+          <ul #slider class="flex w-full gap-4 transition-all duration-100" [style.width.px]="this.sliderWidth" [style.marginLeft.px]="this.sliderMarginLeft">
+              <li [style.width.px]="this.slideWidth"  *ngFor="let car of popularCars">
+                  <div class="border rounded-lg p-5 ">
+                    <a routerLink="/carSinglePage/{{car._id}}">
+                        <img class="h-50 w-full object-cover rounded-md"
+                        [src]="getImageUrl(car.image)"
                         alt="">
-                      <h2 class="mt-2 text-sm font-bold text-gray-700">{{car.carName}}</h2>
-                      <p class="mt-2 text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                          Corporis explicabo officiis dignissimos, ducimus, ab commodi quod, vitae incidunt voluptatum
-                          perferendis
-                          maxime ad accusamus dolorum minus! Doloremque ut nemo corrupti quaerat.
-                      </p>
-                      <button class="mt-4 px-6 py-3 rounded-md bg-green-600">Read more</button>
+                    </a>
+                    
+                      <h2 class="mt-2 text-2xl font-bold text-gray-700">{{car.carName|uppercase}}</h2>
+                      <p class="mt-2 font-semibold text-gray-500">{{car.brand.brand}}
+                    </p>
+                        <div class="text-gray-700 text-sm" [innerHTML]="car.price | calculateTax: '64dcd63ceff1256275bc4078' | async" *ngIf="!userLogin"></div>
+                        <div class="text-gray-700 text-sm" [innerHTML]="car.price | calculateTax: userData.state._id | async" *ngIf="userLogin && userData"></div>
+                      
+                      <div class="flex justify-between ">
+                        <button class="mt-4 px-6 py-3 rounded-md bg-green-600" routerLink="/carSinglePage/{{car._id}}">Read more</button>
+                        <button  class="text-black text-2xl" (click)="addWishlist(car._id)"><i class="fa-regular fa-heart"></i></button>
+                        <!-- <button *ngIf="wishtList" class="text-red-400 text-2xl" (click)="addWishlist(car._id)"><i class="fa-solid fa-heart"></i></button> -->
+                      </div>
                   </div>
               </li>
               
               
           </ul>
       </div>
-      <div class="w-2/12  flex items-center ">
-          <div class="w-full">
-              <button (click)="next()"  class="p-3 rounded-full bg-white border border-gray-100 shadow-lg ml-5">
+      <div class="flex items-center relative">
+          <div class="w-full absolute top-1/2  -translate-y-1/2">
+              <button (click)="next()"  class="p-3 rounded-full bg-white border border-gray-100 shadow-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round"
@@ -46,3 +54,4 @@
       </div>
   </div>
 </section>
+

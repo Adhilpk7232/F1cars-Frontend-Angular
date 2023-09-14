@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<section class="pt-4 mb-3">
+    <div class="container">
+        <div class="flex flex-col md:flex-row justify-between gap-4 ">
+            <!-- Sidebar -->
+            <div class="sideBar w-full md:w-2/12 drop-shadow-lg ">
+                <h1 class="border p-2 m-2 rounded-md bg-teal-300 hover:bg-teal-100 text-sm text-center"><i class="fa-regular fa-heart mr-2"></i>Wishlisted Cars</h1>
+                <!-- <h1 class="border p-2 m-2 rounded-md bg-teal-300 hover:bg-teal-100 text-sm text-center"><i class="fa-regular fa-hourglass mr-2"></i>Pending Bookings</h1>
+                <h1 class="border p-2 m-2 rounded-md bg-teal-300 hover:bg-teal-100 text-sm text-center"><i class="fa-solid fa-car mr-2"></i>Test Drives</h1> -->
+            </div>
+            
+            <!-- Content Section -->
+            <div class="w-full md:w-10/12 border drop-shadow-lg rounded-md bg-white py-4">
+                <!-- If no item is present -->
+                <ng-container *ngIf="!item">
+                    <img class="mx-auto" src="../../../../assets/images/add-cart-concept-illustration_11.jpg" alt="" height="400" width="350">
+                    <h4 class="mx-auto w-5/12 py-1 font-semibold text-center">You haven’t initiated any wishlist yet</h4>
+                    <p class="mx-auto w-5/12 py-2 font-medium text-center">However, you can still add a car for wishlist and buy your dream car.</p>
+                    <h1 class="mx-auto w-3/12 bg-teal-300 hover:bg-teal-100 py-2 px-2 text-center"><a routerLink="/carPage">Explore Cars</a></h1>
+                </ng-container>
+                
+                <!-- If items are present -->
+                <ng-container *ngIf="item">
+                    <ul class="my-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 px-4">
+                        <li class="sm:flex border rounded-md p-3" *ngFor="let item of UserData; let i = index">
+                            <div class="hover:drop-shadow-md">
+                                <a routerLink="/carSinglePage/{{item.car._id}}">
+                                    <img class="w-48" [src]="getImageUrl(item.car.image)"alt=""> alt="">
+                                </a>
+                            </div>
+                            <div class="my-auto ml-4">
+                                <h1 class="text-gray-500">{{ item.car.carName }}</h1>
+                                <h3 class="text-gray-700 text-sm">Rs. 39.00 Lakh Estimated price</h3>
+                                <div class="flex justify-between">
+                                    <p class="text-gray-400">On-Road Price, Agra</p>
+                                    <button class="text-red-500 text-xl" (click)="addWishlist(item.car._id)"><i class="fa-solid fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

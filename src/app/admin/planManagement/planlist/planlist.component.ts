@@ -20,17 +20,6 @@ export class PlanlistComponent implements OnInit{
    }
    ngOnInit(): void {
      
-     
-     this.http.get('http://localhost:5000/admin/active',{
-       withCredentials:true
-     }).subscribe((response:any)=>{
-       console.log(response);
-      //  this.getcar()
-       Emitters.authEmiter.emit(true)
-     },(err)=>{
-     this.router.navigate(['/admin']);
-     Emitters.authEmiter.emit(false)
-     })
      this.getPlan()
    }
  
@@ -41,11 +30,8 @@ export class PlanlistComponent implements OnInit{
      
    }
  
-   deleteBrand(planId: any){
-     console.log(planId+"toDeeeeeeeeeeeeeeeeee");
-     this.http.get(`http://localhost:5000/admin/deletePlan/${planId}`,{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+   deletePlan(planId: string){
+    this.adminApi.deletePlan(planId).subscribe((response:any)=>{
        console.log(response);
        this.planPackage=response
        Emitters.authEmiter.emit(true)
@@ -56,22 +42,18 @@ export class PlanlistComponent implements OnInit{
      })
    }
  
-   editBrand(carId:any){
+   editPlan(carId:any){
      console.log(carId,'car isd');
      
        this.router.navigate(['/admin/updatePlan',carId])
    }
-   unListBrand(userId:any){
-     this.http.post(`http://localhost:5000/admin/blockUser/${userId}`,{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+   UnlistPlan(plandId:string){
+     this.adminApi.unListPlan(plandId).subscribe((response:any)=>{
        console.log(response);
        this.planPackage=response
-       Emitters.authEmiter.emit(true)
      },(err)=>{
        console.log(err+"jjjjjjjj");
-       this.router.navigate(['/admin']);
-       Emitters.authEmiter.emit(false)
+
      })
    }
  

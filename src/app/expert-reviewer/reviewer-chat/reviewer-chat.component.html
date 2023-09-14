@@ -1,0 +1,112 @@
+<app-nav></app-nav>
+<div class="flex">
+    <div class=" h-full bg-gray-800  w-fit">
+        <app-side-bar></app-side-bar>
+    </div>
+
+    <div class=" w-full">
+        <!-- Your main content here -->
+        <!-- <h1>chat Page</h1> -->
+        <div class="chat  flex  w-full border-2 bg-gradient-to-r from-slate-50 to-slate-200">
+            <div class="leftSide  w-4/12 bg-blue-50 h-full" >
+                <div class="flex header  border-b shadow-md justify-center bg-blue-200">
+                    <!-- <h1 class="mx-auto w-fit p-2" style=" height: 60px;">Chat</h1> -->
+                    <div class="relative my-3" >
+                        <input
+                          type="text"
+                          class="border rounded-full py-2 px-4 pl-10 pr-6 w-fit "
+                          placeholder="Search..."
+                        />
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                          <svg
+                            class="h-5 w-5 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M21 21l-4.35-4.35"
+                            />
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M15 10c0-3.866-3.134-7-7-7s-7 3.134-7 7 3.134 7 7 7 7-3.134 7-7z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="reviewerList  bg-blue-50  ">
+                    <ul *ngFor="let item of connectionData" class="mx-4 border-b border-gray-400" >
+                        <a (click)="messagePage(item._id)">
+                            <li class="flex items-center " [ngClass]="{'selected-item': selectedItem === item}">
+                                <img style="width: 40px;" class="border rounded-full m-2"
+                                    src="../../../../../assets//images/defaultProfile.jpg" alt="">
+                                <h1 class="px-3 font-bold">{{item.user.name}}</h1>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        <div class="rightSide  w-8/12 bg-white h-full" *ngIf="Connection">
+
+            <div class="overflow-hidden  "   >
+                <div class="contentexeptSend mx-4">
+                <div class="flex items-center border-b-2 py-3">
+                    <img style="width: 40px;" class="border rounded-full " src="../../assets/images/defaultProfile.jpg" alt="">
+                    <h1 class="px-4 font-bold">{{Connection.user.name}}</h1>
+                </div>
+                <div  class="my-3  overflow-y-scroll" style="height: 228px;" #messageContainer>
+                    <div class=" mb-2" *ngFor="let message of allMessages">
+                        <div class="flex justify-start mb-2" *ngIf="message.from!==this.reviewerId">
+                            <div class="border   py-2 px-5 text-lg font-semibold rounded-3xl bg-blue-50">
+                                {{message.message}}
+                            </div>
+                            <!-- <div class=" ">
+                                <p class=" ms-3 mb-3 rounded-3 text-sm float-start">{{message.createdAt | date : "short"}}</p>
+                            </div> -->
+                        </div>
+                        <div class="flex justify-end mb-2" *ngIf="message.from==this.reviewerId">
+                            <div class="border mr-2   py-2 px-5 text-lg font-semibold rounded-3xl bg-gray-300">
+                                {{message.message}}
+                            </div>
+                            <!-- <p class=" ms-3 mb-3 rounded-3 text-muted float-start">{{message.createdAt | date : "short"}}</p> -->
+                        </div>
+                                           
+                    </div>
+
+                </div>
+            </div>
+                <div class="messageSender ">            
+                    <form [formGroup]="messageForm" (submit)="submit()">    
+                        <label for="chat" class="sr-only">Your message</label>
+                        <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <textarea id="chat" rows="1"
+                                class="block mx-4 p-2.5 w-full text-lg text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-black focus:border-black dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black"
+                                placeholder="Your message..." formControlName="message"></textarea>
+                            <button type="submit"
+                                class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 18 20">
+                                    <path
+                                        d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                                </svg>
+                                <span class="sr-only">Send message</span>
+                            </button>
+                                                       
+                        </div>
+                    </form>
+            
+                </div>
+            </div>
+        </div>
+
+    </div>
+  
+</div>
+  </div>

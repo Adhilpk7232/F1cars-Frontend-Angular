@@ -1,0 +1,19 @@
+<div class="bg-gray-200">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 grid-flow-row  place-content-around">
+
+        <div class="flex flex-col justify-center items-center border border-black py-3"   *ngFor="let fuel of fuelTypes" (click)="fiterSubmit(fuel)">
+                <div class="">
+                    <!-- <img class=" px-6 object-cover rounded-md"
+                         src="http://localhost:5000/public/brandImages/{{ brand.image }}"
+                         alt=""> -->
+                </div>
+                <div class=" text-center">
+                    <h1 class="text-md mt-1">{{fuel}}</h1>
+                </div>
+
+               
+        </div>
+       
+
+    </div>
+</div>

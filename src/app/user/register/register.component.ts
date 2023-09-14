@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Validators } from '@angular/forms';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
+import { LoaderserviceService } from 'src/app/services/loader/loaderservice.service';
 
 @Component({
   selector: 'app-register',
@@ -15,17 +16,37 @@ export class RegisterComponent implements OnInit{
 
   // form!:FormGroup
 constructor(private formBuilder:FormBuilder,private userService:UserServiceService,
-  private router:Router){}
+  private router:Router,
+  private loaderService:LoaderserviceService
+  ){}
  
   form!:FormGroup;
-  register = false
-  message=''
+  register = false;
+  message='';
+  states:any;
+  userEmail!:string;
   ngOnInit(): void {
+    this.loaderService.showLoader();
+
+    // Simulate an API request
+    setTimeout(() => {
+      this.loaderService.hideLoader();
+    }, 1000);
+    this.getStates()
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[@$!%*?&])[a-zA-Z0-9@$!%*?&]{8,}$')]]
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[@$!%*?&])[a-zA-Z0-9@$!%*?&]{8,}$')]],
+      state:['',Validators.required]
     });
+  }
+  getStates(){
+    this.userService.getStates().subscribe((res:any) => {
+      this.states = res.StatesData
+    },(err)=>{
+      console.log(err.error.message);
+      
+    })
   }
 
 
@@ -35,22 +56,23 @@ get f (){
 
 
 submit():void{
-  console.log('clicked');
-  console.log('f',this.f);
   
   this.register = true
-  let user =this.form.getRawValue()
-console.log(user);
-  
-    // this.http.post('http://localhost:5000/register',user,{
-    //   withCredentials: true
-    // })
+  if(this.form.valid){
+    let user =this.form.getRawValue()
+    this.userEmail = user.email
+    const encodedEmail = encodeURIComponent(this.userEmail);
     this.userService.userRegister(user).subscribe((res:any)=>{ 
-      this.userService.saveToken(res.token);
-      this.router.navigate(['/otp'])},(err)=>{
-      Swal.fire('Error',err.error.message,"error")
+      // this.userService.saveToken(res.token);
+      const queryParams = { email: encodedEmail };
+      this.router.navigate(['/otp'],{queryParams})
+    },(err)=>{
       this.message = err.error.message
     })
 
+  }
+  
+
 }
+
 }

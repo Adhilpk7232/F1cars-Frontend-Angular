@@ -5,14 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import { ExcelService } from './services/excel.service';
+import { SocketIoModule } from 'ngx-socket-io';
+import { config } from './socketio/socket-io.config';
+import { CommonLoaderComponent } from './common-loader/common-loader.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    CommonLoaderComponent,
 
   ],
   imports: [
@@ -22,10 +29,11 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     BrowserAnimationsModule,
     AngularEditorModule,
-    MatSnackBarModule,
-    ToastrModule.forRoot()
+    SocketIoModule.forRoot({ url: 'https://eliteshopie.online' }),
+    ToastrModule.forRoot(),
   ],
   providers: [
+    ExcelService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

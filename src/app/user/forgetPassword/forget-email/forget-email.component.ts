@@ -3,6 +3,7 @@ import { FormBuilder,Validators,FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/services/user/user-service.service';
+import { UserModel } from 'src/app/models/userModel';
 
 @Component({
   selector: 'app-forget-email',
@@ -32,14 +33,20 @@ export class ForgetEmailComponent {
     this.login=true
     let user =this.form.getRawValue()
     console.log(user);
+    if (this.form.valid) {
     this.email=user.email
     console.log(this.email);
-      this.userService.forgetPasswordUserFind(user).subscribe((res:any)=> {
+      this.userService.forgetPasswordUserFind(user).subscribe((res:UserModel)=> {
         console.log(res)
         this.router.navigate(['/forgetOTP'], { queryParams: { email: this.email } })
       }
       ,(err)=>{
+        console.log("jjjj");
+        
+        console.log(err,"error");
+        
         this.message=err.error.message
       })
+    }
   }
 }

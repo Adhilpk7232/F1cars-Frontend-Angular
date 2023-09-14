@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit{
 
   constructor(private http:HttpClient ,private router:Router){}
   ngOnInit(): void {
-    this.http.get('http://localhost:5000/reviewer/active',{
+    this.http.get('http://localhost:3000/reviewer/active',{
       withCredentials:true
     }).subscribe((response:any)=>{
       console.log(response);

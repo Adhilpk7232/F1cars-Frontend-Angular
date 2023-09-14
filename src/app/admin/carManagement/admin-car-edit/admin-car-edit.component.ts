@@ -1,10 +1,12 @@
 import { Component,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup,FormArray,FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
 import Swal from 'sweetalert2';
 import { Validators } from '@angular/forms';
+import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-car-edit',
@@ -14,21 +16,26 @@ import { Validators } from '@angular/forms';
 export class AdminCarEditComponent implements OnInit{
 
   
-  carName:any;
-  description:any;
-  price:any;
-  maileage:any;
-  fuelType:any;
-  engine:any;
-  transmission:any;
-  bodyType:any;
-  seatCapacity:any;
-  safety:any;
-  role:any;
-  date:any;
-  brand:any;
-  image:any;
+  // carName:any;
+  // description:any;
+  // price:any;
+  // maileage:any;
+  // fuelType:any;
+  // engine:any;
+  // transmission:any;
+  // bodyType:any;
+  // seatCapacity:any;
+  // safety:any;
+  // role:any;
+  // date:any;
+  // brand:any;
+  // image:any;
+  colorFormArray!: FormArray;
+  color: { colorImage:string}[] = [];
 
+  colorData:any=[];
+  colorsForm!:FormGroup
+  formattedDate!:any
   originalCarData:any={};
   message:string='';
   showBrands:any;
@@ -36,91 +43,166 @@ export class AdminCarEditComponent implements OnInit{
   selectedFile:any|File=null;
 
   carUpdateform!:FormGroup
-constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:ActivatedRoute,
-  private route:Router){}
+constructor(private formBuilder:FormBuilder,private router:ActivatedRoute,
+  private route:Router,private adminApi:AdminServiceService
+){}
  
   ngOnInit(): void {
-    this.http.get('http://localhost:5000/admin/brand',{
-      withCredentials:true
-    }).subscribe((response:any)=>{
-      console.log(response);
-      this.showBrands = response
-      Emitters.authEmiter.emit(true)
-    },(err)=>{
-    this.route.navigate(['/admin']);
-    Emitters.authEmiter.emit(false)
-    })
-      this.carUpdateform = this.formBuilder.group({
-        
-        carName: [this.originalCarData.carName],
-          // description:[this.description],
-          description: [this.originalCarData.description],
-          // price:[this.price],
-          price: [this.originalCarData.price],
-          // maileage:[this.maileage],
-          maileage: [this.originalCarData.maileage],
-          // engine:[this.engine],
-          engine: [this.originalCarData.engine],
-          // fuelType:[this.fuelType],
-          fuelType: [this.originalCarData.fuelType],
-          // transmission:[this.transmission],
-          transmission: [this.originalCarData.transmission],
-          // bodyType:[this.bodyType],
-          bodytype: [this.originalCarData.bodytype],
-          // seatCapacity:[this.seatCapacity],
-          seatCapacity: [this.originalCarData.seatCapacity],
-          // safety:[this.safety],
-          safety: [this.originalCarData.safety],
-          // brand:[this.brand],
-          brand: [this.originalCarData.brand],
-          // role:[this.role],
-          role: [this.originalCarData.role],
-          // date:[this.date],
-          date: [this.originalCarData.date],
-          
+    
+    
+    this.colorsForm = this.formBuilder.group({});
 
-      })
+  // Loop through the colors array and create form groups
+  for (let i = 0; i < this.colorData.length; i++) {
+    const color = this.colorData[i];
+    const colorFormGroup = this.formBuilder.group({
+      colorName: [color.colorName, Validators.required],
+      selectColor: [color.color, Validators.required],
+      colorImage: [color.colorImage, Validators.required],
+    });
+
+    // Add the form group to the main form
+    this.colorsForm.addControl(`color_${i}`, colorFormGroup);
+  }
+    
+      this.carUpdateform = this.formBuilder.group({
+        color: new FormArray([
+          new FormGroup({
+            colorName:  new FormControl(''),
+            color: new FormControl(''),
+            colorImage : new FormControl('')
+          })
+        ]),
+        
+        carName: [this.originalCarData.carName,[Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
+          description: [this.originalCarData.description],
+          price: [this.originalCarData.price],
+          maileage: [this.originalCarData.maileage],
+          engine: [this.originalCarData.engine],
+          fuelType: [this.originalCarData.fuelType],
+          transmission: [this.originalCarData.transmission],
+          bodytype: [this.originalCarData.bodytype],
+          seatCapacity: [this.originalCarData.seatCapacity],
+          safety: [this.originalCarData.safety],
+          brand: [this.originalCarData.brand],
+          role: [this.originalCarData.role],
+          date: [this.originalCarData.lauchedDate],         
+        })
+      this.colorFormArray = this.carUpdateform.get('color') as FormArray;
  
       this.carId = this.router.snapshot.paramMap.get('carId');
-      console.log(this.carId,'id from atholokam');
-      
-      this.http.get('http://localhost:5000/admin/active',{
-        withCredentials:true
-      }).subscribe((response:any)=>{
-        console.log(response);
         this.getCarDetails(this.carId)
-        Emitters.authEmiter.emit(true)
-      },(err)=>{
-      this.route.navigate(['/admin']);
-      Emitters.authEmiter.emit(false)
-      })
-    }
-    // onFileSelected(event:any){
-    //   this.selectedFile=<File>event.target.files[0]
-    // }
 
+    }
+
+    addColor() {
+      const control = <FormArray>this.carUpdateform.controls['color'];
+      control.push(
+        new FormGroup({
+          colorName:  new FormControl(''),
+          color: new FormControl(''),
+          colorImage: new FormControl('')
+        })
+      )
+  }
+  revomeColor(Index:any){
+    if(Index == 0){
+      return
+    }
+    const control = <FormArray>this.carUpdateform.controls['color'];
+    control.removeAt(Index)
+  }
+  get colorControls(): AbstractControl[] {
+    return (this.carUpdateform.get('color') as FormArray).controls;
+  }
+  
+  onImageChange(event: any, index: number) {
+    this.selectedFile = <File> event.target.files[0];
+  
+    if (!this.selectedFile) {
+      return;
+    }
+    
+  
+    const formData = new FormData();
+    formData.append('image', this.selectedFile, this.selectedFile.name);
+  
+    this.adminApi.imageUpload(formData).subscribe((res: any) => {
+      const imageUrl = res; // Make sure your response structure matches this
+      this.color.push({colorImage: res})
+      console.log(res);
+      console.log(this.color);
+      
+      
+    });
+  }
+  getAllBrands(){
+    this.adminApi.getAllBrands().subscribe((response:any)=>{
+      console.log(response);
+      this.showBrands = response
+
+    },(err)=>{
+      console.log(err.error.message);
+      
+    })
+  }
+
+    onFileSelected(event:any){
+      this.selectedFile=<File>event.target.files[0]
+    }
 submit():void{
   console.log(this.isFormEdited(),this.carUpdateform.valid,"chanched");
 
   
   if ( this.isFormEdited()) {
     let carData =this.carUpdateform.getRawValue()
-    
-    const propertiesToUpdate = [
-      'carName', 'description', 'price', 'maileage', 'engine',
-      'fuelType', 'transmission', 'bodyType', 'seatCapacity',
-      'safety', 'brand', 'role', 'date'
-    ];
-    
-    for (const property of propertiesToUpdate) {
-      if (carData[property] === null) {
-        carData[property] = this.originalCarData[property];
-      }
+    if(carData.carName == null){
+      carData.carName=this.originalCarData.carName
     }
+    if(carData.description == null){
+      carData.description=this.originalCarData.description
+    }
+    if(carData.price == null){
+      carData.price=this.originalCarData.price
+    }
+    if(carData.maileage == null){
+      carData.maileage=this.originalCarData.maileage
+    }
+    if(carData.engine == null){
+      carData.engine=this.originalCarData.engine
+    }
+    if(carData.fuelType == null){
+      carData.fuelType=this.originalCarData.fuelType
+    }
+    if(carData.transmission == null){
+      carData.transmission=this.originalCarData.transmission
+    }
+    if(carData.bodytype == null){
+      carData.bodytype=this.originalCarData.bodytype
+    }
+    if(carData.seatCapacity == null){
+      carData.seatCapacity=this.originalCarData.seatCapacity
+    }
+    if(carData.safety == null){
+      carData.safety=this.originalCarData.safety
+    }
+    if(carData.brand == null){
+      carData.brand=this.originalCarData.brand
+    }
+    if(carData.role == null){
+      carData.role=this.originalCarData.role
+    }
+    if(carData.date == null){
+      carData.date=this.originalCarData.lauchedDate
+    }
+      
+      
+      console.log(carData,"converted");
+    
     console.log(carData,this.originalCarData,"first new");
-    this.http.post('http://localhost:5000/admin/updateCar',carData,{
-      withCredentials: true
-    }).subscribe(()=> this.route.navigate(['/admin/adminCar']),(err)=>{
+    this.adminApi.updateCar(this.carId,carData).subscribe((res:any)=>{ 
+      this.route.navigate(['/admin/adminCar'])
+  },(err)=>{
       Swal.fire('Error',err.error.message,"error")
     })
     console.log('Car data updated:', this.carUpdateform.value);
@@ -135,34 +217,16 @@ get f (){
   return this.carUpdateform.controls;
 }
 
-getCarDetails(carId:any){
-  this.http.post(`http://localhost:5000/admin/editCarDetails/${carId}`,{
-    withCredentials:true
-  }).subscribe((response:any)=>{
+getCarDetails(carId:string){
+  this.adminApi.getCarDetails(carId).subscribe((response:any)=>{
     console.log(response,"original adat");
     this.originalCarData = response
-    // this.carName=response.carName;
-    // this.description=response.description;
-    // this.price=response.price;
-    // this.maileage=response.maileage;
-    // this.fuelType=response.fuelType;
-    // this.engine=response.engine;
-    // this.transmission=response.transmission;
-    // this.bodyType=response.bodytype;
-    // this.seatCapacity=response.seatCapacity;
-    // this.safety=response.safety;
-    // this.role=response.role
-    // this.date=response.date
-    // this.brand=response.brand
-    // this.image=response.imag
-    
-    Emitters.authEmiter.emit(true)
-    Swal.fire('Success', 'Operation completed successfully!', 'success');
+    this.colorData = response.colors
+    console.log(this.originalCarData.transmission,"origibal adattransmission");
 
   },(err)=>{
-    Swal.fire('Error',err.error.message,"error")
-  this.route.navigate(['/admin']);
-  Emitters.authEmiter.emit(false)
+    console.log(err.error.message);
+    
   })
 }
 isFormEdited(): boolean {

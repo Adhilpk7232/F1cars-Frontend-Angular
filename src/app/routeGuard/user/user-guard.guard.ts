@@ -41,7 +41,7 @@ export class ConsecutiveGuard implements CanActivate {
       this.router.navigate(['/admin/adminHome']);
       return false;
     } else if (reviewer) {
-       this.router.navigate(['/reviewer/reviewerhome']);
+       this.router.navigate(['/reviewer/reviewerHome']);
        return false;
     } else {
       return true;

@@ -5,7 +5,9 @@ import { Emitters } from '../../../emitters/emitter';
 import { Router } from '@angular/router';
 import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2';
+import { ApiResponse } from 'src/app/models/apiResponse';
+import { UserModel } from 'src/app/models/userModel';
+import { blockUserRes } from 'src/app/models/blockuserRes';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -15,35 +17,21 @@ import Swal from 'sweetalert2';
 export class AdminUserListComponent implements OnInit{
 
   
-  myData: any = 'Hello, World!';
-  users:any=[]
+  myData: string = 'Hello, World!';
+  users:UserModel[]=[]
   page:number=1
   count:number=0
   tableSize:number=5;
   tableSizes:any=[5,10,15,20]
-  constructor(private toaster: ToastrService,private formBuilder:FormBuilder,private http:HttpClient,private router:Router ,private adminService:AdminServiceService){}
+  constructor(private toaster: ToastrService,private formBuilder:FormBuilder,private http:HttpClient,private router:Router ,
+    private adminService:AdminServiceService, private toastr:ToastrService){}
   ngOnInit(): void {
-    
-    
-    // this.http.get('http://localhost:5000/admin/active',{
-    //   withCredentials:true
-    // })
-    this.adminService.active().subscribe((response:any)=>{
-      console.log(response);
-      this.getusers()
-      Emitters.authEmiter.emit(true)
-    },(err)=>{
-    this.router.navigate(['/admin']);
-    Emitters.authEmiter.emit(false)
-    })
     this.getusers()
   }
 
   getusers(){
-    // this.http.get('http://localhost:5000/admin/users',{
-    //   withCredentials:true
-    // })
-    this.adminService.getusers().subscribe((response:any)=>{
+
+    this.adminService.getusers().subscribe((response:UserModel[])=>{
       console.log(response);
       this.users=response
       this.count = this.users.length;
@@ -59,49 +47,20 @@ export class AdminUserListComponent implements OnInit{
     })
   }
 
-  deleteUser(userId: any){
-    console.log(userId+"toDeeeeeeeeeeeeeeeeee");
-    this.http.post(`http://localhost:5000/admin/deleteUser/${userId}`,{
-      withCredentials:true
-    }).subscribe((response:any)=>{
-      console.log(response);
-      this.users=response
-      Emitters.authEmiter.emit(true)
-    },(err)=>{
-      console.log(err+"hhhhhhhhhhhhhhhhhhh");
-    this.router.navigate(['/admin']);
-    Emitters.authEmiter.emit(false)
-    })
-  }
+  
 
-  editUser(userId:any){
+  editUser(userId:String){
       this.router.navigate(['/admin/editUser/',userId])
   }
-  blockUser(userId:any){
-    this.http.post(`http://localhost:5000/admin/blockUser/${userId}`,{
-      withCredentials:true
-    }).subscribe((response:any)=>{
+  blockUser(userId:string){
+    
+    this.adminService.blockUser(userId).subscribe((response:blockUserRes)=>{
       console.log(response);
-      this.users=response
-      Emitters.authEmiter.emit(true)
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your work has been saved',
-        showConfirmButton: false,
-        timer: 1000
-      });
+      this.users=response.user
+
+      this.toastr.success(response.message,'Successfully', { progressBar: true });
     },(err)=>{
-      console.log(err+"jjjjjjjj");
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Your work has been saved',
-        showConfirmButton: true,
-        timer: 1500
-      });
-      this.router.navigate(['/admin']);
-      Emitters.authEmiter.emit(false)
+      this.toastr.error(err.error.message ,'', {progressBar: true})
     })
   }
 

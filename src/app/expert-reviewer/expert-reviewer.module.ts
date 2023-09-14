@@ -15,6 +15,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { RouterModule } from '@angular/router';
 import { EditCarReviewComponent } from './edit-car-review/edit-car-review.component';
+import { CarReviewPreviewComponent } from './car-review-preview/car-review-preview.component';
+import { ReviewerChatComponent } from './reviewer-chat/reviewer-chat.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { EditCarReviewComponent } from './edit-car-review/edit-car-review.compon
     ReviewBrandShowComponent,
     ReviewCarShowComponent,
     ReviewFormComponent,
-    EditCarReviewComponent
+    EditCarReviewComponent,
+    CarReviewPreviewComponent,
+    ReviewerChatComponent
   ],
   imports: [
     CommonModule,

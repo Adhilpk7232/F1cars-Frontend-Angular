@@ -16,16 +16,20 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     let token =  this.userService.getToken()
+    // console.log(token,"TTTT");
+    
     let reviewerToken=localStorage.getItem("jwt_token_reviewer")
     let admintoken=localStorage.getItem("jwt_token_admin")
  
+    // console.log(token,"token");
     
     if (token) {
       const newRequest = request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + token)
       });
       
-
+      // console.log(newRequest,"newre");
+      
       return next.handle(newRequest);
     }
     if (reviewerToken) {

@@ -7,15 +7,21 @@ import { ReviewBrandShowComponent } from './addReview/review-brand-show/review-b
 import { ReviewCarShowComponent } from './addReview/review-car-show/review-car-show.component';
 import { ReviewFormComponent } from './addReview/review-form/review-form.component';
 import { EditCarReviewComponent } from './edit-car-review/edit-car-review.component';
+import { CarReviewPreviewComponent } from './car-review-preview/car-review-preview.component';
+import { ReviewerChatComponent } from './reviewer-chat/reviewer-chat.component';
 
 const routes:Routes = [
     {path:'',component:LoginComponent},
-  {path:'reviewerHome',component:HomeComponent},
+  {path:'reviewerHome',component:ReviewManagementComponent},
   {path:'reviewerAddReviewBrand',component:ReviewBrandShowComponent},
   {path:'reviewerAddReviewCar/:brandId',component:ReviewCarShowComponent},
   {path:'reviewerAddReviewForm/:carId',component:ReviewFormComponent},
   {path:'reviewManagement',component:ReviewManagementComponent},
-  {path:'carReviewUpdate/:reviewId',component:EditCarReviewComponent}
+  {path:'carReviewUpdate/:reviewId',component:EditCarReviewComponent},
+  {path:'carReviewPreview/:reviewId',component:CarReviewPreviewComponent},
+  {path:'chat',component:ReviewerChatComponent}
+
+
 
     
 ];

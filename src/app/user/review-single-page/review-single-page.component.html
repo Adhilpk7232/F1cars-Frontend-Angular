@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<section>
+    <div class="container">
+        <div class="mx-auto px-4 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-6xl">
+            <h1 class="my-5 text-3xl font-semibold">{{reviewData.heading|uppercase}}</h1>
+            <div class="container">
+                <div class="flex gap-4 my-6">
+                    <div class="w-8/12 border-green-600">
+                        <div class="flex items-center gap-2 rounded-md my-4">
+                            <div class="reviewerProfile" *ngIf="!reviewData.reviewerId.image">
+                                <img class="border rounded-full " width="50px"
+                                    src="../../../assets/images/defaultProfile.jpg" alt="">
+                            </div>
+                            <div class="reviewerProfile" *ngIf="reviewData.reviewerId.image">
+                                <img class="border rounded-full " width="50px"
+                                      [src]="getImageUrl(reviewData.reviewerId.image)"
+                                    alt="">
+                            </div>
+                            <div class="reviewerDetails">
+                                <h1 class="text-xl ml-1 font-semibold"> {{reviewData.reviewerId.name|uppercase}}</h1>
+                                <h1 class="text-md ml-1">{{reviewData.date| date:'dd-MM-yyyy'}}</h1>
+                            </div>
+                        </div>
+                        <div class="colorchagingCar border rounded-md">
+                            <h1 class="m-2 text-2xl">{{reviewData.carId.carName}}</h1>
+                            <p class="m-2">{{reviewData.carId.description}}
+                            </p>
+                            <div class="reviewContent">
+                                <div class="p-3" [innerHTML]="htmlContent"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-4/12 ">
+                        <div class="headOfCard my-7 mx-3">
+                            <div class="flex border-b items-center gap-3 md:gap-6 ">
+                                <h1 class="text-xs lg:text-lg py-1" [class.active]="selectedSlider === 'RELATED CARS'"
+                                    (click)="selectSlider('RELATED CARS')">RELATED CARS</h1>
+                                <h1 class="text-xs lg:text-lg py-1" [class.active]="selectedSlider === 'OTHER BRANDS'"
+                                    (click)="selectSlider('OTHER BRANDS')">OTHER BRANDS</h1>
+                            </div>
+
+                        </div>
+                        <app-brand-cars-slider *ngIf="selectedSlider === 'RELATED CARS'"
+                            [BrandCars]="this.brandCars"></app-brand-cars-slider>
+                        <app-other-brands *ngIf="selectedSlider === 'OTHER BRANDS'"
+                            [BrandData]="this.otherBrands"></app-other-brands>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Emitters } from '../../../emitters/emitter';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AdminServiceService } from 'src/app/services/admin/admin-service.service';
 
 @Component({
   selector: 'app-admin-reviewer-list',
@@ -18,36 +19,23 @@ export class AdminReviewerListComponent implements OnInit {
   count:number=0
   tableSize:number=5;
   tableSizes:any=[5,10,15,20]
-   constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router){}
+   constructor(
+    private formBuilder:FormBuilder,
+    private http:HttpClient,
+    private router:Router,
+    private adminApi:AdminServiceService
+    ){}
    ngOnInit(): void {
-     
-     
-     this.http.get('http://localhost:5000/admin/active',{
-       withCredentials:true
-     }).subscribe((response:any)=>{
-       console.log(response);
-       this.getusers()
-       Emitters.authEmiter.emit(true)
-     },(err)=>{
-     this.router.navigate(['/admin']);
-     Emitters.authEmiter.emit(false)
-     })
+       this.getReviewers()
    }
  
-   getusers(){
-     this.http.get('http://localhost:5000/admin/reviewer',{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+   getReviewers(){
+     this.adminApi.getAllReviewers().subscribe((response:any)=>{
        console.log(response);
        this.users=response
-       
-       console.log(this.users+"qqqqqqqqqqqqqqqq");
-       
-       Emitters.authEmiter.emit(true)
      },(err)=>{
        console.log(err+"hhhhhhhhhhhhhhhhhhh");
-     this.router.navigate(['/admin']);
-     Emitters.authEmiter.emit(false)
+
      })
    }
  
@@ -64,17 +52,12 @@ export class AdminReviewerListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(userId+"toDeeeeeeeeeeeeeeeeee");
-     this.http.post(`http://localhost:5000/admin/deleteReviewer/${userId}`,{
-       withCredentials:true
-     }).subscribe((response:any)=>{
+     this.adminApi.deleteReviewer(userId).subscribe((response:any)=>{
        console.log(response);
        this.users=response
-       Emitters.authEmiter.emit(true)
        
      },(err)=>{
        console.log(err+"hhhhhhhhhhhhhhhhhhh");
-     this.router.navigate(['/admin']);
-     Emitters.authEmiter.emit(false)
      })
         Swal.fire(
           'Deleted!',
@@ -84,9 +67,6 @@ export class AdminReviewerListComponent implements OnInit {
       }
     });
   }
-     
-   
- 
    editReviewer(userId:any){
        this.router.navigate(['/admin/editReviewer',userId])
    }
@@ -96,12 +76,12 @@ export class AdminReviewerListComponent implements OnInit {
    }
    onTableDataChange(event:any){
     this.page=event
-    this.getusers()
+    this.getReviewers()
   }
   onTableSizeChange(event:any){
     this.tableSize=event.target.value;
     this.page=1
-    this.getusers()
+    this.getReviewers()
   }
 
 }

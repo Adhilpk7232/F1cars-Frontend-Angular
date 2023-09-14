@@ -1,11 +1,10 @@
-<app-admin-nav></app-admin-nav>
+<!-- <app-admin-nav></app-admin-nav>
 <div class="flex">
     <div class="h-full bg-gray-800">
         <app-admin-side-bar ></app-admin-side-bar>
     </div>
     
     <div class="m-3">
-        <!-- Your main content here -->
         <h1 class="text-center">Create Dealer</h1>
         <div class="max-w-md mx-auto">
             <form [formGroup]="form" (submit)="submit()">
@@ -47,6 +46,57 @@
             </form>
           </div>
     </div>
+</div> -->
+
+
+<app-admin-nav></app-admin-nav>
+<div class="flex h-screen">
+    <app-admin-side-bar class="bg-gray-800"></app-admin-side-bar>
+  <!-- Main Content -->
+  <div class="w-3/5 md:w-4/5 lg:w-5/6 bg-white p-4">
+    <!-- Your main content here -->
+    <div class="">
+      <h1 class="text-center font-bold text-xl">Add Dealer</h1>
+      <div class="overflow-x-auto w-[75%]">
+       <!-- add here  -->
+       <form [formGroup]="form" (submit)="submit()">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="CompanyName">
+            Company Name
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="CompanyName" type="text" placeholder="Enter your name "required="" formControlName="CompanyName">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="brand">
+            Brand Name
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="brand" type="text" placeholder="Enter your Brand name" required="" formControlName="brand">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            Email
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email" required="" formControlName="email">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            Password
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter your password" required="" formControlName="password">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+            City
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="city" type="text" placeholder="Enter your city" required="" formControlName="city">
+        </div>
+        <div class="flex items-center justify-center">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+        </div>
+    </div>
+  </div>
 </div>
-
-

@@ -1,0 +1,383 @@
+<app-navbar></app-navbar>
+
+<section>
+    <div class="container" *ngIf=>
+        <h1 class="m-2 text-2xl">{{carData.carName|uppercase}}</h1>
+        <div class="my-4">
+            <ul class="featuredOptions flex border-b items-center gap-10 pt-3 text-sm">
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'OverView'" (click)="selectOption('OverView')">OverView</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === '360 View'" (click)="selectOption('360 View')">360 View</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'Version'" (click)="selectOption('Version')">Version</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'Offers'" (click)="selectOption('Offers')">Offers</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'Key spec'" (click)="selectOption('Key spec')">Key spec</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'Expert Opinion'" (click)="selectOption('Expert Opinion')">Expert Opinion</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'Similar Cars'" (click)="selectOption('Similar Cars')">Similar Cars</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'colours'" (click)="selectOption('colours')">colours</li>
+                <li class="text-xs lg:text-lg py-1" [class.active]="selectedOption === 'More'" (click)="selectOption('More')">More</li>
+
+
+            </ul>
+        </div>
+    </div>
+    <div class="container my-2">
+        <div class="flex border rounded-md gap-4">
+            <div class="carLeftSide  w-5/12 relative mx-2">
+                <span class="border-2 rounded-full p-2 absolute top-1/2 -translate-y-1/2"><i class="fa-solid fa-chevron-left"></i></span>
+                <img class=""   [src]="getImageUrl(carData.image)"alt="">
+                <span class="border-2 rounded-full p-2 absolute top-1/2 right-0 -translate-y-1/2 "><i class="fa-solid fa-chevron-right"></i></span>
+                <ul class="OptionOfCars flex m-3 justify-between text-sm">
+                    <li>color</li>
+                    <li>Images</li>
+                    <li>Videos</li>
+                    <li>360 View</li>
+
+                </ul>
+
+            </div>
+            <div class="carRightSide  w-6/12">
+                <div class="carInfo flex justify-between items-center border  ">
+                    <div class="version-btn  border p-6 w-1/2">Version</div>
+
+                    <div class="border py-6 w-1/2 px-6 ">
+                        <!-- dropdown.component.html -->
+                            <div class="location-btn relative" >
+                                <button
+                                (click)="toggleDropdown()"
+                                class="  rounded focus:outline-none"
+                                >
+                                Location
+                                </button>
+                                <div *ngIf="locationMenu"
+                                class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg"
+                                >
+                                <!-- Dropdown content goes here -->
+                                <ul style="max-height: 100px; overflow-y: auto;">
+                                    <li class="border p-2" *ngFor="let state of statesData " (click)="selectLocation(state._id)">{{ state.state }}</li>
+                                </ul>
+                                </div>
+                            </div>  
+                    </div>
+                       
+                      
+                </div>
+                <div class="content  p-4" *ngIf="!userLogin&&!selectedState">
+                    <div class="m-2" [innerHTML]="carData.price | calculateTax: '64dcd63ceff1256275bc4078' | async" ></div>
+                </div>
+                <div class="content  p-4" *ngIf="userLogin&& !selectedState &&userData">
+                    <div class="m-2" [innerHTML]="carData.price | calculateTax: userData.state._id | async" ></div>
+                </div>
+                <div class="content  p-4" *ngIf="selectedState">
+                    <div class="m-2" [innerHTML]="carData.price | calculateTax: selectedState | async" ></div>
+                </div>
+                <div class="emiCalculator bg-gray-100  px-4 py-3">
+                    <h1 class="ml-2">EMI Rs. 20,164
+                        For 5 Years</h1>
+                        <button class="ml-2">check EMI</button>
+                </div>
+                <div class=" px-4 ">
+                    <h1 class="m-2">Waiting Period: 4-38 Weeks</h1>
+                    <button class="bg-red-500 py-2 px-3 m-1" (click)="addWishlist(carData._id)">Add to Wishlist</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- <div class="container OverView ">
+        <div class="flex gap-4 my-6"> -->
+            <!-- <div class="w-8/12 border-green-600">
+                <div class="border rounded-md my-4">
+                    <h1 class="text-2xl m-2">{{carData.brand.brand}} {{carData.carName}} Price</h1>
+                    <p class="m-2">{{carData.description}}</p>
+                    <div class="filerVersion ml-2 my-3">
+                        <h4 class="my-2 font-bold">Filter By FuelType & Transmission</h4>
+                        <ul class="flex gap-2">
+                            <li class="p-2 border-2">Diesel</li>
+                            <li class="p-2 border-2">Petrol</li>
+                            <li class="p-2 border-2">Manual</li>
+                            <li class="p-2 border-2">Automatic (TC)</li>
+
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="colorchagingCar border rounded-md">
+                    <h1 class="m-2 text-2xl">Mahindra Thar Colours</h1>
+                    <p class="m-2">Mahindra Thar 2023 is available/sold in the following colours in India.
+                    </p>
+                    <div class="colorImage relative">
+                        <span class="border-2 rounded-full p-2 absolute top-1/2 -translate-y-1/2"><i class="fa-solid fa-chevron-left"></i></span>
+                        <img src="http://localhost:3000/public/brandImages/{{ carData.image }}" alt="">
+                        <span class="border-2 rounded-full p-2 absolute top-1/2 right-0 -translate-y-1/2 "><i class="fa-solid fa-chevron-right"></i></span>
+                    </div>
+                    <div>
+                        <div class="color flex justify-center gap-2 my-3">
+                            <div class="border rounded-full py-3 w-8 px-2"><i class="fa-solid fa-chevron-left"></i></div>
+                            <div class="p-3 border">red</div>
+                            <div class="p-3 border">green</div>
+                            <div class="p-3 border">blue</div>
+                            <div class="p-3 border">white</div>
+                            <div class="p-3 border">black</div>
+                            <div class="border rounded-full py-3 w-8  px-2"><i class="fa-solid fa-chevron-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="container OverView ">
+                <div class="flex gap-4 my-6">
+                    <div class="w-8/12 border-green-600">
+                        
+                        <div class="border rounded-md my-4">
+                            <h1 class="font-semibold text-3xl m-3">{{carData.brand.brand}} {{carData.carName}} Price</h1>
+                            <p class="m-2">{{carData.description}}</p>
+                            <div class="filerVersion ml-2 my-3">
+                                <h4 class="my-2 font-bold">Filter By FuelType & Transmission</h4>
+                                <ul class="flex gap-2">
+                                    <li class="p-2 border-2">Diesel</li>
+                                    <li class="p-2 border-2">Petrol</li>
+                                    <li class="p-2 border-2">Manual</li>
+                                    <li class="p-2 border-2">Automatic (TC)</li>
+        
+                                </ul>
+                            </div>
+                            <div class="versionTable">
+                            
+                                <div class="relative overflow-x-auto">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3 w-4/12">
+                                                    Version
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 w-4/12">
+                                                    Price
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 w-4/12">
+                                                    Compare
+                                                </th>
+                            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th scope="row"
+                                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-4/12">
+                                                    Fronx Sigma 1.2L MT
+                                                    1197 cc, Petrol, Manual, 21.79 km
+                                                </th>
+                                                <td class="px-6 py-4 w-4/12">
+                                                    Rs. 8.79 Lakh
+                                                </td>
+                                                <td class="px-6 py-4 w-4/12">
+                                                    <button>addto caomapre</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Fronx Delta 1.2L MT
+                                                    1197 cc, Petrol, Manual, 21.79 km
+                                                </th>
+                                                <td class="px-6 py-4">
+                                                    Rs. 9.81 Lakh
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <button>addto caomapre</button>
+                                                </td>
+                            
+                                            </tr>
+                                            <tr class="bg-white dark:bg-gray-800">
+                                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Fronx Sigma 1.2 CNG
+                                                    1197 cc, Petrol, Manual, 28.51 km
+                                                </th>
+                                                <td class="px-6 py-4">
+                                                    Rs. 10.05 Lakh
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <button>addto caomapre</button>
+                                                </td>
+                            
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            
+                            </div>
+                            </div>
+                            <!-- car specs  -->
+                            <div class="spec">
+                                <h1 class="font-semibold text-3xl my-3">Maruti Fronx Car Specifications</h1>
+                                <div class="specContent w-full my-4">
+                                    <ul
+                                        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 grid-flow-row  place-content-around border-2 bg-gray-100">
+                                        <li class="border">
+                                            <h4 class="w-fit mx-auto my-2 text-md">Price</h4>
+                                            <h1 class="w-fit mx-auto my-2 text-xl font-semibold">{{carData.price |carPricePipe:'₹'  }}</h1>
+                                        </li>
+                                        <li class="border">
+                                            <h4 class="w-fit mx-auto my-2 text-md">Mailage</h4>
+                                            <h1 class="w-fit mx-auto my-2 text-xl font-semibold">{{carData.maileage}} kmpl</h1>
+                                        </li>
+                                        <li class="border">
+                                            <h4 class="w-fit mx-auto my-2 text-md">Engine</h4>
+                                            <h1 class="w-fit mx-auto my-2 text-xl font-semibold">{{carData.engine}} cc</h1>
+                                        </li>
+                                        <li class="border">
+                                            <h4 class="w-fit mx-auto my-2 text-md">FuelType</h4>
+                                            <h1 class="w-fit mx-auto my-2 text-xl font-semibold" >{{carData.fuelType}}</h1>
+                                        </li>
+                                        <li class="border">
+                                            <h4 class="w-fit mx-auto my-2 text-md">Transmission</h4>
+                                            <h1 class="w-fit mx-auto my-2 text-xl font-semibold">{{carData.transmission}}</h1>
+                                        </li>
+                                        <li class="border">
+                                            <h4 class="w-fit mx-auto my-2 text-md">SeatCapacity</h4>
+                                            <h1 class="w-fit mx-auto my-2 text-xl font-semibold">{{carData.seatCapacity|uppercase}}</h1>
+                                        </li>
+                            
+                                    </ul>
+                            
+                                </div>
+                            </div>
+                            <!-- car Key Features  -->
+                            <div class="keyFeature">
+                                <h1 class="font-semibold text-3xl my-3">Maruti Suzuki Fronx Key Features</h1>
+                                <div class="keyFeatureList bg-gray-100">
+                                    <ul class="py-4 list-disc pl-2">
+                                        <li class="ml-5 my-2">
+                                            <h5>Side and curtain airbags</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>All 3-point seat belts</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Auto-dimming inside rearview mirror</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Electronic Stability Program</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Hill hold assist</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>360 degree camera</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Automatic headlamps</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Wireless Charger</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Steering adjust - tilt and telescopic</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>ARKAMYS Premium Sound System with wireless Android Auto and Apple CarPlay</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Head up display</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Fast USB Charging Sockets -Type A and C (Rear)</h5>
+                                        </li>
+                                        <li class="ml-5 my-2">
+                                            <h5>Suzuki Connect</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- car cons And Pros  -->
+                            <div class="consAndPros bg-gray-100 my-5">
+                                <h1 class="font-semibold text-3xl pt-5 ml-5">How is the Maruti Fronx car?</h1>
+                                <div class="ConsAndProsContent flex py-8">
+                                    <div class="pros border-2 bg-white">
+                                        <h1 class="mx-3 my-2">Pros</h1>
+                                        <ul class="py-4 list-disc mx-6">
+                                            <li>
+                                                <h4>SUV appearance - Looks refreshingly different despite being based on the Baleno</h4>
+                                            </li>
+                                            <li>
+                                                <h4>Features - Plonking for the top-end variant will get you all the new-age features</h4>
+                                            </li>
+                                            <li>
+                                                <h4>
+                                                    Strong engines - Adequately powerful drivetrains with reasonably good drivability
+                                                </h4>
+                                            </li>
+                                            <li>
+                                                <h4>
+                                                    Ride - The Fronx feels comfortable as it irons out the road irregularities quite well
+                                                </h4>
+                                            </li>
+                                            <li>
+                                                <h4>
+                                                    Service - Maruti Suzuki cars are backed-up by the brand's exhaustive and robust network
+                                                </h4>
+                                            </li>
+                            
+                                        </ul>
+                                    </div>
+                                    <div class="cons border-2 bg-white">
+                                        <h1 class="mx-3 my-2">Pros</h1>
+                                        <ul class="py-4 list-disc mx-6">
+                                            <li>
+                                                <h4>SUV appearance - Looks refreshingly different despite being based on the Baleno</h4>
+                                            </li>
+                                            <li>
+                                                <h4>Features - Plonking for the top-end variant will get you all the new-age features</h4>
+                                            </li>
+                                            <li>
+                                                <h4>
+                                                    Strong engines - Adequately powerful drivetrains with reasonably good drivability
+                                                </h4>
+                                            </li>
+                                            <li>
+                                                <h4>
+                                                    Ride - The Fronx feels comfortable as it irons out the road irregularities quite well
+                                                </h4>
+                                            </li>
+                                            <li>
+                                                <h4>
+                                                    Service - Maruti Suzuki cars are backed-up by the brand's exhaustive and robust network
+                                                </h4>
+                                            </li>
+                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                            </div>
+        
+                        <div class="colorchagingCar border rounded-md">
+                            <h1 class="font-semibold text-3xl m-3">{{carData.carName}} Colours</h1>
+                            <p class="m-2">{{carData.carName}} 2023 is available/sold in the following colours in India.
+                            </p>
+                            <div class="colorImage relative">
+                                <span class="border-2 rounded-full p-2 absolute top-1/2 -translate-y-1/2" (click)="prev()"><i class="fa-solid fa-chevron-left"></i></span>
+                                <div #sliderContainer class="w-full overflow-hidden">
+                                    <ul #slider class=" flex w-full " [style.width.px]="this.sliderWidth" [style.marginLeft.px]="this.sliderMarginLeft">
+                                        <li [style.width.px]="this.slideWidth" *ngFor="let colors of carData.colors">
+                                            <img class="w-full"  [src]="getImageUrl(colors.colorImage)"  alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="border-2 rounded-full p-2 absolute top-1/2 right-0 -translate-y-1/2 " (click)="next()"><i class="fa-solid fa-chevron-right"></i></span>
+                            </div>
+                            <div>
+                                <div class="color flex justify-center gap-2 my-3">
+                                    <div class="border rounded-full py-3 w-8 px-2" (click)="prev()"><i class="fa-solid fa-chevron-left"></i></div>
+                                    <div class="p-3 border" *ngFor="let colors of carData.colors">{{ colors.colorName }}</div>
+                                    
+                                    <div class="border rounded-full py-3 w-8  px-2" (click)="next()"><i class="fa-solid fa-chevron-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-4/12 ">
+                        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam temporibus totam, doloribus consequatur iusto esse sunt sequi sapiente deserunt veritatis ipsa maiores voluptatem. Nesciunt modi ullam fugit tenetur aut. Labore!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum dicta quaerat eos inventore consequatur repellat, labore, illo quisquam, voluptatibus repellendus totam tempore. Molestias repudiandae obcaecati ipsum deleniti excepturi nemo alias? -->
+                    </div>
+                </div>
+            </div>
+</section>
+<app-footer></app-footer>
